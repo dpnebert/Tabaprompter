@@ -156,6 +156,7 @@
             this.importTabToolStripMenuItem.Name = "importTabToolStripMenuItem";
             this.importTabToolStripMenuItem.Size = new System.Drawing.Size(178, 24);
             this.importTabToolStripMenuItem.Text = "Import Tab";
+            this.importTabToolStripMenuItem.Click += new System.EventHandler(this.importTabToolStripMenuItem_Click);
             // 
             // exportTabToolStripMenuItem
             // 
