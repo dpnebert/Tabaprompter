@@ -38,7 +38,15 @@
             this.addressGoButton = new System.Windows.Forms.Button();
             this.addressStopButton = new System.Windows.Forms.Button();
             this.selectorsControlsDivider = new System.Windows.Forms.SplitContainer();
+            this.selectorFlowPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.artistComboBox = new System.Windows.Forms.ComboBox();
+            this.titleComboBox = new System.Windows.Forms.ComboBox();
             this.controlsLogDivider = new System.Windows.Forms.SplitContainer();
+            this.controlFlowPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.scrollPlayButton = new System.Windows.Forms.Button();
+            this.scrollStopButton = new System.Windows.Forms.Button();
+            this.scrollResetButton = new System.Windows.Forms.Button();
+            this.markModeButton = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newLibraryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -48,14 +56,6 @@
             this.closeLibraryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.importTabToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportTabToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.selectorFlowPanel = new System.Windows.Forms.FlowLayoutPanel();
-            this.artistComboBox = new System.Windows.Forms.ComboBox();
-            this.titleComboBox = new System.Windows.Forms.ComboBox();
-            this.controlFlowPanel = new System.Windows.Forms.FlowLayoutPanel();
-            this.scrollPlayButton = new System.Windows.Forms.Button();
-            this.scrollStopButton = new System.Windows.Forms.Button();
-            this.scrollResetButton = new System.Windows.Forms.Button();
-            this.markModeButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.topBottemDivider)).BeginInit();
             this.topBottemDivider.Panel1.SuspendLayout();
             this.topBottemDivider.Panel2.SuspendLayout();
@@ -73,12 +73,12 @@
             this.selectorsControlsDivider.Panel1.SuspendLayout();
             this.selectorsControlsDivider.Panel2.SuspendLayout();
             this.selectorsControlsDivider.SuspendLayout();
+            this.selectorFlowPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.controlsLogDivider)).BeginInit();
             this.controlsLogDivider.Panel1.SuspendLayout();
             this.controlsLogDivider.SuspendLayout();
-            this.menuStrip1.SuspendLayout();
-            this.selectorFlowPanel.SuspendLayout();
             this.controlFlowPanel.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // topBottemDivider
@@ -209,6 +209,35 @@
             this.selectorsControlsDivider.SplitterWidth = 3;
             this.selectorsControlsDivider.TabIndex = 0;
             // 
+            // selectorFlowPanel
+            // 
+            this.selectorFlowPanel.Controls.Add(this.artistComboBox);
+            this.selectorFlowPanel.Controls.Add(this.titleComboBox);
+            this.selectorFlowPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.selectorFlowPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.selectorFlowPanel.Location = new System.Drawing.Point(0, 0);
+            this.selectorFlowPanel.Name = "selectorFlowPanel";
+            this.selectorFlowPanel.Size = new System.Drawing.Size(258, 80);
+            this.selectorFlowPanel.TabIndex = 0;
+            // 
+            // artistComboBox
+            // 
+            this.artistComboBox.Enabled = false;
+            this.artistComboBox.FormattingEnabled = true;
+            this.artistComboBox.Location = new System.Drawing.Point(3, 3);
+            this.artistComboBox.Name = "artistComboBox";
+            this.artistComboBox.Size = new System.Drawing.Size(255, 21);
+            this.artistComboBox.TabIndex = 0;
+            // 
+            // titleComboBox
+            // 
+            this.titleComboBox.Enabled = false;
+            this.titleComboBox.FormattingEnabled = true;
+            this.titleComboBox.Location = new System.Drawing.Point(3, 30);
+            this.titleComboBox.Name = "titleComboBox";
+            this.titleComboBox.Size = new System.Drawing.Size(255, 21);
+            this.titleComboBox.TabIndex = 1;
+            // 
             // controlsLogDivider
             // 
             this.controlsLogDivider.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -223,6 +252,62 @@
             this.controlsLogDivider.SplitterDistance = 172;
             this.controlsLogDivider.SplitterWidth = 3;
             this.controlsLogDivider.TabIndex = 0;
+            // 
+            // controlFlowPanel
+            // 
+            this.controlFlowPanel.Controls.Add(this.scrollPlayButton);
+            this.controlFlowPanel.Controls.Add(this.scrollStopButton);
+            this.controlFlowPanel.Controls.Add(this.scrollResetButton);
+            this.controlFlowPanel.Controls.Add(this.markModeButton);
+            this.controlFlowPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.controlFlowPanel.Location = new System.Drawing.Point(0, 0);
+            this.controlFlowPanel.Name = "controlFlowPanel";
+            this.controlFlowPanel.Size = new System.Drawing.Size(172, 80);
+            this.controlFlowPanel.TabIndex = 0;
+            // 
+            // scrollPlayButton
+            // 
+            this.scrollPlayButton.Enabled = false;
+            this.scrollPlayButton.Location = new System.Drawing.Point(3, 3);
+            this.scrollPlayButton.Name = "scrollPlayButton";
+            this.scrollPlayButton.Size = new System.Drawing.Size(75, 23);
+            this.scrollPlayButton.TabIndex = 0;
+            this.scrollPlayButton.Text = "Play";
+            this.scrollPlayButton.UseVisualStyleBackColor = true;
+            this.scrollPlayButton.Click += new System.EventHandler(this.scrollPlayButton_Click);
+            // 
+            // scrollStopButton
+            // 
+            this.scrollStopButton.Enabled = false;
+            this.scrollStopButton.Location = new System.Drawing.Point(84, 3);
+            this.scrollStopButton.Name = "scrollStopButton";
+            this.scrollStopButton.Size = new System.Drawing.Size(75, 23);
+            this.scrollStopButton.TabIndex = 1;
+            this.scrollStopButton.Text = "Stop";
+            this.scrollStopButton.UseVisualStyleBackColor = true;
+            this.scrollStopButton.Click += new System.EventHandler(this.scrollStopButton_Click);
+            // 
+            // scrollResetButton
+            // 
+            this.scrollResetButton.Enabled = false;
+            this.scrollResetButton.Location = new System.Drawing.Point(3, 32);
+            this.scrollResetButton.Name = "scrollResetButton";
+            this.scrollResetButton.Size = new System.Drawing.Size(75, 23);
+            this.scrollResetButton.TabIndex = 2;
+            this.scrollResetButton.Text = "Reset";
+            this.scrollResetButton.UseVisualStyleBackColor = true;
+            this.scrollResetButton.Click += new System.EventHandler(this.scrollResetButton_Click);
+            // 
+            // markModeButton
+            // 
+            this.markModeButton.Enabled = false;
+            this.markModeButton.Location = new System.Drawing.Point(84, 32);
+            this.markModeButton.Name = "markModeButton";
+            this.markModeButton.Size = new System.Drawing.Size(75, 23);
+            this.markModeButton.TabIndex = 3;
+            this.markModeButton.Text = "Mark";
+            this.markModeButton.UseVisualStyleBackColor = true;
+            this.markModeButton.Click += new System.EventHandler(this.markModeButton_Click);
             // 
             // menuStrip1
             // 
@@ -302,91 +387,6 @@
             this.exportTabToolStripMenuItem.Text = "Export Tab";
             this.exportTabToolStripMenuItem.Click += new System.EventHandler(this.exportTabToolStripMenuItem_Click);
             // 
-            // selectorFlowPanel
-            // 
-            this.selectorFlowPanel.Controls.Add(this.artistComboBox);
-            this.selectorFlowPanel.Controls.Add(this.titleComboBox);
-            this.selectorFlowPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.selectorFlowPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.selectorFlowPanel.Location = new System.Drawing.Point(0, 0);
-            this.selectorFlowPanel.Name = "selectorFlowPanel";
-            this.selectorFlowPanel.Size = new System.Drawing.Size(258, 80);
-            this.selectorFlowPanel.TabIndex = 0;
-            // 
-            // artistComboBox
-            // 
-            this.artistComboBox.Enabled = false;
-            this.artistComboBox.FormattingEnabled = true;
-            this.artistComboBox.Location = new System.Drawing.Point(3, 3);
-            this.artistComboBox.Name = "artistComboBox";
-            this.artistComboBox.Size = new System.Drawing.Size(255, 21);
-            this.artistComboBox.TabIndex = 0;
-            // 
-            // titleComboBox
-            // 
-            this.titleComboBox.Enabled = false;
-            this.titleComboBox.FormattingEnabled = true;
-            this.titleComboBox.Location = new System.Drawing.Point(3, 30);
-            this.titleComboBox.Name = "titleComboBox";
-            this.titleComboBox.Size = new System.Drawing.Size(255, 21);
-            this.titleComboBox.TabIndex = 1;
-            // 
-            // controlFlowPanel
-            // 
-            this.controlFlowPanel.Controls.Add(this.scrollPlayButton);
-            this.controlFlowPanel.Controls.Add(this.scrollStopButton);
-            this.controlFlowPanel.Controls.Add(this.scrollResetButton);
-            this.controlFlowPanel.Controls.Add(this.markModeButton);
-            this.controlFlowPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.controlFlowPanel.Location = new System.Drawing.Point(0, 0);
-            this.controlFlowPanel.Name = "controlFlowPanel";
-            this.controlFlowPanel.Size = new System.Drawing.Size(172, 80);
-            this.controlFlowPanel.TabIndex = 0;
-            // 
-            // scrollPlayButton
-            // 
-            this.scrollPlayButton.Enabled = false;
-            this.scrollPlayButton.Location = new System.Drawing.Point(3, 3);
-            this.scrollPlayButton.Name = "scrollPlayButton";
-            this.scrollPlayButton.Size = new System.Drawing.Size(75, 23);
-            this.scrollPlayButton.TabIndex = 0;
-            this.scrollPlayButton.Text = "Play";
-            this.scrollPlayButton.UseVisualStyleBackColor = true;
-            this.scrollPlayButton.Click += new System.EventHandler(this.scrollPlayButton_Click);
-            // 
-            // scrollStopButton
-            // 
-            this.scrollStopButton.Enabled = false;
-            this.scrollStopButton.Location = new System.Drawing.Point(84, 3);
-            this.scrollStopButton.Name = "scrollStopButton";
-            this.scrollStopButton.Size = new System.Drawing.Size(75, 23);
-            this.scrollStopButton.TabIndex = 1;
-            this.scrollStopButton.Text = "Stop";
-            this.scrollStopButton.UseVisualStyleBackColor = true;
-            this.scrollStopButton.Click += new System.EventHandler(this.scrollStopButton_Click);
-            // 
-            // scrollResetButton
-            // 
-            this.scrollResetButton.Enabled = false;
-            this.scrollResetButton.Location = new System.Drawing.Point(3, 32);
-            this.scrollResetButton.Name = "scrollResetButton";
-            this.scrollResetButton.Size = new System.Drawing.Size(75, 23);
-            this.scrollResetButton.TabIndex = 2;
-            this.scrollResetButton.Text = "Reset";
-            this.scrollResetButton.UseVisualStyleBackColor = true;
-            this.scrollResetButton.Click += new System.EventHandler(this.scrollResetButton_Click);
-            // 
-            // markModeButton
-            // 
-            this.markModeButton.Enabled = false;
-            this.markModeButton.Location = new System.Drawing.Point(84, 32);
-            this.markModeButton.Name = "markModeButton";
-            this.markModeButton.Size = new System.Drawing.Size(75, 23);
-            this.markModeButton.TabIndex = 3;
-            this.markModeButton.Text = "Mark";
-            this.markModeButton.UseVisualStyleBackColor = true;
-            this.markModeButton.Click += new System.EventHandler(this.markModeButton_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -417,13 +417,13 @@
             this.selectorsControlsDivider.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.selectorsControlsDivider)).EndInit();
             this.selectorsControlsDivider.ResumeLayout(false);
+            this.selectorFlowPanel.ResumeLayout(false);
             this.controlsLogDivider.Panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.controlsLogDivider)).EndInit();
             this.controlsLogDivider.ResumeLayout(false);
+            this.controlFlowPanel.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            this.selectorFlowPanel.ResumeLayout(false);
-            this.controlFlowPanel.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
