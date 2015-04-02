@@ -352,6 +352,7 @@
             this.scrollPlayButton.TabIndex = 0;
             this.scrollPlayButton.Text = "Play";
             this.scrollPlayButton.UseVisualStyleBackColor = true;
+            this.scrollPlayButton.Click += new System.EventHandler(this.scrollPlayButton_Click);
             // 
             // scrollStopButton
             // 
@@ -362,6 +363,7 @@
             this.scrollStopButton.TabIndex = 1;
             this.scrollStopButton.Text = "Stop";
             this.scrollStopButton.UseVisualStyleBackColor = true;
+            this.scrollStopButton.Click += new System.EventHandler(this.scrollStopButton_Click);
             // 
             // scrollResetButton
             // 
@@ -372,6 +374,7 @@
             this.scrollResetButton.TabIndex = 2;
             this.scrollResetButton.Text = "Reset";
             this.scrollResetButton.UseVisualStyleBackColor = true;
+            this.scrollResetButton.Click += new System.EventHandler(this.scrollResetButton_Click);
             // 
             // markModeButton
             // 
@@ -382,6 +385,7 @@
             this.markModeButton.TabIndex = 3;
             this.markModeButton.Text = "Mark";
             this.markModeButton.UseVisualStyleBackColor = true;
+            this.markModeButton.Click += new System.EventHandler(this.markModeButton_Click);
             // 
             // Form1
             // 

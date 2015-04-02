@@ -22,21 +22,26 @@ namespace Tabaprompter
         ControlState controlState;
 
         string tabFilter;
-
         Library library;
+
+
         public Form1()
         {
 
             tabFilter = "Tab files (*.tab)|*.tab|All files (*.*)|*.*";
 
             InitializeComponent();
+            initLibrary();
 
-
-            library = new Library();
+            
 
 
         }
-
+        private void initLibrary()
+        {
+            library = new Library();
+            library.tabs = new List<Tab>();
+        }
         
 
         private void Form1_Load(object sender, EventArgs e)
@@ -188,10 +193,12 @@ namespace Tabaprompter
             controlState = cS;
             if (controlState == ControlState.initial)
             {
+                // Files
                 closeLibraryToolStripMenuItem.Enabled = false;
                 saveLibraryAsToolStripMenuItem.Enabled = false;
                 saveLibraryToolStripMenuItem.Enabled = false;
                 exportTabToolStripMenuItem.Enabled = false;
+                closeLibraryToolStripMenuItem.Enabled = false;
 
                 // Controls
                 scrollPlayButton.Enabled = false;
@@ -211,19 +218,68 @@ namespace Tabaprompter
                 addressGoButton.Enabled = false;
                 addressStopButton.Enabled = false;
             }
-            else if(controlState == ControlState.library_loaded)
+            else if (controlState == ControlState.unsaved_library_loaded)
             {
+
+                // Files
                 saveLibraryAsToolStripMenuItem.Enabled = true;
                 saveLibraryToolStripMenuItem.Enabled = true;
                 exportTabToolStripMenuItem.Enabled = true;
+                closeLibraryToolStripMenuItem.Enabled = true;
 
 
                 // Selector
                 artistComboBox.Enabled = true;
                 titleComboBox.Enabled = true;
             }
-            else if(controlState == ControlState.tab_loaded)
+            else if (controlState == ControlState.saved_library_loaded)
             {
+
+                // Files
+                saveLibraryAsToolStripMenuItem.Enabled = true;
+                saveLibraryToolStripMenuItem.Enabled = true;
+                exportTabToolStripMenuItem.Enabled = true;
+                closeLibraryToolStripMenuItem.Enabled = true;
+
+
+                // Selector
+                artistComboBox.Enabled = true;
+                titleComboBox.Enabled = true;
+            }
+            else if (controlState == ControlState.unsaved_library_tab_loaded)
+            {
+                // Files
+                saveLibraryAsToolStripMenuItem.Enabled = true;
+                saveLibraryToolStripMenuItem.Enabled = true;
+                exportTabToolStripMenuItem.Enabled = true;
+                closeLibraryToolStripMenuItem.Enabled = true;
+
+
+                // Controls
+                scrollPlayButton.Enabled = true;
+                scrollStopButton.Enabled = true;
+                scrollResetButton.Enabled = true;
+                markModeButton.Enabled = true;
+
+
+                // Video
+                addressBarTextBox.Enabled = true;
+                addressGoButton.Enabled = true;
+                addressStopButton.Enabled = true;
+
+
+                // Selector
+                artistComboBox.Enabled = true;
+                titleComboBox.Enabled = true;
+            }
+            else if (controlState == ControlState.saved_library_tab_loaded)
+            {
+                // Files
+                saveLibraryAsToolStripMenuItem.Enabled = true;
+                saveLibraryToolStripMenuItem.Enabled = true;
+                exportTabToolStripMenuItem.Enabled = true;
+                closeLibraryToolStripMenuItem.Enabled = true;
+
 
                 // Controls
                 scrollPlayButton.Enabled = true;
@@ -292,12 +348,66 @@ namespace Tabaprompter
 
         private void importTabToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            setControlState(ControlState.library_loaded);
+            OpenFileDialog openFileDialog1 = new OpenFileDialog();
+
+            //openFileDialog1.InitialDirectory = "c:\\";
+            openFileDialog1.Filter = tabFilter;
+            openFileDialog1.FilterIndex = 1;
+            openFileDialog1.RestoreDirectory = true;
+
+            String contents;
+            // string path : Open Dialog box
+            DialogResult result = openFileDialog1.ShowDialog();
+            if (result == DialogResult.OK) // Test result.
+            {
+                // give path to open file method
+                contents = FileTools.open(openFileDialog1.FileName);
+
+                // parse contents to tab
+                // add tab to library
+                library.tabs.Add(LibraryTools.parseTab(contents));
+
+                // Set control state
+                setControlState(ControlState.library_loaded);
+            }
+
+            
         }
 
         private void closeLibraryToolStripMenuItem_Click(object sender, EventArgs e)
         {
-        
+            initLibrary();
+            setControlState(ControlState.initial);
         }
+
+
+
+
+
+
+
+
+        ////////////////////////////// Controls
+        private void scrollPlayButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void scrollStopButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void scrollResetButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void markModeButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
     }
 }
