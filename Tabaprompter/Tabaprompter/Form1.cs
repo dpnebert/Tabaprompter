@@ -316,9 +316,24 @@ namespace Tabaprompter
 
 
         // Open file
-        private void openFile(string filter)
+        private string selectFile(FileDialog dialog, string filter)
         {
-            
+            //OpenFileDialog 
+            //openFileDialog1 = new OpenFileDialog();
+
+            //openFileDialog1.InitialDirectory = "c:\\";
+            dialog.Filter = tabFilter;
+            dialog.FilterIndex = 1;
+            dialog.RestoreDirectory = true;
+
+            // string path : Open Dialog box
+            DialogResult result = dialog.ShowDialog();
+            if (result == DialogResult.OK) // Test result.
+            {
+                return dialog.FileName;
+
+            }
+            return "";
         }
 
 
@@ -331,11 +346,29 @@ namespace Tabaprompter
 
         private void saveLibraryAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            // export tabs to temp folder, zip them up and ask where to save it
+            //
+            //
+            //
+            //
+            //
+            //
+            //
 
+            FileTools.save(selectFile(new SaveFileDialog(), libraryFilter), new List<string>());
         }
 
         private void exportTabToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            // get path with open dialog
+            string path = selectFile(new SaveFileDialog(), tabFilter);
+
+            // get parsed lines from the load tab
+            List<String> lines = LibraryTools.parseTabToFile(currentTab);
+
+
+            // pass path and parsed lines to save util func.
+            FileTools.save(path, lines);
 
         }
 
@@ -351,33 +384,19 @@ namespace Tabaprompter
 
         private void importTabToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenFileDialog openFileDialog1 = new OpenFileDialog();
+            
+            // give path to open file method
+            string contents = FileTools.open(selectFile(new OpenFileDialog(), tabFilter));
 
-            //openFileDialog1.InitialDirectory = "c:\\";
-            openFileDialog1.Filter = tabFilter;
-            openFileDialog1.FilterIndex = 1;
-            openFileDialog1.RestoreDirectory = true;
+            // parse contents to tab
+            // add tab to library
+            library.tabs.Add(LibraryTools.parseTabFromFile(contents));
 
-            String contents;
-            // string path : Open Dialog box
-            DialogResult result = openFileDialog1.ShowDialog();
-            if (result == DialogResult.OK) // Test result.
-            {
-                // give path to open file method
-                contents = FileTools.open(openFileDialog1.FileName);
+            // Set control state
+            setControlState(ControlState.library_loaded);
 
-                // parse contents to tab
-                // add tab to library
-                library.tabs.Add(LibraryTools.parseTab(contents));
-
-                // Set control state
-                setControlState(ControlState.library_loaded);
-
-                // Update comboboxes
-                updateComboBoxes(-1);
-
-            }
-
+            // Update comboboxes
+            updateComboBoxes(-1);
             
         }
 
@@ -491,7 +510,17 @@ namespace Tabaprompter
 
         private void titleComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
+            ComboBox cb = (ComboBox)sender;
+            for (int i = 0; i < library.tabs.Count; i++)
+            {
+                if(library.tabs[i].title == cb.SelectedItem)
+                {
+                    currentTab = library.tabs[i];
+                }
+            }
 
+            setControlState(ControlState.library_tab_loaded);
+            //updateComboBoxes(cb.SelectedIndex);
         }
 
 

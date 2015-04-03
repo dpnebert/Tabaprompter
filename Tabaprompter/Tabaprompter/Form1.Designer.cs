@@ -395,7 +395,6 @@
             // 
             // exportTabToolStripMenuItem
             // 
-            this.exportTabToolStripMenuItem.Enabled = false;
             this.exportTabToolStripMenuItem.Name = "exportTabToolStripMenuItem";
             this.exportTabToolStripMenuItem.Size = new System.Drawing.Size(178, 24);
             this.exportTabToolStripMenuItem.Text = "Export Tab";

@@ -9,7 +9,29 @@ namespace Tabaprompter
     public static class LibraryTools
     {
 
-        internal static Tab parseTab(string contents)
+        internal static List<string> parseTabToFile(Tab currentTab)
+        {
+            List<string> lines = new List<string>();
+            lines.Add("id=" + currentTab.ID.ToString());
+            lines.Add("artist=" + currentTab.artist);
+            lines.Add("title=" + currentTab.title);
+            lines.Add("tuning=" + currentTab.tuning);
+            lines.Add("notes=" + currentTab.notes);
+            lines.Add("scrollDelay=" + currentTab.scrollDelay.ToString());
+            lines.Add("startDelay=" + currentTab.startDelay.ToString());
+            lines.Add("sections=");
+            Section section;
+            for (int i = 0; i < currentTab.sections.Count; i++)
+            {
+                section = currentTab.sections[i];
+                lines.Add("section(" + section.element + ", " + section.startTime + ")=");
+                lines.Add(section.text);
+                lines.Add("=section");
+            }
+
+            return lines;
+        }
+        internal static Tab parseTabFromFile(string contents)
         {
             //String[] parts = contents.Split(new string[] { "sections=" }, StringSplitOptions.None);
             String[] parts = RegexTools.split(contents, "sections=");
@@ -39,6 +61,9 @@ namespace Tabaprompter
                     section.element = (Element)Enum.Parse(typeof(Element), matches[0]);
                     section.startTime = int.Parse(matches[1]);
                     section.text = parts[1];
+
+                    section.text = Regex.Replace(section.text, "^\r?\n?", "");
+                    section.text = Regex.Replace(section.text, "\r?\n?$", "");
                     sectionList.Add(section);
                 }
                 
@@ -47,6 +72,7 @@ namespace Tabaprompter
 
             
         }
+
 
         private static Tab getHeader(string text)
         {
@@ -73,5 +99,6 @@ namespace Tabaprompter
 
             return tab;
         }
+
     }
 }

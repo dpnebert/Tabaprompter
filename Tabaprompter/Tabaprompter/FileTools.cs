@@ -14,5 +14,11 @@ namespace Tabaprompter
             return File.ReadAllText(location);
             //return text.Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
         }
+
+
+        internal static void save(string location, List<string> contents)
+        {
+            File.WriteAllLines(location, contents.ToArray());
+        }
     }
 }
