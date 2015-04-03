@@ -20,15 +20,18 @@ namespace Tabaprompter
         Panel controlPanel;
 
         ControlState controlState;
+        SavedState savedState;
 
         string tabFilter;
+        string libraryFilter;
         Library library;
-
+        Tab currentTab { get; set; }
 
         public Form1()
         {
 
             tabFilter = "Tab files (*.tab)|*.tab|All files (*.*)|*.*";
+            libraryFilter = "Tab Library files (*.tlib)|*.tlib|All files (*.*)|*.*";
 
             InitializeComponent();
             initLibrary();
@@ -40,7 +43,6 @@ namespace Tabaprompter
         private void initLibrary()
         {
             library = new Library();
-            library.tabs = new List<Tab>();
         }
         
 
@@ -79,9 +81,24 @@ namespace Tabaprompter
             */
 
 
+
+
+
+
+
+            // Init Selector
+            artistComboBox.Text = "Artist";
+            artistComboBox.SelectedIndexChanged +=artistComboBox_SelectedIndexChanged;
+            titleComboBox.Text = "Title";
+            
+
+
+
+            setSavedState(SavedState.unsaved);
             setControlState(ControlState.initial);
 
         }
+
 
         private void displayLogPanel()
         {
@@ -185,11 +202,17 @@ namespace Tabaprompter
         
         
 
-
+        private void setSavedState(SavedState sS)
+        {
+            savedState = sS;
+        }
 
         private void setControlState(ControlState cS)
         {
-            
+            if(library.tabs.Count == 0)
+            {
+                //setSav
+            }
             controlState = cS;
             if (controlState == ControlState.initial)
             {
@@ -218,66 +241,46 @@ namespace Tabaprompter
                 addressGoButton.Enabled = false;
                 addressStopButton.Enabled = false;
             }
-            else if (controlState == ControlState.unsaved_library_loaded)
+            else if (controlState == ControlState.library_loaded)
             {
+                // Also check to see if it has been saved.
+                // Can't have the Save button enabled if it
+                // wasn't saved to begin with
+                if(savedState == SavedState.unsaved)
+                {
+                    saveLibraryToolStripMenuItem.Enabled = false;
+                }
+                else
+                {
+                    saveLibraryToolStripMenuItem.Enabled = true;
+                }
 
                 // Files
                 saveLibraryAsToolStripMenuItem.Enabled = true;
-                saveLibraryToolStripMenuItem.Enabled = true;
-                exportTabToolStripMenuItem.Enabled = true;
                 closeLibraryToolStripMenuItem.Enabled = true;
+
+                // A tab needs to be loaded (selected) to enable this item
+                exportTabToolStripMenuItem.Enabled = false;
 
 
                 // Selector
                 artistComboBox.Enabled = true;
                 titleComboBox.Enabled = true;
             }
-            else if (controlState == ControlState.saved_library_loaded)
+            else if (controlState == ControlState.library_tab_loaded)
             {
-
+                // Check to see if a tab is loaded so it can be exported.
+                if(currentTab == null)
+                {
+                    exportTabToolStripMenuItem.Enabled = false;
+                }
+                else
+                {
+                    exportTabToolStripMenuItem.Enabled = true;
+                }
                 // Files
-                saveLibraryAsToolStripMenuItem.Enabled = true;
                 saveLibraryToolStripMenuItem.Enabled = true;
-                exportTabToolStripMenuItem.Enabled = true;
-                closeLibraryToolStripMenuItem.Enabled = true;
-
-
-                // Selector
-                artistComboBox.Enabled = true;
-                titleComboBox.Enabled = true;
-            }
-            else if (controlState == ControlState.unsaved_library_tab_loaded)
-            {
-                // Files
                 saveLibraryAsToolStripMenuItem.Enabled = true;
-                saveLibraryToolStripMenuItem.Enabled = true;
-                exportTabToolStripMenuItem.Enabled = true;
-                closeLibraryToolStripMenuItem.Enabled = true;
-
-
-                // Controls
-                scrollPlayButton.Enabled = true;
-                scrollStopButton.Enabled = true;
-                scrollResetButton.Enabled = true;
-                markModeButton.Enabled = true;
-
-
-                // Video
-                addressBarTextBox.Enabled = true;
-                addressGoButton.Enabled = true;
-                addressStopButton.Enabled = true;
-
-
-                // Selector
-                artistComboBox.Enabled = true;
-                titleComboBox.Enabled = true;
-            }
-            else if (controlState == ControlState.saved_library_tab_loaded)
-            {
-                // Files
-                saveLibraryAsToolStripMenuItem.Enabled = true;
-                saveLibraryToolStripMenuItem.Enabled = true;
-                exportTabToolStripMenuItem.Enabled = true;
                 closeLibraryToolStripMenuItem.Enabled = true;
 
 
@@ -369,11 +372,67 @@ namespace Tabaprompter
 
                 // Set control state
                 setControlState(ControlState.library_loaded);
+
+                // Update comboboxes
+                updateComboBoxes(-1);
+
             }
 
             
         }
 
+        private void updateComboBoxes(int artist)
+        {
+            titleComboBox.Items.Clear();
+
+            List<Tab> tabs = new List<Tab>();
+            if(artist == -1)
+            {
+                for(int i = 0; i < library.tabs.Count; i++)
+                {
+                    if(!doItemsContainThatArtist(library.tabs[i].artist))
+                    {
+                        artistComboBox.Items.Add(library.tabs[i].artist);
+                    }
+                    titleComboBox.Items.Add(library.tabs[i].title);
+                }
+            }
+            else
+            {
+                string artistName = artistComboBox.Items[artist].ToString();
+                for (int i = 0; i < library.tabs.Count; i++)
+                {
+                    if (artistName.Equals(library.tabs[i].artist))
+                    {
+                        titleComboBox.Items.Add(library.tabs[i].title);
+                    }
+                    
+                }
+            }
+            
+        }
+
+        private Boolean doItemsContainThatArtist(string text)
+        {
+            Boolean found = false;
+            string tabString = "";
+            string boxString = "";
+
+            tabString = text;
+            for (int j = 0; j < artistComboBox.Items.Count; j++)
+            {
+                boxString = artistComboBox.Items[j].ToString();
+                if (tabString.Equals(boxString))
+                {
+                    found = true;
+                }
+            }
+            return found;
+        }
+        
+
+
+        
         private void closeLibraryToolStripMenuItem_Click(object sender, EventArgs e)
         {
             initLibrary();
@@ -404,6 +463,33 @@ namespace Tabaprompter
         }
 
         private void markModeButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        // Selectors!!!!!!!!!!!!!!!!!!!!!!!!!
+        private void artistComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ComboBox cb = (ComboBox)sender;
+            updateComboBoxes(cb.SelectedIndex);
+        }
+
+        private void titleComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }

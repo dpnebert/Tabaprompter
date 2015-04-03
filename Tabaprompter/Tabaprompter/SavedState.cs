@@ -5,10 +5,9 @@ using System.Text;
 
 namespace Tabaprompter
 {
-    enum ControlState
+    enum SavedState
     {
-        initial = 0,
-        library_loaded = 1,
-        library_tab_loaded = 2
+        unsaved = 0,
+        saved = 1
     }
 }

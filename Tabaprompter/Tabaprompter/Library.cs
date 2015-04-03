@@ -10,5 +10,10 @@ namespace Tabaprompter
         // ID
         public int ID { get; set; }
         public List<Tab> tabs { get; set; }
+        
+        public Library()
+        {
+            tabs = new List<Tab>();
+        }
     }
 }
