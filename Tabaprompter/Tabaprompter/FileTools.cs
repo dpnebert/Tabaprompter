@@ -20,5 +20,10 @@ namespace Tabaprompter
         {
             File.WriteAllLines(location, contents.ToArray());
         }
+
+
+
+
+
     }
 }

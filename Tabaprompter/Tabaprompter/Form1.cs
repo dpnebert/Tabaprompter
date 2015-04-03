@@ -27,8 +27,11 @@ namespace Tabaprompter
         Library library;
         Tab currentTab { get; set; }
 
+        string librarySavePath { get; set; }
+
         public Form1()
         {
+            librarySavePath = "";
 
             tabFilter = "Tab files (*.tab)|*.tab|All files (*.*)|*.*";
             libraryFilter = "Tab Library files (*.tlib)|*.tlib|All files (*.*)|*.*";
@@ -43,6 +46,9 @@ namespace Tabaprompter
         private void initLibrary()
         {
             library = new Library();
+            clearComboBoxes();
+            setControlState(ControlState.initial);
+            setSavedState(SavedState.unsaved);
         }
         
 
@@ -269,6 +275,20 @@ namespace Tabaprompter
             }
             else if (controlState == ControlState.library_tab_loaded)
             {
+                // Also check to see if it has been saved.
+                // Can't have the Save button enabled if it
+                // wasn't saved to begin with
+                if (savedState == SavedState.unsaved)
+                {
+                    saveLibraryToolStripMenuItem.Enabled = false;
+                }
+                else
+                {
+                    saveLibraryToolStripMenuItem.Enabled = true;
+                }
+
+
+
                 // Check to see if a tab is loaded so it can be exported.
                 if(currentTab == null)
                 {
@@ -279,7 +299,6 @@ namespace Tabaprompter
                     exportTabToolStripMenuItem.Enabled = true;
                 }
                 // Files
-                saveLibraryToolStripMenuItem.Enabled = true;
                 saveLibraryAsToolStripMenuItem.Enabled = true;
                 closeLibraryToolStripMenuItem.Enabled = true;
 
@@ -322,7 +341,7 @@ namespace Tabaprompter
             //openFileDialog1 = new OpenFileDialog();
 
             //openFileDialog1.InitialDirectory = "c:\\";
-            dialog.Filter = tabFilter;
+            dialog.Filter = filter;
             dialog.FilterIndex = 1;
             dialog.RestoreDirectory = true;
 
@@ -336,11 +355,60 @@ namespace Tabaprompter
             return "";
         }
 
+        private string createTempDir(string dirName)
+        {
+            // Convert tabs to files in temp location
+            string temp = Path.GetTempPath() + dirName;
 
+            if (File.Exists(temp))
+            {
+                File.Delete(temp);
+            }
+            Directory.CreateDirectory(temp);
+            return temp;
+        }
+        private void removeTempDir(string dirName)
+        {
+            // remove temp location
+            if (Directory.Exists(dirName))
+            {
+                string[] files = Directory.GetFiles(dirName);
+                for (int i = 0; i < files.Length; i++)
+                {
+                    File.Delete(files[i]);
+                }
+                Directory.Delete(dirName);
+            }
+        }
         
+        private void saveLibrary(string path)
+        {
 
+
+            string temp = createTempDir("tabaprompter\\");
+            List<string> lines;
+            for (int i = 0; i < library.tabs.Count; i++)
+            {
+                lines = LibraryTools.parseTabToFile(library.tabs[i]);
+                FileTools.save(temp + library.tabs[i].ID.ToString(), lines);
+            }
+
+
+            // zip files and save
+            ZipTools.zip(path, temp);
+
+            // remove temp dir
+            removeTempDir(temp);
+            
+
+            //FileTools.save(, new List<string>());
+            setSavePath(path);
+            //setSavedState(SavedState.saved);
+            setControlState(ControlState.library_loaded);
+        }
         private void saveLibraryToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            saveLibrary(librarySavePath);
 
         }
 
@@ -355,7 +423,18 @@ namespace Tabaprompter
             //
             //
 
-            FileTools.save(selectFile(new SaveFileDialog(), libraryFilter), new List<string>());
+            // ask for filename to save as
+            string filename = selectFile(new SaveFileDialog(), libraryFilter);
+            saveLibrary(filename);
+            
+
+        }
+
+
+        private void setSavePath(string path)
+        {
+            librarySavePath = path;
+            setSavedState(SavedState.saved);
         }
 
         private void exportTabToolStripMenuItem_Click(object sender, EventArgs e)
@@ -374,19 +453,31 @@ namespace Tabaprompter
 
         private void newLibraryToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            initLibrary();
         }
 
         private void openLibraryToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
-        }
-
-        private void importTabToolStripMenuItem_Click(object sender, EventArgs e)
-        {
             
+            string temp = createTempDir("tabaprompter\\");
+
+            // open opendialog and get filename
+            string path = selectFile(new OpenFileDialog(), libraryFilter);
+            ZipTools.unzip(path, temp);
+            string[] files = Directory.GetFiles(temp);
+            for (int i = 0; i < files.Length; i++)
+            {
+                importTab(files[i]);
+            }
+
+                // remove temp dir
+                removeTempDir(temp);
+            
+        }
+        private void importTab(string path)
+        {
             // give path to open file method
-            string contents = FileTools.open(selectFile(new OpenFileDialog(), tabFilter));
+            string contents = FileTools.open(path);
 
             // parse contents to tab
             // add tab to library
@@ -397,7 +488,23 @@ namespace Tabaprompter
 
             // Update comboboxes
             updateComboBoxes(-1);
+
+        }
+        private void importTabToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string path = selectFile(new OpenFileDialog(), tabFilter);
+            importTab(path);
             
+
+            // Update comboboxes
+            updateComboBoxes(-1);
+            
+        }
+
+        private void clearComboBoxes()
+        {
+            artistComboBox.Items.Clear();
+            titleComboBox.Items.Clear();
         }
 
         private void updateComboBoxes(int artist)

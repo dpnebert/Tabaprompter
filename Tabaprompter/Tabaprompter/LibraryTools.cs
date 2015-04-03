@@ -12,7 +12,10 @@ namespace Tabaprompter
         internal static List<string> parseTabToFile(Tab currentTab)
         {
             List<string> lines = new List<string>();
-            lines.Add("id=" + currentTab.ID.ToString());
+            int id = currentTab.ID;
+
+            //lines.Add("id=" + currentTab.ID.ToString());
+            lines.Add("id=");
             lines.Add("artist=" + currentTab.artist);
             lines.Add("title=" + currentTab.title);
             lines.Add("tuning=" + currentTab.tuning);
@@ -29,7 +32,21 @@ namespace Tabaprompter
                 lines.Add("=section");
             }
 
+            int hash = getTabHash(lines);
+            lines[0] = Regex.Replace(lines[0], "id=", "id=" + hash.ToString());
+
+
             return lines;
+        }
+
+        private static int getTabHash(List<string> lines)
+        {
+            string contents = "";
+            for(int i = 0; i < lines.Count; i++)
+            {
+                contents += Regex.Replace(lines[i], Environment.NewLine, "");
+            }
+            return contents.GetHashCode();
         }
         internal static Tab parseTabFromFile(string contents)
         {
@@ -52,7 +69,7 @@ namespace Tabaprompter
 
             for(int i = 0; i < sections.Length; i++)
             {
-                if(!sections[i].Equals(""))
+                if (!sections[i].Equals("") && !sections[i].Equals("\r\n"))
                 {
                     String[] parts = RegexTools.split(sections[i], "=");
                     List<String> matches = RegexTools.match(pattern, parts[0], RegexOptions.Singleline);
@@ -76,7 +93,7 @@ namespace Tabaprompter
 
         private static Tab getHeader(string text)
         {
-            string idPattern = "id=(\\d*)" + Environment.NewLine;
+            string idPattern = "id=([-0-9]*)" + Environment.NewLine;
             string artistPattern = "artist=(.*)" + Environment.NewLine;
             string titlePattern = "title=(.*)" + Environment.NewLine;
             string tuningPattern = "tuning=(.*)" + Environment.NewLine;
