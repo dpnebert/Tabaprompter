@@ -85,7 +85,7 @@
             // 
             this.topBottemDivider.Dock = System.Windows.Forms.DockStyle.Fill;
             this.topBottemDivider.Location = new System.Drawing.Point(0, 24);
-            this.topBottemDivider.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.topBottemDivider.Margin = new System.Windows.Forms.Padding(2);
             this.topBottemDivider.Name = "topBottemDivider";
             this.topBottemDivider.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -105,7 +105,7 @@
             // 
             this.tabVideoDivider.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabVideoDivider.Location = new System.Drawing.Point(0, 0);
-            this.tabVideoDivider.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabVideoDivider.Margin = new System.Windows.Forms.Padding(2);
             this.tabVideoDivider.Name = "tabVideoDivider";
             // 
             // tabVideoDivider.Panel2
@@ -194,7 +194,7 @@
             // 
             this.selectorsControlsDivider.Dock = System.Windows.Forms.DockStyle.Fill;
             this.selectorsControlsDivider.Location = new System.Drawing.Point(0, 0);
-            this.selectorsControlsDivider.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.selectorsControlsDivider.Margin = new System.Windows.Forms.Padding(2);
             this.selectorsControlsDivider.Name = "selectorsControlsDivider";
             // 
             // selectorsControlsDivider.Panel1
@@ -244,14 +244,14 @@
             // 
             this.controlsLogDivider.Dock = System.Windows.Forms.DockStyle.Fill;
             this.controlsLogDivider.Location = new System.Drawing.Point(0, 0);
-            this.controlsLogDivider.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.controlsLogDivider.Margin = new System.Windows.Forms.Padding(2);
             this.controlsLogDivider.Name = "controlsLogDivider";
             // 
             // controlsLogDivider.Panel1
             // 
             this.controlsLogDivider.Panel1.Controls.Add(this.controlFlowPanel);
             this.controlsLogDivider.Size = new System.Drawing.Size(573, 81);
-            this.controlsLogDivider.SplitterDistance = 169;
+            this.controlsLogDivider.SplitterDistance = 192;
             this.controlsLogDivider.SplitterWidth = 3;
             this.controlsLogDivider.TabIndex = 0;
             // 
@@ -264,7 +264,7 @@
             this.controlFlowPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.controlFlowPanel.Location = new System.Drawing.Point(0, 0);
             this.controlFlowPanel.Name = "controlFlowPanel";
-            this.controlFlowPanel.Size = new System.Drawing.Size(169, 81);
+            this.controlFlowPanel.Size = new System.Drawing.Size(192, 81);
             this.controlFlowPanel.TabIndex = 0;
             // 
             // scrollPlayButton
@@ -396,7 +396,7 @@
             this.Controls.Add(this.topBottemDivider);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);

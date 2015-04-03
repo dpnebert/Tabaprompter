@@ -19,6 +19,7 @@ namespace Tabaprompter
             flp.Dock = DockStyle.Fill;
             flp.AutoSize = true;
             flp.Name = name;
+            flp.WrapContents = false;
             return flp;
         }
         internal static Panel createDefaultPanel(string name)
@@ -47,6 +48,9 @@ namespace Tabaprompter
         {
             FlowLayoutPanel flp = createFlowPanel(FlowDirection.TopDown, "mark");
             panel.Controls.Add(flp);
+            Label l = new Label();
+            l.Text = "hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh";
+            flp.Controls.Add(l);
             return panel;
         }
 

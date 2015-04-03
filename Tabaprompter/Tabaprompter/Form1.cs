@@ -37,7 +37,6 @@ namespace Tabaprompter
             libraryFilter = "Tab Library files (*.tlib)|*.tlib|All files (*.*)|*.*";
 
             InitializeComponent();
-            initLibrary();
 
             
 
@@ -76,7 +75,10 @@ namespace Tabaprompter
 
 
             displayLogPanel();
-            displayScrollPanel();
+            List<string> list = new List<string>();
+            list.Add("Welcome to Tabaprompter!");
+            createScrollPanelBanner(list);
+            //displayScrollPanel();
             //displayMarkPanel();
 
 
@@ -96,12 +98,12 @@ namespace Tabaprompter
             artistComboBox.Text = "Artist";
             artistComboBox.SelectedIndexChanged +=artistComboBox_SelectedIndexChanged;
             titleComboBox.Text = "Title";
-            
 
 
 
-            setSavedState(SavedState.unsaved);
-            setControlState(ControlState.initial);
+
+
+            initLibrary();
 
         }
 
@@ -113,6 +115,7 @@ namespace Tabaprompter
         }
         private void updateLogPanel()
         {
+
             FlowLayoutPanel flp = (FlowLayoutPanel)logPanel.Controls[0];
             Label l = new Label();
             l.Text = "Log Panel!";
@@ -127,16 +130,43 @@ namespace Tabaprompter
 
         private void displayScrollPanel()
         {
-            updateScrollPanel();
+            //updateScrollPanel(text);
             tabVideoDivider.Panel1.Controls.Add(scrollPanel);
         }
-        private void updateScrollPanel()
+        private void updateScrollPanel(List<string> text)
         {
+
+            string content = "";
+            for(int i = 0; i < text.Count; i++)
+            {
+                content += text[i];
+            }
             Panel panel = (Panel)scrollPanel;
-            Label l = new Label();
-            l.Text = "Scroll Panel!";
-            l.AutoSize = true;
-            panel.Controls.Add(l);
+            panel.Controls.Clear();
+
+            Label label = new Label();
+            label.Text = content;
+            label.AutoSize = true;
+            panel.Controls.Add(label);
+        }
+
+        private void createScrollPanelBanner(List<string> list)
+        {
+            string text = "";
+            for(int i = 0; i < list.Count; i++)
+            {
+                text += list[i] + "\r\n";
+            }
+
+            Panel panel = (Panel)scrollPanel;
+            panel.Controls.Clear();
+            Label label = new Label();
+            label.Text = text;
+            label.AutoSize = true;
+            label.Location = new Point((panel.Width / 2) - (label.Width / 2), (panel.Height / 2) - (label.Height / 2));
+            //label.Location = new Point(50, 50);
+            panel.Controls.Add(label);
+            tabVideoDivider.Panel1.Controls.Add(scrollPanel);
         }
 
 
@@ -144,16 +174,29 @@ namespace Tabaprompter
 
         private void displayMarkPanel()
         {
-            updateMarkPanel();
             tabVideoDivider.Panel1.Controls.Add(markPanel);
+            updateMarkPanel();
         }
         private void updateMarkPanel()
         {
             FlowLayoutPanel flp = (FlowLayoutPanel)markPanel.Controls[0];
-            Label l = new Label();
-            l.Text = "Mark Panel!";
-            l.AutoSize = true;
-            flp.Controls.Add(l);
+            List<string> lines = currentTab.getSectionText();
+            for(int i = 0; i < lines.Count; i++)
+            {
+                Label markLabel = new Label();
+                markLabel.Text = lines[i];
+                markLabel.AutoSize = true;
+                markLabel.BorderStyle = BorderStyle.Fixed3D;
+                markLabel.Click += markLabel_Click;
+                flp.Controls.Add(markLabel);
+            }
+            
+        }
+
+        void markLabel_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("mark click");
+            
         }
 
 
@@ -290,7 +333,7 @@ namespace Tabaprompter
 
 
                 // Check to see if a tab is loaded so it can be exported.
-                if(currentTab == null)
+                if (currentTab == null)
                 {
                     exportTabToolStripMenuItem.Enabled = false;
                 }
@@ -320,6 +363,95 @@ namespace Tabaprompter
                 artistComboBox.Enabled = true;
                 titleComboBox.Enabled = true;
             }
+            else if (controlState == ControlState.library_tab_loaded_play_mode)
+            {
+                // Also check to see if it has been saved.
+                // Can't have the Save button enabled if it
+                // wasn't saved to begin with
+                if (savedState == SavedState.unsaved)
+                {
+                    saveLibraryToolStripMenuItem.Enabled = false;
+                }
+                else
+                {
+                    saveLibraryToolStripMenuItem.Enabled = true;
+                }
+
+
+
+                // Check to see if a tab is loaded so it can be exported.
+                if (currentTab == null)
+                {
+                    exportTabToolStripMenuItem.Enabled = false;
+                }
+                else
+                {
+                    exportTabToolStripMenuItem.Enabled = true;
+                }
+                // Files
+                saveLibraryAsToolStripMenuItem.Enabled = true;
+                closeLibraryToolStripMenuItem.Enabled = true;
+
+
+                // Controls
+                scrollPlayButton.Enabled = true;
+                scrollStopButton.Enabled = true;
+                scrollResetButton.Enabled = true;
+                markModeButton.Text = "Mark";
+                markModeButton.Enabled = true;
+
+
+                // Video
+                addressBarTextBox.Enabled = true;
+                addressGoButton.Enabled = true;
+                addressStopButton.Enabled = true;
+
+
+                // Selector
+                artistComboBox.Enabled = true;
+                titleComboBox.Enabled = true;
+
+                updateScrollPanel(currentTab.getSectionText());
+
+                //displayScrollPanel(currentTab.getSectionText());
+
+                displayScrollPanel();
+
+            }
+            else if (controlState == ControlState.library_tab_loaded_mark_mode)
+            {
+
+
+                saveLibraryToolStripMenuItem.Enabled = false;
+                exportTabToolStripMenuItem.Enabled = false;
+               
+              
+                // Files
+                saveLibraryAsToolStripMenuItem.Enabled = false;
+                closeLibraryToolStripMenuItem.Enabled = false;
+
+
+                // Controls
+                scrollPlayButton.Enabled = false;
+                scrollStopButton.Enabled = false;
+                scrollResetButton.Enabled = false;
+                markModeButton.Enabled = true;
+                markModeButton.Text = "Stop";
+
+
+                // Video
+                addressBarTextBox.Enabled = true;
+                addressGoButton.Enabled = false;
+                addressStopButton.Enabled = false;
+
+
+                // Selector
+                artistComboBox.Enabled = false;
+                titleComboBox.Enabled = false;
+
+                displayMarkPanel();
+
+            }
             else
             {
 
@@ -330,6 +462,7 @@ namespace Tabaprompter
             importTabToolStripMenuItem.Enabled = true;
 
 
+            
         }
 
 
@@ -590,7 +723,15 @@ namespace Tabaprompter
 
         private void markModeButton_Click(object sender, EventArgs e)
         {
-
+            if(controlState == ControlState.library_tab_loaded_mark_mode)
+            {
+                setControlState(ControlState.library_tab_loaded_play_mode);
+            }
+            else
+            {
+                setControlState(ControlState.library_tab_loaded_mark_mode);
+            }
+            
         }
 
 
@@ -625,6 +766,10 @@ namespace Tabaprompter
                     currentTab = library.tabs[i];
                 }
             }
+
+            //displayScrollPanel();
+
+            createScrollPanelBanner(currentTab.getSongInfo());
 
             setControlState(ControlState.library_tab_loaded);
             //updateComboBoxes(cb.SelectedIndex);
