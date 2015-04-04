@@ -191,7 +191,14 @@ namespace Tabaprompter
         }
         private void updateMarkPanel()
         {
-            FlowLayoutPanel flp = (FlowLayoutPanel)markPanel.Controls[0];
+
+            Panel panel = (Panel)markPanel;
+            panel.Controls.Clear();
+
+            FlowLayoutPanel flp = new FlowLayoutPanel();
+            flp.AutoSize = true;
+            flp.WrapContents = false;
+            flp.FlowDirection = FlowDirection.TopDown;
             List<string> lines = currentTab.getSectionText();
             for (int i = 0; i < lines.Count; i++)
             {
@@ -202,7 +209,7 @@ namespace Tabaprompter
                 markLabel.Click += markLabel_Click;
                 flp.Controls.Add(markLabel);
             }
-
+            panel.Controls.Add(flp);
         }
         
 
@@ -701,7 +708,7 @@ namespace Tabaprompter
         {
             if(controlState == ControlState.library_tab_loaded_mark_mode)
             {
-                displayScrollPanel();
+                createScrollPanelBanner(currentTab.getSectionText());
                 setControlState(ControlState.library_tab_loaded_play_mode);
             }
             else

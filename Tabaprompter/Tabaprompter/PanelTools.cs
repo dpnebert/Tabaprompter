@@ -41,16 +41,12 @@ namespace Tabaprompter
         }
         internal static Panel buildScrollPanel(Panel panel)
         {
-            panel.BorderStyle = BorderStyle.Fixed3D;
+            panel.BackColor = System.Drawing.Color.Green;
             return panel;
         }
         internal static Panel buildMarkPanel(Panel panel)
         {
-            FlowLayoutPanel flp = createFlowPanel(FlowDirection.TopDown, "mark");
-            panel.Controls.Add(flp);
-            Label l = new Label();
-            l.Text = "hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh";
-            flp.Controls.Add(l);
+            panel.BorderStyle = BorderStyle.Fixed3D;
             return panel;
         }
 
