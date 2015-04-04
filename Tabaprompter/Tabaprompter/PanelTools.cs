@@ -41,13 +41,13 @@ namespace Tabaprompter
         }
         internal static Panel buildScrollPanel(Panel panel)
         {
-            panel.BackColor = System.Drawing.Color.Green;
-            return panel;
+            panel.BackColor = System.Drawing.Color.Green;//
+            return panel;////
         }
         internal static Panel buildMarkPanel(Panel panel)
         {
-            panel.BorderStyle = BorderStyle.Fixed3D;
-            return panel;
+            panel.BorderStyle = BorderStyle.Fixed3D;//
+            return panel;//
         }
 
         /*
