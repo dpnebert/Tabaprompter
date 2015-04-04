@@ -22,6 +22,8 @@ namespace Tabaprompter
             lines.Add("notes=" + currentTab.notes);
             lines.Add("scrollDelay=" + currentTab.scrollDelay.ToString());
             lines.Add("startDelay=" + currentTab.startDelay.ToString());
+            lines.Add("videoUrl=" + currentTab.videoUrl);
+            lines.Add("videoEnabled=" + currentTab.videoEnabled);
             lines.Add("sections=");
             Section section;
             for (int i = 0; i < currentTab.sections.Count; i++)
@@ -100,8 +102,10 @@ namespace Tabaprompter
             string notesPattern = "notes=(.*)" + Environment.NewLine;
             string scrollDelayPattern = "scrollDelay=(\\d*)" + Environment.NewLine;
             string startDelayPattern = "startDelay=(\\d*)" + Environment.NewLine;
+            string videoUrlPattern = "videoUrl=(.*)" + Environment.NewLine;
+            string videoEnabledPattern = "videoEnabled=(\\w+)" + Environment.NewLine;
 
-            string pattern = idPattern + artistPattern + titlePattern + tuningPattern + notesPattern + scrollDelayPattern + startDelayPattern;
+            string pattern = idPattern + artistPattern + titlePattern + tuningPattern + notesPattern + scrollDelayPattern + startDelayPattern + videoUrlPattern + videoEnabledPattern;
             Tab tab = new Tab();
 
             List<string> matches = RegexTools.match(pattern, text, RegexOptions.Singleline);
@@ -113,6 +117,8 @@ namespace Tabaprompter
             tab.notes = matches[4];
             tab.scrollDelay = int.Parse(matches[5]);
             tab.startDelay = int.Parse(matches[6]);
+            tab.videoUrl = matches[7];
+            tab.videoEnabled = Boolean.Parse(matches[8]);
 
             return tab;
         }
