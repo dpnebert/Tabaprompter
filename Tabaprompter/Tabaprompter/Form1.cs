@@ -47,9 +47,10 @@ namespace Tabaprompter
 
         public Form1()
         {
-            timer = new System.Windows.Forms.Timer();
-            timer.Tick += tick;
-            
+
+            initTimer();   
+            timer.Start();
+
             librarySavePath = "";
 
             tabFilter = "Tab files (*.tab)|*.tab|All files (*.*)|*.*";
@@ -59,21 +60,19 @@ namespace Tabaprompter
 
         }
 
+        private void initTimer()
+        {
+            timer = new System.Windows.Forms.Timer();
+            timer.Interval = 1;
+            timer.Tick += tick;
+        }
+
+
+
         private void tick(object sender, EventArgs e)
         {
-            // 
             ms++;
         }
-
-        private int getTick()
-        {
-            return ms;
-        }
-        private void setTick(int num)
-        {
-            ms = num;
-        }
-
 
 
         private void initLibrary()
@@ -90,9 +89,6 @@ namespace Tabaprompter
             Label label = createLogLabel(text);
             FlowLayoutPanel flp = (FlowLayoutPanel)logPanel.Controls[0];
             flp.Controls.Add(label);
-            
-            Panel pan = (Panel)logPanel;
-            int h = pan.Height;
             flp.ScrollControlIntoView(label);
         }
         
@@ -118,6 +114,9 @@ namespace Tabaprompter
         }
         private void Form1_Load(object sender, EventArgs e)
         {
+
+
+
 
 
 
@@ -371,6 +370,10 @@ namespace Tabaprompter
             }
             else if (controlState == ControlState.library_loaded)
             {
+
+                label1.Text = ms.ToString();
+
+
                 log("Control State: Library loaded");
                 // Also check to see if it has been saved.
                 // Can't have the Save button enabled if it
