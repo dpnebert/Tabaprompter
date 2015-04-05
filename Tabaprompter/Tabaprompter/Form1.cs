@@ -17,8 +17,8 @@ namespace Tabaprompter
         Color myRgbColor = Color.FromArgb(0, 255, 0);
         //Colors colors = 
         int markBgRBColor = 0;
-        
-        Thread timerThread { get; set; }
+        Boolean playing;
+        Thread scrollThread { get; set; }
 
         public int ms { get; set; }
 
@@ -47,10 +47,9 @@ namespace Tabaprompter
 
         public Form1()
         {
-
-            initTimer();   
-            timer.Start();
-
+            scrollThread = new Thread(new ThreadStart(this.scroll));
+            //initTimer();   
+            playing = false;
             librarySavePath = "";
 
             tabFilter = "Tab files (*.tab)|*.tab|All files (*.*)|*.*";
@@ -60,11 +59,39 @@ namespace Tabaprompter
 
         }
 
-        private void initTimer()
+        delegate void scrollCallBack();
+
+        private void scroll()
         {
-            timer = new System.Windows.Forms.Timer();
+            // InvokeRequired required compares the thread ID of the
+            // calling thread to the thread ID of the creating thread.
+            // If these threads are different, it returns true.
+            if (this.scrollPanel.InvokeRequired)
+            {
+                scrollCallBack d = new scrollCallBack(scroll);
+                this.Invoke(d, new object[] { });
+            }
+            else
+            {
+
+                playing = true;
+                while(playing)
+                {
+                    scrollPanel.Controls[0].Location = new Point(scrollPanel.Controls[0].Location.X + ms);
+                    //scrollPanel.AutoScrollPosition = new Point(scrollPanel.AutoScrollPosition.X, ms);
+                }
+
+            }
+        }
+
+
+        private System.Windows.Forms.Timer initTimer()
+        {
+            System.Windows.Forms.Timer timer = new System.Windows.Forms.Timer();
             timer.Interval = 1;
             timer.Tick += tick;
+            ms = 0;
+            return timer;
         }
 
 
@@ -203,8 +230,14 @@ namespace Tabaprompter
         {
             Label label = (Label)sender;
             label.BackColor = Color.LightGreen;
+            label1.Text = ms.ToString();
             //MessageBox.Show("mark click");
+            label1.Click += label1_Click;
+        }
 
+        void label1_Click(object sender, EventArgs e)
+        {
+            label1.Text = ms.ToString();
         }
         private void markTimeLabelColorReset()
         {
@@ -276,6 +309,7 @@ namespace Tabaprompter
             panel.Controls.Clear();
 
             FlowLayoutPanel flp = new FlowLayoutPanel();
+            flp.MouseEnter += giveMarkPanelFocusToScroll;
             flp.AutoSize = true;
             flp.WrapContents = false;
             flp.FlowDirection = FlowDirection.TopDown;
@@ -294,6 +328,11 @@ namespace Tabaprompter
             tabVideoDivider.Panel1.Controls.Clear();
             tabVideoDivider.Panel1.Controls.Add(panel);
                 
+        }
+
+        private void giveMarkPanelFocusToScroll(object sender, EventArgs e)
+        {
+            markPanel.Controls[0].Focus();
         }
         
 
@@ -802,11 +841,29 @@ namespace Tabaprompter
         ////////////////////////////// Controls
         private void scrollPlayButton_Click(object sender, EventArgs e)
         {
+            scrollThread.Start();
+            startTimer();
 
+            
+        }
+
+        private void startTimer()
+        {
+            playing = false;
+            timer = initTimer();
+            //Object o = (Thread)timerThread;
+
+            timer.Start();
+            //timerThread.Start();
+        }
+        private void stopTimer()
+        {
+            timer.Stop();
         }
         private void scrollStopButton_Click(object sender, EventArgs e)
         {
-
+            scrollThread.Join();
+            timer.Stop();
         }
         private void scrollResetButton_Click(object sender, EventArgs e)
         {
@@ -818,14 +875,17 @@ namespace Tabaprompter
             {
                 createScrollPanelBanner(currentTab.getSongInfo());
                 setControlState(ControlState.library_tab_loaded_play_mode);
+                stopTimer();
             }
             else
             {
                 displayMarkPanel();
                 setControlState(ControlState.library_tab_loaded_mark_mode);
+                startTimer();
             }
             
         }
+
 
 
         // Selectors!!!!!!!!!!!!!!!!!!!!!!!!!

@@ -51,6 +51,7 @@ namespace Tabaprompter
         {
             panel.BorderStyle = BorderStyle.Fixed3D;//
             panel.AutoScroll = true;
+           
             return panel;//
         }
 
