@@ -6,6 +6,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -13,6 +14,16 @@ namespace Tabaprompter
 {
     public partial class Form1 : Form
     {
+        Color myRgbColor = Color.FromArgb(0, 255, 0);
+        //Colors colors = 
+        int markBgRBColor = 0;
+        
+        Thread timerThread { get; set; }
+
+        public int ms { get; set; }
+
+        System.Windows.Forms.Timer timer;
+
         Panel logPanel;
         Panel scrollPanel;
         Panel markPanel;
@@ -36,6 +47,9 @@ namespace Tabaprompter
 
         public Form1()
         {
+            timer = new System.Windows.Forms.Timer();
+            timer.Tick += tick;
+            
             librarySavePath = "";
 
             tabFilter = "Tab files (*.tab)|*.tab|All files (*.*)|*.*";
@@ -44,13 +58,59 @@ namespace Tabaprompter
             InitializeComponent();
 
         }
+
+        private void tick(object sender, EventArgs e)
+        {
+            // 
+            ms++;
+        }
+
+        private int getTick()
+        {
+            return ms;
+        }
+        private void setTick(int num)
+        {
+            ms = num;
+        }
+
+
+
         private void initLibrary()
         {
+            log("Initializing...");
             library = new Library();
             clearComboBoxes();
             setControlState(ControlState.initial);
             setSavedState(SavedState.unsaved);
         }
+        
+        private void log(string text)
+        {
+            Label label = createLogLabel(text);
+            FlowLayoutPanel flp = (FlowLayoutPanel)logPanel.Controls[0];
+            flp.Controls.Add(label);
+            
+            Panel pan = (Panel)logPanel;
+            int h = pan.Height;
+            flp.ScrollControlIntoView(label);
+        }
+        
+        private Label createLogLabel(string text)
+        {
+            Label label = new Label();
+            label.Text = text;
+            label.AutoSize = true;
+            return label;
+        }
+        private void logList(List<string> list)
+        {
+            for(int i = 0; i < list.Count; i++)
+            {
+                log(list[i]);
+            }
+        }
+        
         private void setSavePath(string path)
         {
             librarySavePath = path;
@@ -109,7 +169,7 @@ namespace Tabaprompter
         }
         private void loadTab(Tab tab)
         {
-
+            log("Loading: " + tab.getSongArtistTitle(" - "));
             createScrollPanelBanner(tab.getSongInfo());
 
             setControlState(ControlState.library_tab_loaded);
@@ -124,22 +184,46 @@ namespace Tabaprompter
         private void displayLogPanel()
         {
             controlsLogDivider.Panel2.Controls.Add(logPanel);
-            updateLogPanel();
+            //updateLogPanel();
         }
         private void displayScrollPanel()
         {
+
+            tabVideoDivider.Panel1.Controls.Clear();
             //updateScrollPanel(text);
             tabVideoDivider.Panel1.Controls.Add(scrollPanel);
         }
         private void displayMarkPanel()
         {
-            updateMarkPanel();
+            tabVideoDivider.Panel1.Controls.Clear();
+
             tabVideoDivider.Panel1.Controls.Add(markPanel);
+            updateMarkPanel();
         }
         void markLabel_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("mark click");
+            Label label = (Label)sender;
+            label.BackColor = Color.LightGreen;
+            //MessageBox.Show("mark click");
 
+        }
+        private void markTimeLabelColorReset()
+        {
+            myRgbColor = Color.FromArgb(255, 0, 255);
+        }
+        private Color getMarkTimeLabelColor()
+        {
+            if (markBgRBColor < 248)
+            {
+                markBgRBColor += 8;
+            }
+            else
+            {
+                markBgRBColor = 0;
+            }
+            
+            
+            return Color.FromArgb(255, markBgRBColor, 255);
         }
         private void createScrollPanelBanner(List<string> list)
         {
@@ -157,6 +241,8 @@ namespace Tabaprompter
             label.Location = new Point((panel.Width / 2) - (label.Width / 2), (panel.Height / 2) - (label.Height / 2));
             //label.Location = new Point(50, 50);
             panel.Controls.Add(label);
+            tabVideoDivider.Panel1.Controls.Clear();
+                
             tabVideoDivider.Panel1.Controls.Add(scrollPanel);
         }
 
@@ -166,12 +252,7 @@ namespace Tabaprompter
         {
 
             FlowLayoutPanel flp = (FlowLayoutPanel)logPanel.Controls[0];
-            Label l = new Label();
-            l.Text = "Log Panel!";
-            l.AutoSize = true;
-            flp.Controls.Add(l);
-            logPanel.AutoScroll = true;
-            logPanel.AutoScrollPosition = new Point(logPanel.AutoScrollPosition.X, logPanel.Height);
+            //logPanel.AutoScrollPosition = new Point(logPanel.AutoScrollPosition.X, logPanel.Height);
         }
         private void updateScrollPanel(List<string> text)
         {
@@ -191,7 +272,7 @@ namespace Tabaprompter
         }
         private void updateMarkPanel()
         {
-
+            markTimeLabelColorReset();
             Panel panel = (Panel)markPanel;
             panel.Controls.Clear();
 
@@ -204,12 +285,16 @@ namespace Tabaprompter
             {
                 Label markLabel = new Label();
                 markLabel.Text = lines[i];
+                markLabel.BackColor = getMarkTimeLabelColor();
                 markLabel.AutoSize = true;
                 markLabel.BorderStyle = BorderStyle.Fixed3D;
                 markLabel.Click += markLabel_Click;
                 flp.Controls.Add(markLabel);
             }
             panel.Controls.Add(flp);
+            tabVideoDivider.Panel1.Controls.Clear();
+            tabVideoDivider.Panel1.Controls.Add(panel);
+                
         }
         
 
@@ -261,6 +346,7 @@ namespace Tabaprompter
             controlState = cS;
             if (controlState == ControlState.initial)
             {
+                log("Control State: Initial");
                 // Files
                 closeLibraryToolStripMenuItem.Enabled = false;
                 saveLibraryAsToolStripMenuItem.Enabled = false;
@@ -285,6 +371,7 @@ namespace Tabaprompter
             }
             else if (controlState == ControlState.library_loaded)
             {
+                log("Control State: Library loaded");
                 // Also check to see if it has been saved.
                 // Can't have the Save button enabled if it
                 // wasn't saved to begin with
@@ -311,6 +398,8 @@ namespace Tabaprompter
             }
             else if (controlState == ControlState.library_tab_loaded)
             {
+
+                log("Control State: Tab loaded");
                 // Also check to see if it has been saved.
                 // Can't have the Save button enabled if it
                 // wasn't saved to begin with
@@ -355,6 +444,8 @@ namespace Tabaprompter
             }
             else if (controlState == ControlState.library_tab_loaded_play_mode)
             {
+
+                log("Control State: Play mode");
                 // Also check to see if it has been saved.
                 // Can't have the Save button enabled if it
                 // wasn't saved to begin with
@@ -412,6 +503,7 @@ namespace Tabaprompter
             else if (controlState == ControlState.library_tab_loaded_mark_mode)
             {
 
+                log("Control State: Mark mode");
 
                 saveLibraryToolStripMenuItem.Enabled = false;
                 exportTabToolStripMenuItem.Enabled = false;
@@ -520,9 +612,13 @@ namespace Tabaprompter
             // give path to open file method
             string contents = FileTools.open(path);
 
+            Tab tab = LibraryTools.parseTabFromFile(contents);
+
             // parse contents to tab
             // add tab to library
-            library.tabs.Add(LibraryTools.parseTabFromFile(contents));
+            library.tabs.Add(tab);
+
+            log("Tab imported: " + tab.getSongArtistTitle(" - "));
 
             // Set control state
             setControlState(ControlState.library_loaded);
@@ -578,6 +674,9 @@ namespace Tabaprompter
 
             //FileTools.save(, new List<string>());
             setSavePath(path);
+
+            log("Library saved");
+
             //setSavedState(SavedState.saved);
             setControlState(ControlState.library_loaded);
         }
@@ -644,13 +743,19 @@ namespace Tabaprompter
             // get path with open dialog
             string path = selectFile(new SaveFileDialog(), tabFilter);
 
+            exportTab(path);
+
+        }
+
+        private void exportTab(string path)
+        {
             // get parsed lines from the load tab
             List<String> lines = LibraryTools.parseTabToFile(currentTab);
 
 
             // pass path and parsed lines to save util func.
             FileTools.save(path, lines);
-
+            log("Tab exported: " + currentTab.getSongArtistTitle(" - "));
         }
         private void newLibraryToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -708,7 +813,7 @@ namespace Tabaprompter
         {
             if(controlState == ControlState.library_tab_loaded_mark_mode)
             {
-                createScrollPanelBanner(currentTab.getSectionText());
+                createScrollPanelBanner(currentTab.getSongInfo());
                 setControlState(ControlState.library_tab_loaded_play_mode);
             }
             else
@@ -797,5 +902,14 @@ namespace Tabaprompter
             webBrowser.Stop();
         }
         
+
     }
+
+
+
+
+
+    
+
+
 }

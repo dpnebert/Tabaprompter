@@ -39,5 +39,10 @@ namespace Tabaprompter
 
             return list;
         }
+
+        public string getSongArtistTitle(string separator)
+        {
+            return artist + separator + title;
+        }
     }
 }

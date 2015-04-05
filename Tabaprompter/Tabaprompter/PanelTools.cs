@@ -36,17 +36,21 @@ namespace Tabaprompter
         {
             FlowLayoutPanel flp = createFlowPanel(FlowDirection.TopDown, "log");
             panel.Controls.Add(flp);
+            flp.AutoScroll = true;
             panel.BorderStyle = BorderStyle.Fixed3D;
+            panel.AutoScroll = true;
             return panel;
         }
         internal static Panel buildScrollPanel(Panel panel)
         {
-            panel.BackColor = System.Drawing.Color.Green;//
+            //panel.BackColor = System.Drawing.Color.Green;//
+            
             return panel;////
         }
         internal static Panel buildMarkPanel(Panel panel)
         {
             panel.BorderStyle = BorderStyle.Fixed3D;//
+            panel.AutoScroll = true;
             return panel;//
         }
 
