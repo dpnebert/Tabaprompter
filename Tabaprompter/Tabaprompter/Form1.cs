@@ -73,16 +73,21 @@ namespace Tabaprompter
             }
             else
             {
-
                 playing = true;
+
+                startTimer();
+                int mms = getMs();
                 while(playing)
                 {
+                    mms = getMs();
                     scrollPanel.Controls[0].Location = new Point(scrollPanel.Controls[0].Location.X + ms);
-                    //scrollPanel.AutoScrollPosition = new Point(scrollPanel.AutoScrollPosition.X, ms);
+
                 }
 
             }
         }
+
+      
 
 
         private System.Windows.Forms.Timer initTimer()
@@ -98,6 +103,7 @@ namespace Tabaprompter
 
         private void tick(object sender, EventArgs e)
         {
+            Thread.Sleep(100);
             ms++;
         }
 
@@ -842,19 +848,20 @@ namespace Tabaprompter
         private void scrollPlayButton_Click(object sender, EventArgs e)
         {
             scrollThread.Start();
-            startTimer();
+            //startTimer();
 
             
         }
-
+        private int getMs()
+        {
+            return ms;
+        }
         private void startTimer()
         {
-            playing = false;
-            timer = initTimer();
             //Object o = (Thread)timerThread;
 
+            timer = initTimer();
             timer.Start();
-            //timerThread.Start();
         }
         private void stopTimer()
         {
@@ -862,8 +869,9 @@ namespace Tabaprompter
         }
         private void scrollStopButton_Click(object sender, EventArgs e)
         {
-            scrollThread.Join();
-            timer.Stop();
+            //scrollThread.Abort();
+            //scrollThread.Join();
+            stopTimer();
         }
         private void scrollResetButton_Click(object sender, EventArgs e)
         {
