@@ -52,6 +52,57 @@ namespace Tabaprompter
             InitializeComponent();
 
         }
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+            logPanel = PanelTools.createDefaultPanel("log");
+            scrollPanel = PanelTools.createDefaultPanel("scroll");
+            markPanel = PanelTools.createDefaultPanel("mark");
+
+            /*
+            selectorPanel = PanelTools.createDefaultPanel("selector");
+            controlPanel = PanelTools.createDefaultPanel("control");
+            */
+
+            logPanel = PanelTools.buildLogPanel(logPanel);
+            scrollPanel = PanelTools.buildScrollPanel(scrollPanel);
+            markPanel = PanelTools.buildMarkPanel(markPanel);
+
+            /*
+            selectorPanel = PanelTools.buildSelectorPanel(selectorPanel);
+            controlPanel = PanelTools.buildControlPanel(controlPanel);
+            */
+
+
+
+            displayLogPanel();
+            List<string> list = new List<string>();
+            list.Add("Welcome to Tabaprompter!");
+            createScrollPanelBanner(list);
+            //displayScrollPanel();
+            //displayMarkPanel();
+
+
+
+            /*
+            displaySelectorPanel();
+            displayControlPanel();
+            */
+
+            // Init Selector
+            artistComboBox.Text = "Artist";
+            artistComboBox.SelectedIndexChanged += artistComboBox_SelectedIndexChanged;
+            titleComboBox.Text = "Title";
+
+
+            initLibrary();
+
+
+            enableVideo = enableVideoCheckBox.Checked;
+
+            scrollTimer.Interval = 1;
+
+        }
         
 
 
@@ -116,60 +167,6 @@ namespace Tabaprompter
         {
             librarySavePath = path;
             setSavedState(SavedState.saved);
-        }
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-
-
-
-
-
-            logPanel = PanelTools.createDefaultPanel("log");
-            scrollPanel = PanelTools.createDefaultPanel("scroll");
-            markPanel = PanelTools.createDefaultPanel("mark");
-
-            /*
-            selectorPanel = PanelTools.createDefaultPanel("selector");
-            controlPanel = PanelTools.createDefaultPanel("control");
-            */
-
-            logPanel = PanelTools.buildLogPanel(logPanel);
-            scrollPanel = PanelTools.buildScrollPanel(scrollPanel);
-            markPanel = PanelTools.buildMarkPanel(markPanel);
-
-            /*
-            selectorPanel = PanelTools.buildSelectorPanel(selectorPanel);
-            controlPanel = PanelTools.buildControlPanel(controlPanel);
-            */
-
-
-
-            displayLogPanel();
-            List<string> list = new List<string>();
-            list.Add("Welcome to Tabaprompter!");
-            createScrollPanelBanner(list);
-            //displayScrollPanel();
-            //displayMarkPanel();
-
-
-
-            /*
-            displaySelectorPanel();
-            displayControlPanel();
-            */
-
-            // Init Selector
-            artistComboBox.Text = "Artist";
-            artistComboBox.SelectedIndexChanged +=artistComboBox_SelectedIndexChanged;
-            titleComboBox.Text = "Title";
-
-
-            initLibrary();
-
-
-            enableVideo = enableVideoCheckBox.Checked;
-
         }
         private void loadTab(Tab tab)
         {
@@ -821,7 +818,7 @@ namespace Tabaprompter
         {
             //startTimer(); // is the thread starting the timer or should i do it here?
             //scrollThread.Start();
-
+            scrollTimer.Start();
             
         }
 
@@ -839,6 +836,8 @@ namespace Tabaprompter
         }
         private void scrollStopButton_Click(object sender, EventArgs e)
         {
+
+            scrollTimer.Stop();
             //stopTimer();
         }
         private void scrollResetButton_Click(object sender, EventArgs e)
@@ -939,6 +938,11 @@ namespace Tabaprompter
         private void addressStopButton_Click(object sender, EventArgs e)
         {
             webBrowser.Stop();
+        }
+
+        private void scrollTimer_Tick(object sender, EventArgs e)
+        {
+            scrollPanel.Controls[0].Location = new Point(scrollPanel.Controls[0].Location.X, scrollPanel.Controls[0].Location.Y - 1);
         }
         
 

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.topBottemDivider = new System.Windows.Forms.SplitContainer();
             this.tabVideoDivider = new System.Windows.Forms.SplitContainer();
             this.browserAddressDivider = new System.Windows.Forms.SplitContainer();
@@ -58,6 +59,7 @@
             this.closeLibraryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.importTabToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportTabToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.scrollTimer = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.topBottemDivider)).BeginInit();
             this.topBottemDivider.Panel1.SuspendLayout();
             this.topBottemDivider.Panel2.SuspendLayout();
@@ -432,6 +434,10 @@
             this.exportTabToolStripMenuItem.Text = "Export Tab";
             this.exportTabToolStripMenuItem.Click += new System.EventHandler(this.exportTabToolStripMenuItem_Click);
             // 
+            // scrollTimer
+            // 
+            this.scrollTimer.Tick += new System.EventHandler(this.scrollTimer_Tick);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -506,6 +512,7 @@
         private System.Windows.Forms.Button markModeButton;
         private System.Windows.Forms.CheckBox enableVideoCheckBox;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Timer scrollTimer;
     }
 }
 
