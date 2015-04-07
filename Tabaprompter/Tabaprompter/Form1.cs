@@ -972,7 +972,13 @@ namespace Tabaprompter
 
         private void scrollTimer_Tick(object sender, EventArgs e)
         {
-            scrollPanel.AutoScrollPosition = new Point(scrollPanel.Location.X, scrollPanel.Location.Y + 1);
+            Label label;
+            for (int i = 0; i < scrollPanel.Controls.Count; i++)
+            {
+                label = (Label)scrollPanel.Controls[i];
+                label.Location = new Point(scrollPanel.Location.X, scrollPanel.Location.Y + 1);
+            }
+                
         }
 
         private void scrollDelayTextBox_TextChanged(object sender, EventArgs e)
