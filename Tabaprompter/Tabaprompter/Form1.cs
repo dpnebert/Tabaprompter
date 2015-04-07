@@ -17,12 +17,9 @@ namespace Tabaprompter
         Color myRgbColor = Color.FromArgb(0, 255, 0);
         //Colors colors = 
         int markBgRBColor = 0;
-        Boolean playing;
-        Thread scrollThread { get; set; }
-
+        //Boolean playing;
+        private System.Timers.Timer timer;
         public int ms { get; set; }
-
-        System.Windows.Forms.Timer timer;
 
         Panel logPanel;
         Panel scrollPanel;
@@ -47,9 +44,6 @@ namespace Tabaprompter
 
         public Form1()
         {
-            scrollThread = new Thread(new ThreadStart(this.scroll));
-            //initTimer();   
-            playing = false;
             librarySavePath = "";
 
             tabFilter = "Tab files (*.tab)|*.tab|All files (*.*)|*.*";
@@ -58,55 +52,33 @@ namespace Tabaprompter
             InitializeComponent();
 
         }
+        
 
-        delegate void scrollCallBack();
 
-        private void scroll()
+        
+
+        private System.Timers.Timer initTimer()
         {
-            // InvokeRequired required compares the thread ID of the
-            // calling thread to the thread ID of the creating thread.
-            // If these threads are different, it returns true.
-            if (this.scrollPanel.InvokeRequired)
-            {
-                scrollCallBack d = new scrollCallBack(scroll);
-                this.Invoke(d, new object[] { });
-            }
-            else
-            {
-                playing = true;
-
-                startTimer();
-                int mms = getMs();
-                while(playing)
-                {
-                    mms = getMs();
-                    scrollPanel.Controls[0].Location = new Point(scrollPanel.Controls[0].Location.X + ms);
-
-                }
-
-            }
-        }
-
-      
-
-
-        private System.Windows.Forms.Timer initTimer()
-        {
-            System.Windows.Forms.Timer timer = new System.Windows.Forms.Timer();
+            timer = new System.Timers.Timer();
             timer.Interval = 1;
-            timer.Tick += tick;
+            timer.Elapsed += timer_Elapsed;
+            //timer.Tick += tick;
             ms = 0;
             return timer;
         }
 
-
-
-        private void tick(object sender, EventArgs e)
+        void timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
-            Thread.Sleep(100);
             ms++;
         }
 
+
+        /*
+        private void tick(object sender, EventArgs e)
+        {
+            ms++;
+        }
+        */
 
         private void initLibrary()
         {
@@ -847,15 +819,13 @@ namespace Tabaprompter
         ////////////////////////////// Controls
         private void scrollPlayButton_Click(object sender, EventArgs e)
         {
-            scrollThread.Start();
-            //startTimer();
+            //startTimer(); // is the thread starting the timer or should i do it here?
+            //scrollThread.Start();
 
             
         }
-        private int getMs()
-        {
-            return ms;
-        }
+
+
         private void startTimer()
         {
             //Object o = (Thread)timerThread;
@@ -869,9 +839,7 @@ namespace Tabaprompter
         }
         private void scrollStopButton_Click(object sender, EventArgs e)
         {
-            //scrollThread.Abort();
-            //scrollThread.Join();
-            stopTimer();
+            //stopTimer();
         }
         private void scrollResetButton_Click(object sender, EventArgs e)
         {

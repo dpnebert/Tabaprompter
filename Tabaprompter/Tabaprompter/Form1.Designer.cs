@@ -120,7 +120,7 @@
             // 
             this.browserAddressDivider.Dock = System.Windows.Forms.DockStyle.Fill;
             this.browserAddressDivider.Location = new System.Drawing.Point(0, 0);
-            this.browserAddressDivider.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.browserAddressDivider.Margin = new System.Windows.Forms.Padding(4);
             this.browserAddressDivider.Name = "browserAddressDivider";
             this.browserAddressDivider.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -140,7 +140,7 @@
             // 
             this.webBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
             this.webBrowser.Location = new System.Drawing.Point(0, 0);
-            this.webBrowser.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.webBrowser.Margin = new System.Windows.Forms.Padding(4);
             this.webBrowser.MinimumSize = new System.Drawing.Size(27, 25);
             this.webBrowser.Name = "webBrowser";
             this.webBrowser.Size = new System.Drawing.Size(602, 141);
@@ -151,7 +151,7 @@
             this.videoAddressBarPanel.Controls.Add(this.flowLayoutPanel1);
             this.videoAddressBarPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.videoAddressBarPanel.Location = new System.Drawing.Point(0, 0);
-            this.videoAddressBarPanel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.videoAddressBarPanel.Margin = new System.Windows.Forms.Padding(4);
             this.videoAddressBarPanel.Name = "videoAddressBarPanel";
             this.videoAddressBarPanel.Size = new System.Drawing.Size(602, 47);
             this.videoAddressBarPanel.TabIndex = 0;
@@ -165,7 +165,7 @@
             this.flowLayoutPanel1.Controls.Add(this.label1);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(4);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(602, 47);
             this.flowLayoutPanel1.TabIndex = 0;
@@ -189,7 +189,7 @@
             this.addressBarTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.addressBarTextBox.Location = new System.Drawing.Point(76, 4);
-            this.addressBarTextBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.addressBarTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.addressBarTextBox.Name = "addressBarTextBox";
             this.addressBarTextBox.Size = new System.Drawing.Size(179, 22);
             this.addressBarTextBox.TabIndex = 0;
@@ -197,7 +197,7 @@
             // addressGoButton
             // 
             this.addressGoButton.Location = new System.Drawing.Point(263, 4);
-            this.addressGoButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.addressGoButton.Margin = new System.Windows.Forms.Padding(4);
             this.addressGoButton.Name = "addressGoButton";
             this.addressGoButton.Size = new System.Drawing.Size(64, 28);
             this.addressGoButton.TabIndex = 1;
@@ -208,7 +208,7 @@
             // addressStopButton
             // 
             this.addressStopButton.Location = new System.Drawing.Point(335, 4);
-            this.addressStopButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.addressStopButton.Margin = new System.Windows.Forms.Padding(4);
             this.addressStopButton.Name = "addressStopButton";
             this.addressStopButton.Size = new System.Drawing.Size(65, 28);
             this.addressStopButton.TabIndex = 2;
@@ -251,7 +251,7 @@
             this.selectorFlowPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.selectorFlowPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.selectorFlowPanel.Location = new System.Drawing.Point(0, 0);
-            this.selectorFlowPanel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.selectorFlowPanel.Margin = new System.Windows.Forms.Padding(4);
             this.selectorFlowPanel.Name = "selectorFlowPanel";
             this.selectorFlowPanel.Size = new System.Drawing.Size(373, 102);
             this.selectorFlowPanel.TabIndex = 0;
@@ -262,7 +262,7 @@
             this.artistComboBox.Enabled = false;
             this.artistComboBox.FormattingEnabled = true;
             this.artistComboBox.Location = new System.Drawing.Point(4, 4);
-            this.artistComboBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.artistComboBox.Margin = new System.Windows.Forms.Padding(4);
             this.artistComboBox.Name = "artistComboBox";
             this.artistComboBox.Size = new System.Drawing.Size(369, 24);
             this.artistComboBox.TabIndex = 0;
@@ -274,7 +274,7 @@
             this.titleComboBox.Enabled = false;
             this.titleComboBox.FormattingEnabled = true;
             this.titleComboBox.Location = new System.Drawing.Point(4, 36);
-            this.titleComboBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.titleComboBox.Margin = new System.Windows.Forms.Padding(4);
             this.titleComboBox.Name = "titleComboBox";
             this.titleComboBox.Size = new System.Drawing.Size(369, 24);
             this.titleComboBox.TabIndex = 1;
@@ -291,7 +291,7 @@
             // 
             this.controlsLogDivider.Panel1.Controls.Add(this.controlFlowPanel);
             this.controlsLogDivider.Size = new System.Drawing.Size(660, 102);
-            this.controlsLogDivider.SplitterDistance = 224;
+            this.controlsLogDivider.SplitterDistance = 223;
             this.controlsLogDivider.TabIndex = 0;
             // 
             // controlFlowPanel
@@ -302,16 +302,16 @@
             this.controlFlowPanel.Controls.Add(this.markModeButton);
             this.controlFlowPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.controlFlowPanel.Location = new System.Drawing.Point(0, 0);
-            this.controlFlowPanel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.controlFlowPanel.Margin = new System.Windows.Forms.Padding(4);
             this.controlFlowPanel.Name = "controlFlowPanel";
-            this.controlFlowPanel.Size = new System.Drawing.Size(224, 102);
+            this.controlFlowPanel.Size = new System.Drawing.Size(223, 102);
             this.controlFlowPanel.TabIndex = 0;
             // 
             // scrollPlayButton
             // 
             this.scrollPlayButton.Enabled = false;
             this.scrollPlayButton.Location = new System.Drawing.Point(4, 4);
-            this.scrollPlayButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.scrollPlayButton.Margin = new System.Windows.Forms.Padding(4);
             this.scrollPlayButton.Name = "scrollPlayButton";
             this.scrollPlayButton.Size = new System.Drawing.Size(100, 28);
             this.scrollPlayButton.TabIndex = 0;
@@ -323,7 +323,7 @@
             // 
             this.scrollStopButton.Enabled = false;
             this.scrollStopButton.Location = new System.Drawing.Point(112, 4);
-            this.scrollStopButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.scrollStopButton.Margin = new System.Windows.Forms.Padding(4);
             this.scrollStopButton.Name = "scrollStopButton";
             this.scrollStopButton.Size = new System.Drawing.Size(100, 28);
             this.scrollStopButton.TabIndex = 1;
@@ -335,7 +335,7 @@
             // 
             this.scrollResetButton.Enabled = false;
             this.scrollResetButton.Location = new System.Drawing.Point(4, 40);
-            this.scrollResetButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.scrollResetButton.Margin = new System.Windows.Forms.Padding(4);
             this.scrollResetButton.Name = "scrollResetButton";
             this.scrollResetButton.Size = new System.Drawing.Size(100, 28);
             this.scrollResetButton.TabIndex = 2;
@@ -347,7 +347,7 @@
             // 
             this.markModeButton.Enabled = false;
             this.markModeButton.Location = new System.Drawing.Point(112, 40);
-            this.markModeButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.markModeButton.Margin = new System.Windows.Forms.Padding(4);
             this.markModeButton.Name = "markModeButton";
             this.markModeButton.Size = new System.Drawing.Size(100, 28);
             this.markModeButton.TabIndex = 3;
