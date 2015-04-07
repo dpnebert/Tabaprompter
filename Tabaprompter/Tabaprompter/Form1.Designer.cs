@@ -60,6 +60,11 @@
             this.importTabToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportTabToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.scrollTimer = new System.Windows.Forms.Timer(this.components);
+            this.scrollStartDelayTable = new System.Windows.Forms.TableLayoutPanel();
+            this.scrollDelayLabel = new System.Windows.Forms.Label();
+            this.scrollDelayTextBox = new System.Windows.Forms.TextBox();
+            this.startDelayLabel = new System.Windows.Forms.Label();
+            this.startDelayTextBox = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.topBottemDivider)).BeginInit();
             this.topBottemDivider.Panel1.SuspendLayout();
             this.topBottemDivider.Panel2.SuspendLayout();
@@ -83,6 +88,7 @@
             this.controlsLogDivider.SuspendLayout();
             this.controlFlowPanel.SuspendLayout();
             this.menuStrip1.SuspendLayout();
+            this.scrollStartDelayTable.SuspendLayout();
             this.SuspendLayout();
             // 
             // topBottemDivider
@@ -243,7 +249,7 @@
             // 
             this.selectorsControlsDivider.Panel2.Controls.Add(this.controlsLogDivider);
             this.selectorsControlsDivider.Size = new System.Drawing.Size(1037, 102);
-            this.selectorsControlsDivider.SplitterDistance = 373;
+            this.selectorsControlsDivider.SplitterDistance = 120;
             this.selectorsControlsDivider.TabIndex = 0;
             // 
             // selectorFlowPanel
@@ -255,7 +261,7 @@
             this.selectorFlowPanel.Location = new System.Drawing.Point(0, 0);
             this.selectorFlowPanel.Margin = new System.Windows.Forms.Padding(4);
             this.selectorFlowPanel.Name = "selectorFlowPanel";
-            this.selectorFlowPanel.Size = new System.Drawing.Size(373, 102);
+            this.selectorFlowPanel.Size = new System.Drawing.Size(120, 102);
             this.selectorFlowPanel.TabIndex = 0;
             // 
             // artistComboBox
@@ -292,8 +298,8 @@
             // controlsLogDivider.Panel1
             // 
             this.controlsLogDivider.Panel1.Controls.Add(this.controlFlowPanel);
-            this.controlsLogDivider.Size = new System.Drawing.Size(660, 102);
-            this.controlsLogDivider.SplitterDistance = 506;
+            this.controlsLogDivider.Size = new System.Drawing.Size(913, 102);
+            this.controlsLogDivider.SplitterDistance = 825;
             this.controlsLogDivider.TabIndex = 0;
             // 
             // controlFlowPanel
@@ -302,11 +308,12 @@
             this.controlFlowPanel.Controls.Add(this.scrollStopButton);
             this.controlFlowPanel.Controls.Add(this.scrollResetButton);
             this.controlFlowPanel.Controls.Add(this.markModeButton);
+            this.controlFlowPanel.Controls.Add(this.scrollStartDelayTable);
             this.controlFlowPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.controlFlowPanel.Location = new System.Drawing.Point(0, 0);
             this.controlFlowPanel.Margin = new System.Windows.Forms.Padding(4);
             this.controlFlowPanel.Name = "controlFlowPanel";
-            this.controlFlowPanel.Size = new System.Drawing.Size(506, 102);
+            this.controlFlowPanel.Size = new System.Drawing.Size(825, 102);
             this.controlFlowPanel.TabIndex = 0;
             // 
             // scrollPlayButton
@@ -438,6 +445,58 @@
             // 
             this.scrollTimer.Tick += new System.EventHandler(this.scrollTimer_Tick);
             // 
+            // scrollStartDelayTable
+            // 
+            this.scrollStartDelayTable.ColumnCount = 4;
+            this.scrollStartDelayTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 52.97619F));
+            this.scrollStartDelayTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 47.02381F));
+            this.scrollStartDelayTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 105F));
+            this.scrollStartDelayTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 83F));
+            this.scrollStartDelayTable.Controls.Add(this.scrollDelayLabel, 0, 0);
+            this.scrollStartDelayTable.Controls.Add(this.scrollDelayTextBox, 1, 0);
+            this.scrollStartDelayTable.Controls.Add(this.startDelayLabel, 2, 0);
+            this.scrollStartDelayTable.Controls.Add(this.startDelayTextBox, 3, 0);
+            this.scrollStartDelayTable.Location = new System.Drawing.Point(435, 3);
+            this.scrollStartDelayTable.Name = "scrollStartDelayTable";
+            this.scrollStartDelayTable.RowCount = 1;
+            this.scrollStartDelayTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.scrollStartDelayTable.Size = new System.Drawing.Size(387, 35);
+            this.scrollStartDelayTable.TabIndex = 4;
+            // 
+            // scrollDelayLabel
+            // 
+            this.scrollDelayLabel.AutoSize = true;
+            this.scrollDelayLabel.Location = new System.Drawing.Point(3, 0);
+            this.scrollDelayLabel.Name = "scrollDelayLabel";
+            this.scrollDelayLabel.Size = new System.Drawing.Size(83, 17);
+            this.scrollDelayLabel.TabIndex = 0;
+            this.scrollDelayLabel.Text = "Scroll Delay";
+            // 
+            // scrollDelayTextBox
+            // 
+            this.scrollDelayTextBox.Location = new System.Drawing.Point(108, 3);
+            this.scrollDelayTextBox.Name = "scrollDelayTextBox";
+            this.scrollDelayTextBox.Size = new System.Drawing.Size(87, 22);
+            this.scrollDelayTextBox.TabIndex = 1;
+            this.scrollDelayTextBox.TextChanged += new System.EventHandler(this.scrollDelayTextBox_TextChanged);
+            // 
+            // startDelayLabel
+            // 
+            this.startDelayLabel.AutoSize = true;
+            this.startDelayLabel.Location = new System.Drawing.Point(201, 0);
+            this.startDelayLabel.Name = "startDelayLabel";
+            this.startDelayLabel.Size = new System.Drawing.Size(78, 17);
+            this.startDelayLabel.TabIndex = 2;
+            this.startDelayLabel.Text = "Start Delay";
+            // 
+            // startDelayTextBox
+            // 
+            this.startDelayTextBox.Location = new System.Drawing.Point(306, 3);
+            this.startDelayTextBox.Name = "startDelayTextBox";
+            this.startDelayTextBox.Size = new System.Drawing.Size(78, 22);
+            this.startDelayTextBox.TabIndex = 3;
+            this.startDelayTextBox.TextChanged += new System.EventHandler(this.startDelayTextBox_TextChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -475,6 +534,8 @@
             this.controlFlowPanel.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.scrollStartDelayTable.ResumeLayout(false);
+            this.scrollStartDelayTable.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -513,6 +574,11 @@
         private System.Windows.Forms.CheckBox enableVideoCheckBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Timer scrollTimer;
+        private System.Windows.Forms.TableLayoutPanel scrollStartDelayTable;
+        private System.Windows.Forms.Label scrollDelayLabel;
+        private System.Windows.Forms.TextBox scrollDelayTextBox;
+        private System.Windows.Forms.Label startDelayLabel;
+        private System.Windows.Forms.TextBox startDelayTextBox;
     }
 }
 

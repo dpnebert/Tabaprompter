@@ -177,6 +177,10 @@ namespace Tabaprompter
             updateVideoUrl(currentTab.videoUrl);
 
             scrollTimer.Interval = tab.scrollDelay;
+            scrollDelayTextBox.Text = tab.scrollDelay.ToString();
+
+
+            startDelayTextBox.Text = tab.startDelay.ToString();
         }
 
 
@@ -203,10 +207,25 @@ namespace Tabaprompter
         void markLabel_Click(object sender, EventArgs e)
         {
             Label label = (Label)sender;
-            label.BackColor = Color.LightGreen;
+            int clicked = int.Parse(label.Name);
+            for (int i = 0; i < currentTab.sections.Count; i++)
+            {
+                if(clicked == currentTab.sections[i].ID)
+                {
+                    currentTab.sections[i].startTime = ms;
+                    if (i == currentTab.sections.Count - 1)
+                    {
+
+                        markMode();
+                    }
+                }
+            }
+                label.BackColor = Color.LightGreen;
             label1.Text = ms.ToString();
             //MessageBox.Show("mark click");
             label1.Click += label1_Click;
+
+
         }
 
         void label1_Click(object sender, EventArgs e)
@@ -291,6 +310,7 @@ namespace Tabaprompter
             for (int i = 0; i < lines.Count; i++)
             {
                 Label markLabel = new Label();
+                markLabel.Name = currentTab.sections[i].ID.ToString();
                 markLabel.Text = lines[i];
                 markLabel.BackColor = getMarkTimeLabelColor();
                 markLabel.AutoSize = true;
@@ -847,7 +867,15 @@ namespace Tabaprompter
         }
         private void markModeButton_Click(object sender, EventArgs e)
         {
-            if(controlState == ControlState.library_tab_loaded_mark_mode)
+
+            markMode();
+            
+            
+        }
+
+        private void markMode()
+        {
+            if (controlState == ControlState.library_tab_loaded_mark_mode)
             {
                 createScrollPanelBanner(currentTab.getSongInfo());
                 setControlState(ControlState.library_tab_loaded_play_mode);
@@ -859,7 +887,6 @@ namespace Tabaprompter
                 setControlState(ControlState.library_tab_loaded_mark_mode);
                 startTimer();
             }
-            
         }
 
 
@@ -944,6 +971,18 @@ namespace Tabaprompter
         private void scrollTimer_Tick(object sender, EventArgs e)
         {
             scrollPanel.Controls[0].Location = new Point(scrollPanel.Controls[0].Location.X, scrollPanel.Controls[0].Location.Y - 1);
+        }
+
+        private void scrollDelayTextBox_TextChanged(object sender, EventArgs e)
+        {
+            currentTab.scrollDelay = int.Parse(scrollDelayTextBox.Text);
+
+            scrollTimer.Interval = currentTab.scrollDelay;
+        }
+
+        private void startDelayTextBox_TextChanged(object sender, EventArgs e)
+        {
+            currentTab.startDelay = int.Parse(startDelayTextBox.Text);
         }
         
 
