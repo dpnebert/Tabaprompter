@@ -44,7 +44,7 @@ namespace Tabaprompter
         internal static Panel buildScrollPanel(Panel panel)
         {
             //panel.BackColor = System.Drawing.Color.Green;//
-            
+            panel.AutoScroll = true;
             return panel;////
         }
         internal static Panel buildMarkPanel(Panel panel)

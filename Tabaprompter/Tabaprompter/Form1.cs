@@ -194,7 +194,7 @@ namespace Tabaprompter
         {
 
             tabVideoDivider.Panel1.Controls.Clear();
-            updateScrollPanel(currentTab.getSectionText());
+            updateScrollPanel(currentTab.sections);
             tabVideoDivider.Panel1.Controls.Add(scrollPanel);
         }
         private void displayMarkPanel()
@@ -279,21 +279,23 @@ namespace Tabaprompter
             FlowLayoutPanel flp = (FlowLayoutPanel)logPanel.Controls[0];
             //logPanel.AutoScrollPosition = new Point(logPanel.AutoScrollPosition.X, logPanel.Height);
         }
-        private void updateScrollPanel(List<string> text)
+        private void updateScrollPanel(List<Section> sections)
         {
-
-            string content = "";
-            for (int i = 0; i < text.Count; i++)
-            {
-                content += text[i];
-            }
             Panel panel = (Panel)scrollPanel;
-            panel.Controls.Clear();
 
-            Label label = new Label();
-            label.Text = content;
-            label.AutoSize = true;
-            panel.Controls.Add(label);
+            panel.Controls.Clear();
+            string content = "";
+            Label label;
+            for (int i = 0; i < sections.Count; i++)
+            {
+                label = new Label();
+                label.Location = new Point(30, sections[i].startTime);
+                label.Text = sections[i].text;
+                label.AutoSize = true;
+                panel.Controls.Add(label);
+            }
+
+            
         }
         private void updateMarkPanel()
         {
@@ -970,7 +972,7 @@ namespace Tabaprompter
 
         private void scrollTimer_Tick(object sender, EventArgs e)
         {
-            scrollPanel.Controls[0].Location = new Point(scrollPanel.Controls[0].Location.X, scrollPanel.Controls[0].Location.Y - 1);
+            scrollPanel.AutoScrollPosition = new Point(scrollPanel.Location.X, scrollPanel.Location.Y + 1);
         }
 
         private void scrollDelayTextBox_TextChanged(object sender, EventArgs e)
