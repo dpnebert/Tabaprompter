@@ -79,7 +79,6 @@ namespace Tabaprompter
             List<string> list = new List<string>();
             list.Add("Welcome to Tabaprompter!");
             createScrollPanelBanner(list);
-            //displayScrollPanel();
             //displayMarkPanel();
 
 
@@ -100,7 +99,6 @@ namespace Tabaprompter
 
             enableVideo = enableVideoCheckBox.Checked;
 
-            scrollTimer.Interval = 1;
 
         }
         
@@ -178,6 +176,7 @@ namespace Tabaprompter
             enableVideo = currentTab.videoEnabled;
             updateVideoUrl(currentTab.videoUrl);
 
+            scrollTimer.Interval = tab.scrollDelay;
         }
 
 
@@ -191,7 +190,7 @@ namespace Tabaprompter
         {
 
             tabVideoDivider.Panel1.Controls.Clear();
-            //updateScrollPanel(text);
+            updateScrollPanel(currentTab.getSectionText());
             tabVideoDivider.Panel1.Controls.Add(scrollPanel);
         }
         private void displayMarkPanel()
@@ -818,6 +817,8 @@ namespace Tabaprompter
         {
             //startTimer(); // is the thread starting the timer or should i do it here?
             //scrollThread.Start();
+
+            displayScrollPanel();
             scrollTimer.Start();
             
         }

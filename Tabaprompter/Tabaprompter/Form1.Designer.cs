@@ -293,7 +293,7 @@
             // 
             this.controlsLogDivider.Panel1.Controls.Add(this.controlFlowPanel);
             this.controlsLogDivider.Size = new System.Drawing.Size(660, 102);
-            this.controlsLogDivider.SplitterDistance = 223;
+            this.controlsLogDivider.SplitterDistance = 506;
             this.controlsLogDivider.TabIndex = 0;
             // 
             // controlFlowPanel
@@ -306,7 +306,7 @@
             this.controlFlowPanel.Location = new System.Drawing.Point(0, 0);
             this.controlFlowPanel.Margin = new System.Windows.Forms.Padding(4);
             this.controlFlowPanel.Name = "controlFlowPanel";
-            this.controlFlowPanel.Size = new System.Drawing.Size(223, 102);
+            this.controlFlowPanel.Size = new System.Drawing.Size(506, 102);
             this.controlFlowPanel.TabIndex = 0;
             // 
             // scrollPlayButton
@@ -336,7 +336,7 @@
             // scrollResetButton
             // 
             this.scrollResetButton.Enabled = false;
-            this.scrollResetButton.Location = new System.Drawing.Point(4, 40);
+            this.scrollResetButton.Location = new System.Drawing.Point(220, 4);
             this.scrollResetButton.Margin = new System.Windows.Forms.Padding(4);
             this.scrollResetButton.Name = "scrollResetButton";
             this.scrollResetButton.Size = new System.Drawing.Size(100, 28);
@@ -348,7 +348,7 @@
             // markModeButton
             // 
             this.markModeButton.Enabled = false;
-            this.markModeButton.Location = new System.Drawing.Point(112, 40);
+            this.markModeButton.Location = new System.Drawing.Point(328, 4);
             this.markModeButton.Margin = new System.Windows.Forms.Padding(4);
             this.markModeButton.Name = "markModeButton";
             this.markModeButton.Size = new System.Drawing.Size(100, 28);
