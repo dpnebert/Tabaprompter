@@ -193,9 +193,15 @@ namespace Tabaprompter
         private void displayScrollPanel()
         {
 
-            tabVideoDivider.Panel1.Controls.Clear();
-            updateScrollPanel(currentTab.sections);
+            offsetStartTime = currentTab.startDelay;
+            offsetScrollTime = currentTab.scrollDelay;
+            //tabVideoDivider.Panel1.Controls.Clear();
+            scrollPanel.Controls.Clear();
+
+            scrollPanel.Paint += scrollPanel_Paint;
             tabVideoDivider.Panel1.Controls.Add(scrollPanel);
+            updateScrollPanel(currentTab.sections);
+
         }
         private void displayMarkPanel()
         {
@@ -262,6 +268,9 @@ namespace Tabaprompter
             panel.Controls.Clear();
             Label label = new Label();
             label.Text = text;
+
+            //label.SendToBack();
+
             label.AutoSize = true;
             label.Location = new Point((panel.Width / 2) - (label.Width / 2), (panel.Height / 2) - (label.Height / 2));
             //label.Location = new Point(50, 50);
@@ -273,28 +282,78 @@ namespace Tabaprompter
 
 
         // Creating panels
+
+
+        public int offsetStartTime { get; set; }
+        public int offsetScrollTime { get; set; }
+
         private void updateLogPanel()
         {
 
             FlowLayoutPanel flp = (FlowLayoutPanel)logPanel.Controls[0];
             //logPanel.AutoScrollPosition = new Point(logPanel.AutoScrollPosition.X, logPanel.Height);
         }
+
+        private void scrollPanel_Paint(object sender, PaintEventArgs e)
+        {
+            Pen blackpen = new Pen(Color.Black, 1);
+            Graphics g = e.Graphics;
+            
+            g.DrawLine(blackpen, 0, scrollPanel.Height / 2, scrollPanel.Width, scrollPanel.Height / 2);
+            g.Dispose();
+        }
+        
         private void updateScrollPanel(List<Section> sections)
         {
             Panel panel = (Panel)scrollPanel;
 
             panel.Controls.Clear();
-            string content = "";
             Label label;
+            List<Label> labels = new List<Label>();
+            int widestLabel = 0;
+
             for (int i = 0; i < sections.Count; i++)
             {
                 label = new Label();
-                label.Location = new Point(30, sections[i].startTime);
+                int time = sections[i].startTime;
+                if(time == 0)
+                {
+                    time = 1;
+                }
+                label.Location = new Point(0, ((time /  offsetScrollTime) + offsetStartTime));
                 label.Text = sections[i].text;
+                label.Font = new Font("Consolas", 11);
                 label.AutoSize = true;
-                panel.Controls.Add(label);
-            }
 
+                if(label.Width > widestLabel)
+                {
+                    widestLabel = label.Width;
+                }
+                //labels.Add(label);
+                panel.Controls.Add(label);
+
+
+
+            }
+            //     new Point((panel.Width / 2) - (label.Width / 2), (panel.Height / 2) - (label.Height / 2));
+            //int labelWidthOffset = (panel.Width / 2) - (widestLabel / 2);
+            int labelWidthOffset = 50;
+
+
+            for (int i = 0; i < sections.Count; i++)
+            {
+                panel.Controls[i].Location = new Point(labelWidthOffset, panel.Controls[i].Location.Y);
+                //label = new Label();
+                //label.Location = new Point(30, sections[i].startTime);
+                //label.Text = sections[i].text;
+                //label.AutoSize = true;
+                //panel.Controls.Add(label);
+            }
+            
+
+
+            //panel.Controls[0].Location = new Point(100, 200);
+            //panel.Controls[1].Location = new Point(200, 200);
             
         }
         private void updateMarkPanel()
@@ -839,7 +898,7 @@ namespace Tabaprompter
         {
             //startTimer(); // is the thread starting the timer or should i do it here?
             //scrollThread.Start();
-
+            
             displayScrollPanel();
             scrollTimer.Start();
             
@@ -976,7 +1035,7 @@ namespace Tabaprompter
             for (int i = 0; i < scrollPanel.Controls.Count; i++)
             {
                 label = (Label)scrollPanel.Controls[i];
-                label.Location = new Point(scrollPanel.Location.X, scrollPanel.Location.Y + 1);
+                label.Location = new Point(label.Location.X, label.Location.Y - 1);
             }
                 
         }
@@ -991,6 +1050,11 @@ namespace Tabaprompter
         private void startDelayTextBox_TextChanged(object sender, EventArgs e)
         {
             currentTab.startDelay = int.Parse(startDelayTextBox.Text);
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+            FlowLayoutPanel flp = (FlowLayoutPanel)((Label)sender).Parent;
         }
         
 
