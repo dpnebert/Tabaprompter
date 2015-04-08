@@ -20,7 +20,7 @@ namespace Tabaprompter
         //Boolean playing;
         private System.Timers.Timer timer;
         public int ms { get; set; }
-
+        public int scrollDelay { get; set; }
         Panel logPanel;
         Panel scrollPanel;
         Panel markPanel;
@@ -50,6 +50,8 @@ namespace Tabaprompter
             libraryFilter = "Tab Library files (*.tlib)|*.tlib|All files (*.*)|*.*";
 
             InitializeComponent();
+
+            scrollDelay = 90;
 
         }
         private void Form1_Load(object sender, EventArgs e)
@@ -119,6 +121,7 @@ namespace Tabaprompter
         void timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
             ms++;
+            Thread.Sleep(scrollDelay);
         }
 
 
@@ -176,8 +179,11 @@ namespace Tabaprompter
             enableVideo = currentTab.videoEnabled;
             updateVideoUrl(currentTab.videoUrl);
 
-            scrollTimer.Interval = tab.scrollDelay;
+            //scrollTimer.Interval = tab.scrollDelay;
+            //scrollDelayTextBox.Text = tab.scrollDelay.ToString();
             scrollDelayTextBox.Text = tab.scrollDelay.ToString();
+            scrollDelay = tab.scrollDelay;
+            
 
 
             startDelayTextBox.Text = tab.startDelay.ToString();
@@ -320,7 +326,6 @@ namespace Tabaprompter
                 {
                     time = 1;
                 }
-                label.Location = new Point(0, ((time /  offsetScrollTime) + offsetStartTime));
                 label.Text = sections[i].text;
                 label.Font = new Font("Consolas", 11);
                 label.AutoSize = true;
@@ -329,6 +334,10 @@ namespace Tabaprompter
                 {
                     widestLabel = label.Width;
                 }
+                int xOff = (panel.Width / 2) - (widestLabel / 2);
+
+                label.Location = new Point(xOff, sections[i].startTime + offsetStartTime);
+
                 //labels.Add(label);
                 panel.Controls.Add(label);
 
@@ -342,7 +351,7 @@ namespace Tabaprompter
 
             for (int i = 0; i < sections.Count; i++)
             {
-                panel.Controls[i].Location = new Point(labelWidthOffset, panel.Controls[i].Location.Y);
+                panel.Controls[i].Location = new Point(labelWidthOffset, (panel.Controls[i].Location.Y));
                 //label = new Label();
                 //label.Location = new Point(30, sections[i].startTime);
                 //label.Text = sections[i].text;
