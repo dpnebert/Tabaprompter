@@ -18,8 +18,10 @@ namespace Tabaprompter
         //Colors colors = 
         int markBgRBColor = 0;
         //Boolean playing;
-        private System.Timers.Timer timer;
-        public int ms { get; set; }
+        //private System.Timers.Timer timer;
+        private System.Windows.Forms.Timer timer;
+        
+        public int time { get; set; }
         public int scrollDelay { get; set; }
         Panel logPanel;
         Panel scrollPanel;
@@ -103,25 +105,34 @@ namespace Tabaprompter
 
 
         }
-        
 
 
-        
 
-        private System.Timers.Timer initTimer()
+
+
+        private System.Windows.Forms.Timer initTimer(int intervel)
         {
-            timer = new System.Timers.Timer();
-            timer.Interval = 1;
-            timer.Elapsed += timer_Elapsed;
-            //timer.Tick += tick;
-            ms = 0;
+            timer = new System.Windows.Forms.Timer();
+            timer.Interval = intervel;
+            //timer.Elapsed += timer_Elapsed;
+            timer.Tick += tick;//scrollTimer_Tick
+            time = 0;
             return timer;
+        }
+
+        private void tick(object sender, EventArgs e)
+        {
+            if (controlState == ControlState.library_tab_loaded_play_mode)
+            {
+                scrollLabels();
+            }
+            time++;
         }
 
         void timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
-            ms++;
-            Thread.Sleep(scrollDelay);
+            
+            //Thread.Sleep(scrollDelay);
         }
 
 
@@ -224,7 +235,7 @@ namespace Tabaprompter
             {
                 if(clicked == currentTab.sections[i].ID)
                 {
-                    currentTab.sections[i].startTime = ms;
+                    currentTab.sections[i].startTime = time;
                     if (i == currentTab.sections.Count - 1)
                     {
 
@@ -233,7 +244,7 @@ namespace Tabaprompter
                 }
             }
                 label.BackColor = Color.LightGreen;
-            label1.Text = ms.ToString();
+                label1.Text = time.ToString();
             //MessageBox.Show("mark click");
             label1.Click += label1_Click;
 
@@ -242,7 +253,7 @@ namespace Tabaprompter
 
         void label1_Click(object sender, EventArgs e)
         {
-            label1.Text = ms.ToString();
+            label1.Text = time.ToString();
         }
         private void markTimeLabelColorReset()
         {
@@ -321,7 +332,7 @@ namespace Tabaprompter
             for (int i = 0; i < sections.Count; i++)
             {
                 label = new Label();
-                int time = sections[i].startTime;
+                int time = sections[i].startTime + (scrollPanel.Height / 2);
                 if(time == 0)
                 {
                     time = 1;
@@ -336,7 +347,7 @@ namespace Tabaprompter
                 }
                 int xOff = (panel.Width / 2) - (widestLabel / 2);
 
-                label.Location = new Point(xOff, sections[i].startTime + offsetStartTime);
+                label.Location = new Point(xOff, time + offsetStartTime);
 
                 //labels.Add(label);
                 panel.Controls.Add(label);
@@ -474,7 +485,7 @@ namespace Tabaprompter
             else if (controlState == ControlState.library_loaded)
             {
 
-                label1.Text = ms.ToString();
+                label1.Text = time.ToString();
 
 
                 log("Control State: Library loaded");
@@ -907,18 +918,18 @@ namespace Tabaprompter
         {
             //startTimer(); // is the thread starting the timer or should i do it here?
             //scrollThread.Start();
-            
+            setControlState(ControlState.library_tab_loaded_play_mode);
             displayScrollPanel();
-            scrollTimer.Start();
+            startTimer(scrollDelay);
             
         }
 
 
-        private void startTimer()
+        private void startTimer(int intervel)
         {
             //Object o = (Thread)timerThread;
 
-            timer = initTimer();
+            timer = initTimer(intervel);
             timer.Start();
         }
         private void stopTimer()
@@ -928,8 +939,8 @@ namespace Tabaprompter
         private void scrollStopButton_Click(object sender, EventArgs e)
         {
 
-            scrollTimer.Stop();
-            //stopTimer();
+            //scrollTimer.Stop();
+            stopTimer();
         }
         private void scrollResetButton_Click(object sender, EventArgs e)
         {
@@ -955,7 +966,7 @@ namespace Tabaprompter
             {
                 displayMarkPanel();
                 setControlState(ControlState.library_tab_loaded_mark_mode);
-                startTimer();
+                startTimer(scrollDelay);
             }
         }
 
@@ -1038,7 +1049,7 @@ namespace Tabaprompter
             webBrowser.Stop();
         }
 
-        private void scrollTimer_Tick(object sender, EventArgs e)
+        private void scrollLabels()
         {
             Label label;
             for (int i = 0; i < scrollPanel.Controls.Count; i++)

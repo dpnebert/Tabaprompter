@@ -129,7 +129,7 @@
             // 
             this.browserAddressDivider.Dock = System.Windows.Forms.DockStyle.Fill;
             this.browserAddressDivider.Location = new System.Drawing.Point(0, 0);
-            this.browserAddressDivider.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.browserAddressDivider.Margin = new System.Windows.Forms.Padding(4);
             this.browserAddressDivider.Name = "browserAddressDivider";
             this.browserAddressDivider.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -149,7 +149,7 @@
             // 
             this.webBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
             this.webBrowser.Location = new System.Drawing.Point(0, 0);
-            this.webBrowser.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.webBrowser.Margin = new System.Windows.Forms.Padding(4);
             this.webBrowser.MinimumSize = new System.Drawing.Size(27, 25);
             this.webBrowser.Name = "webBrowser";
             this.webBrowser.Size = new System.Drawing.Size(603, 139);
@@ -160,7 +160,7 @@
             this.videoAddressBarPanel.Controls.Add(this.flowLayoutPanel1);
             this.videoAddressBarPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.videoAddressBarPanel.Location = new System.Drawing.Point(0, 0);
-            this.videoAddressBarPanel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.videoAddressBarPanel.Margin = new System.Windows.Forms.Padding(4);
             this.videoAddressBarPanel.Name = "videoAddressBarPanel";
             this.videoAddressBarPanel.Size = new System.Drawing.Size(603, 48);
             this.videoAddressBarPanel.TabIndex = 0;
@@ -175,7 +175,7 @@
             this.flowLayoutPanel1.Controls.Add(this.label2);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(4);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(603, 48);
             this.flowLayoutPanel1.TabIndex = 0;
@@ -199,7 +199,7 @@
             this.addressBarTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.addressBarTextBox.Location = new System.Drawing.Point(76, 4);
-            this.addressBarTextBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.addressBarTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.addressBarTextBox.Name = "addressBarTextBox";
             this.addressBarTextBox.Size = new System.Drawing.Size(179, 22);
             this.addressBarTextBox.TabIndex = 0;
@@ -207,7 +207,7 @@
             // addressGoButton
             // 
             this.addressGoButton.Location = new System.Drawing.Point(263, 4);
-            this.addressGoButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.addressGoButton.Margin = new System.Windows.Forms.Padding(4);
             this.addressGoButton.Name = "addressGoButton";
             this.addressGoButton.Size = new System.Drawing.Size(64, 28);
             this.addressGoButton.TabIndex = 1;
@@ -218,7 +218,7 @@
             // addressStopButton
             // 
             this.addressStopButton.Location = new System.Drawing.Point(335, 4);
-            this.addressStopButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.addressStopButton.Margin = new System.Windows.Forms.Padding(4);
             this.addressStopButton.Name = "addressStopButton";
             this.addressStopButton.Size = new System.Drawing.Size(65, 28);
             this.addressStopButton.TabIndex = 2;
@@ -272,7 +272,7 @@
             this.selectorFlowPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.selectorFlowPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.selectorFlowPanel.Location = new System.Drawing.Point(0, 0);
-            this.selectorFlowPanel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.selectorFlowPanel.Margin = new System.Windows.Forms.Padding(4);
             this.selectorFlowPanel.Name = "selectorFlowPanel";
             this.selectorFlowPanel.Size = new System.Drawing.Size(119, 103);
             this.selectorFlowPanel.TabIndex = 0;
@@ -283,7 +283,7 @@
             this.artistComboBox.Enabled = false;
             this.artistComboBox.FormattingEnabled = true;
             this.artistComboBox.Location = new System.Drawing.Point(4, 4);
-            this.artistComboBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.artistComboBox.Margin = new System.Windows.Forms.Padding(4);
             this.artistComboBox.Name = "artistComboBox";
             this.artistComboBox.Size = new System.Drawing.Size(369, 24);
             this.artistComboBox.TabIndex = 0;
@@ -295,7 +295,7 @@
             this.titleComboBox.Enabled = false;
             this.titleComboBox.FormattingEnabled = true;
             this.titleComboBox.Location = new System.Drawing.Point(4, 36);
-            this.titleComboBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.titleComboBox.Margin = new System.Windows.Forms.Padding(4);
             this.titleComboBox.Name = "titleComboBox";
             this.titleComboBox.Size = new System.Drawing.Size(369, 24);
             this.titleComboBox.TabIndex = 1;
@@ -324,7 +324,7 @@
             this.controlFlowPanel.Controls.Add(this.scrollStartDelayTable);
             this.controlFlowPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.controlFlowPanel.Location = new System.Drawing.Point(0, 0);
-            this.controlFlowPanel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.controlFlowPanel.Margin = new System.Windows.Forms.Padding(4);
             this.controlFlowPanel.Name = "controlFlowPanel";
             this.controlFlowPanel.Size = new System.Drawing.Size(824, 103);
             this.controlFlowPanel.TabIndex = 0;
@@ -333,7 +333,7 @@
             // 
             this.scrollPlayButton.Enabled = false;
             this.scrollPlayButton.Location = new System.Drawing.Point(4, 4);
-            this.scrollPlayButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.scrollPlayButton.Margin = new System.Windows.Forms.Padding(4);
             this.scrollPlayButton.Name = "scrollPlayButton";
             this.scrollPlayButton.Size = new System.Drawing.Size(100, 28);
             this.scrollPlayButton.TabIndex = 0;
@@ -345,7 +345,7 @@
             // 
             this.scrollStopButton.Enabled = false;
             this.scrollStopButton.Location = new System.Drawing.Point(112, 4);
-            this.scrollStopButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.scrollStopButton.Margin = new System.Windows.Forms.Padding(4);
             this.scrollStopButton.Name = "scrollStopButton";
             this.scrollStopButton.Size = new System.Drawing.Size(100, 28);
             this.scrollStopButton.TabIndex = 1;
@@ -357,7 +357,7 @@
             // 
             this.scrollResetButton.Enabled = false;
             this.scrollResetButton.Location = new System.Drawing.Point(220, 4);
-            this.scrollResetButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.scrollResetButton.Margin = new System.Windows.Forms.Padding(4);
             this.scrollResetButton.Name = "scrollResetButton";
             this.scrollResetButton.Size = new System.Drawing.Size(100, 28);
             this.scrollResetButton.TabIndex = 2;
@@ -369,7 +369,7 @@
             // 
             this.markModeButton.Enabled = false;
             this.markModeButton.Location = new System.Drawing.Point(328, 4);
-            this.markModeButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.markModeButton.Margin = new System.Windows.Forms.Padding(4);
             this.markModeButton.Name = "markModeButton";
             this.markModeButton.Size = new System.Drawing.Size(100, 28);
             this.markModeButton.TabIndex = 3;
@@ -383,7 +383,7 @@
             this.scrollStartDelayTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 52.97619F));
             this.scrollStartDelayTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 47.02381F));
             this.scrollStartDelayTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 105F));
-            this.scrollStartDelayTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 85F));
+            this.scrollStartDelayTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 87F));
             this.scrollStartDelayTable.Controls.Add(this.scrollDelayLabel, 0, 0);
             this.scrollStartDelayTable.Controls.Add(this.scrollDelayTextBox, 1, 0);
             this.scrollStartDelayTable.Controls.Add(this.startDelayLabel, 2, 0);
@@ -407,7 +407,7 @@
             // 
             // scrollDelayTextBox
             // 
-            this.scrollDelayTextBox.Location = new System.Drawing.Point(107, 2);
+            this.scrollDelayTextBox.Location = new System.Drawing.Point(106, 2);
             this.scrollDelayTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.scrollDelayTextBox.Name = "scrollDelayTextBox";
             this.scrollDelayTextBox.Size = new System.Drawing.Size(85, 22);
@@ -417,7 +417,7 @@
             // startDelayLabel
             // 
             this.startDelayLabel.AutoSize = true;
-            this.startDelayLabel.Location = new System.Drawing.Point(199, 0);
+            this.startDelayLabel.Location = new System.Drawing.Point(197, 0);
             this.startDelayLabel.Name = "startDelayLabel";
             this.startDelayLabel.Size = new System.Drawing.Size(78, 17);
             this.startDelayLabel.TabIndex = 2;
@@ -425,7 +425,7 @@
             // 
             // startDelayTextBox
             // 
-            this.startDelayTextBox.Location = new System.Drawing.Point(304, 2);
+            this.startDelayTextBox.Location = new System.Drawing.Point(302, 2);
             this.startDelayTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.startDelayTextBox.Name = "startDelayTextBox";
             this.startDelayTextBox.Size = new System.Drawing.Size(79, 22);
@@ -508,10 +508,6 @@
             this.exportTabToolStripMenuItem.Size = new System.Drawing.Size(178, 24);
             this.exportTabToolStripMenuItem.Text = "Export Tab";
             this.exportTabToolStripMenuItem.Click += new System.EventHandler(this.exportTabToolStripMenuItem_Click);
-            // 
-            // scrollTimer
-            // 
-            this.scrollTimer.Tick += new System.EventHandler(this.scrollTimer_Tick);
             // 
             // Form1
             // 
