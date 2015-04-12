@@ -15,10 +15,7 @@ namespace Tabaprompter
     public partial class Form1 : Form
     {
         Color myRgbColor = Color.FromArgb(0, 255, 0);
-        //Colors colors = 
         int markBgRBColor = 0;
-        //Boolean playing;
-        //private System.Timers.Timer timer;
         private System.Windows.Forms.Timer timer;
         
         public int time { get; set; }
@@ -27,11 +24,6 @@ namespace Tabaprompter
         Panel scrollPanel;
         Panel markPanel;
         
-        /*
-        Panel selectorPanel;
-        Panel controlPanel;
-        */
-
         ControlState controlState;
         SavedState savedState;
 
@@ -62,48 +54,25 @@ namespace Tabaprompter
             logPanel = PanelTools.createDefaultPanel("log");
             scrollPanel = PanelTools.createDefaultPanel("scroll");
             markPanel = PanelTools.createDefaultPanel("mark");
-
-            /*
-            selectorPanel = PanelTools.createDefaultPanel("selector");
-            controlPanel = PanelTools.createDefaultPanel("control");
-            */
-
+            
             logPanel = PanelTools.buildLogPanel(logPanel);
             scrollPanel = PanelTools.buildScrollPanel(scrollPanel);
             markPanel = PanelTools.buildMarkPanel(markPanel);
-
-            /*
-            selectorPanel = PanelTools.buildSelectorPanel(selectorPanel);
-            controlPanel = PanelTools.buildControlPanel(controlPanel);
-            */
-
-
-
+            
             displayLogPanel();
             List<string> list = new List<string>();
             list.Add("Welcome to Tabaprompter!");
             createScrollPanelBanner(list);
-            //displayMarkPanel();
-
-
-
-            /*
-            displaySelectorPanel();
-            displayControlPanel();
-            */
+            
 
             // Init Selector
             artistComboBox.Text = "Artist";
             artistComboBox.SelectedIndexChanged += artistComboBox_SelectedIndexChanged;
             titleComboBox.Text = "Title";
 
-
             initLibrary();
-
-
+            
             enableVideo = enableVideoCheckBox.Checked;
-
-
         }
 
 
@@ -114,8 +83,7 @@ namespace Tabaprompter
         {
             timer = new System.Windows.Forms.Timer();
             timer.Interval = intervel;
-            //timer.Elapsed += timer_Elapsed;
-            timer.Tick += tick;//scrollTimer_Tick
+            timer.Tick += tick;
             time = 0;
             return timer;
         }
@@ -129,19 +97,6 @@ namespace Tabaprompter
             time++;
         }
 
-        void timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
-        {
-            
-            //Thread.Sleep(scrollDelay);
-        }
-
-
-        /*
-        private void tick(object sender, EventArgs e)
-        {
-            ms++;
-        }
-        */
 
         private void initLibrary()
         {
@@ -348,33 +303,15 @@ namespace Tabaprompter
                 int xOff = (panel.Width / 2) - (widestLabel / 2);
 
                 label.Location = new Point(xOff, time + offsetStartTime);
-
-                //labels.Add(label);
                 panel.Controls.Add(label);
-
-
-
             }
-            //     new Point((panel.Width / 2) - (label.Width / 2), (panel.Height / 2) - (label.Height / 2));
-            //int labelWidthOffset = (panel.Width / 2) - (widestLabel / 2);
             int labelWidthOffset = 50;
 
 
             for (int i = 0; i < sections.Count; i++)
             {
                 panel.Controls[i].Location = new Point(labelWidthOffset, (panel.Controls[i].Location.Y));
-                //label = new Label();
-                //label.Location = new Point(30, sections[i].startTime);
-                //label.Text = sections[i].text;
-                //label.AutoSize = true;
-                //panel.Controls.Add(label);
             }
-            
-
-
-            //panel.Controls[0].Location = new Point(100, 200);
-            //panel.Controls[1].Location = new Point(200, 200);
-            
         }
         private void updateMarkPanel()
         {
@@ -927,8 +864,6 @@ namespace Tabaprompter
 
         private void startTimer(int intervel)
         {
-            //Object o = (Thread)timerThread;
-
             timer = initTimer(intervel);
             timer.Start();
         }
@@ -938,8 +873,6 @@ namespace Tabaprompter
         }
         private void scrollStopButton_Click(object sender, EventArgs e)
         {
-
-            //scrollTimer.Stop();
             stopTimer();
         }
         private void scrollResetButton_Click(object sender, EventArgs e)
@@ -948,10 +881,7 @@ namespace Tabaprompter
         }
         private void markModeButton_Click(object sender, EventArgs e)
         {
-
             markMode();
-            
-            
         }
 
         private void markMode()
