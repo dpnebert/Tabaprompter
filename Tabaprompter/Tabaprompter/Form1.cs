@@ -15,6 +15,16 @@ namespace Tabaprompter
     public partial class Form1 : Form
     {
 
+        // Section Label Colors
+        public Color verseLabelColor { get; set; }
+        public Color chorusLabelColor { get; set; }
+        public Color bridgeLabelColor { get; set; }
+        public Color hookLabelColor { get; set; }
+        public Color refrainLabelColor { get; set; }
+
+
+
+
         // temp
         public int markCount { get; set; }
         public int scrollCount { get; set; }
@@ -60,11 +70,43 @@ namespace Tabaprompter
 
             timer = new System.Timers.Timer();
             timer.Elapsed += timer_Elapsed;
+
+
+
+            verseLabelColor = Color.ForestGreen;
+            chorusLabelColor  = Color.Gainsboro;
+            bridgeLabelColor  = Color.Goldenrod;
+            hookLabelColor  = Color.Honeydew;
+            refrainLabelColor = Color.Indigo;
+
         }
 
 
 
-
+        private Color getSectionLabelColor(Element element)
+        {
+            if(element == Element.bridge)
+            {
+                return bridgeLabelColor;
+            }
+            else if(element == Element.chorus)
+            {
+                return chorusLabelColor;
+            }
+            else if(element == Element.hook)
+            {
+                return hookLabelColor;
+            }
+            else if(element == Element.refrain)
+            {
+                return refrainLabelColor;
+            }
+            else if(element == Element.verse)
+            {
+                return verseLabelColor;
+            }
+            return Color.Firebrick;
+        }
         private void Form1_Load(object sender, EventArgs e)
         {
 
@@ -126,14 +168,20 @@ namespace Tabaprompter
             ms++;
 
         }
-
-
         public void SetLabel()
         {
             if (this.scrollPanel.InvokeRequired)
             {
                 SetTextCallback d = new SetTextCallback(SetLabel);
-                this.Invoke(d, new object[] { });
+                try
+                {
+                    this.Invoke(d, new object[] { });
+                }
+                catch(Exception e)
+                {
+                    timer.Stop();
+                }
+                
             }
             else
             {
@@ -354,8 +402,15 @@ namespace Tabaprompter
             for (int i = 0; i < sections.Count; i++)
             {
                 label = new Label();
-                Color myColor = Color.FromArgb(50, label.BackColor);
-                label.BackColor = myColor;
+                
+
+
+
+                label.BackColor = getSectionLabelColor(currentTab.sections[i].element);
+                label.BorderStyle = BorderStyle.Fixed3D;
+                
+                label.Padding = new Padding(10, 10, 10, 10);
+                
                 int time = sections[i].startTime;
                 if(time == 0)
                 {
