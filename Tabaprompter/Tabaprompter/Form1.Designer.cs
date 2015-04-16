@@ -65,7 +65,6 @@
             this.importTabToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportTabToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.scrollTimer = new System.Windows.Forms.Timer(this.components);
-            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.topBottemDivider)).BeginInit();
             this.topBottemDivider.Panel1.SuspendLayout();
             this.topBottemDivider.Panel2.SuspendLayout();
@@ -96,7 +95,7 @@
             // 
             this.topBottemDivider.Dock = System.Windows.Forms.DockStyle.Fill;
             this.topBottemDivider.Location = new System.Drawing.Point(0, 24);
-            this.topBottemDivider.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.topBottemDivider.Margin = new System.Windows.Forms.Padding(2);
             this.topBottemDivider.Name = "topBottemDivider";
             this.topBottemDivider.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -116,7 +115,7 @@
             // 
             this.tabVideoDivider.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabVideoDivider.Location = new System.Drawing.Point(0, 0);
-            this.tabVideoDivider.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabVideoDivider.Margin = new System.Windows.Forms.Padding(2);
             this.tabVideoDivider.Name = "tabVideoDivider";
             // 
             // tabVideoDivider.Panel2
@@ -170,7 +169,6 @@
             this.flowLayoutPanel1.Controls.Add(this.addressGoButton);
             this.flowLayoutPanel1.Controls.Add(this.addressStopButton);
             this.flowLayoutPanel1.Controls.Add(this.label1);
-            this.flowLayoutPanel1.Controls.Add(this.label2);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
@@ -183,7 +181,7 @@
             this.enableVideoCheckBox.Checked = true;
             this.enableVideoCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
             this.enableVideoCheckBox.Location = new System.Drawing.Point(2, 2);
-            this.enableVideoCheckBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.enableVideoCheckBox.Margin = new System.Windows.Forms.Padding(2);
             this.enableVideoCheckBox.Name = "enableVideoCheckBox";
             this.enableVideoCheckBox.Size = new System.Drawing.Size(53, 17);
             this.enableVideoCheckBox.TabIndex = 3;
@@ -233,7 +231,7 @@
             // 
             this.selectorsControlsDivider.Dock = System.Windows.Forms.DockStyle.Fill;
             this.selectorsControlsDivider.Location = new System.Drawing.Point(0, 0);
-            this.selectorsControlsDivider.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.selectorsControlsDivider.Margin = new System.Windows.Forms.Padding(2);
             this.selectorsControlsDivider.Name = "selectorsControlsDivider";
             // 
             // selectorsControlsDivider.Panel1
@@ -285,7 +283,7 @@
             // 
             this.controlsLogDivider.Dock = System.Windows.Forms.DockStyle.Fill;
             this.controlsLogDivider.Location = new System.Drawing.Point(0, 0);
-            this.controlsLogDivider.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.controlsLogDivider.Margin = new System.Windows.Forms.Padding(2);
             this.controlsLogDivider.Name = "controlsLogDivider";
             // 
             // controlsLogDivider.Panel1
@@ -359,13 +357,13 @@
             this.scrollStartDelayTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 52.97619F));
             this.scrollStartDelayTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 47.02381F));
             this.scrollStartDelayTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 79F));
-            this.scrollStartDelayTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 63F));
+            this.scrollStartDelayTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 66F));
             this.scrollStartDelayTable.Controls.Add(this.scrollDelayLabel, 0, 0);
             this.scrollStartDelayTable.Controls.Add(this.scrollDelayTextBox, 1, 0);
             this.scrollStartDelayTable.Controls.Add(this.startDelayLabel, 2, 0);
             this.scrollStartDelayTable.Controls.Add(this.startDelayTextBox, 3, 0);
             this.scrollStartDelayTable.Location = new System.Drawing.Point(326, 2);
-            this.scrollStartDelayTable.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.scrollStartDelayTable.Margin = new System.Windows.Forms.Padding(2);
             this.scrollStartDelayTable.Name = "scrollStartDelayTable";
             this.scrollStartDelayTable.RowCount = 1;
             this.scrollStartDelayTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -384,17 +382,17 @@
             // 
             // scrollDelayTextBox
             // 
-            this.scrollDelayTextBox.Location = new System.Drawing.Point(80, 2);
-            this.scrollDelayTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.scrollDelayTextBox.Location = new System.Drawing.Point(78, 2);
+            this.scrollDelayTextBox.Margin = new System.Windows.Forms.Padding(2);
             this.scrollDelayTextBox.Name = "scrollDelayTextBox";
-            this.scrollDelayTextBox.Size = new System.Drawing.Size(65, 20);
+            this.scrollDelayTextBox.Size = new System.Drawing.Size(64, 20);
             this.scrollDelayTextBox.TabIndex = 1;
             this.scrollDelayTextBox.TextChanged += new System.EventHandler(this.scrollDelayTextBox_TextChanged);
             // 
             // startDelayLabel
             // 
             this.startDelayLabel.AutoSize = true;
-            this.startDelayLabel.Location = new System.Drawing.Point(149, 0);
+            this.startDelayLabel.Location = new System.Drawing.Point(146, 0);
             this.startDelayLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.startDelayLabel.Name = "startDelayLabel";
             this.startDelayLabel.Size = new System.Drawing.Size(59, 13);
@@ -403,8 +401,8 @@
             // 
             // startDelayTextBox
             // 
-            this.startDelayTextBox.Location = new System.Drawing.Point(228, 2);
-            this.startDelayTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.startDelayTextBox.Location = new System.Drawing.Point(225, 2);
+            this.startDelayTextBox.Margin = new System.Windows.Forms.Padding(2);
             this.startDelayTextBox.Name = "startDelayTextBox";
             this.startDelayTextBox.Size = new System.Drawing.Size(60, 20);
             this.startDelayTextBox.TabIndex = 3;
@@ -487,20 +485,6 @@
             this.exportTabToolStripMenuItem.Text = "Export Tab";
             this.exportTabToolStripMenuItem.Click += new System.EventHandler(this.exportTabToolStripMenuItem_Click);
             // 
-            // scrollTimer
-            // 
-            this.scrollTimer.Tick += new System.EventHandler(this.scrollTimer_Tick);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(351, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(35, 13);
-            this.label2.TabIndex = 5;
-            this.label2.Text = "label2";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -509,7 +493,7 @@
             this.Controls.Add(this.topBottemDivider);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -583,7 +567,6 @@
         private System.Windows.Forms.TextBox scrollDelayTextBox;
         private System.Windows.Forms.Label startDelayLabel;
         private System.Windows.Forms.TextBox startDelayTextBox;
-        private System.Windows.Forms.Label label2;
     }
 }
 

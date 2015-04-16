@@ -14,6 +14,13 @@ namespace Tabaprompter
 {
     public partial class Form1 : Form
     {
+
+        // temp
+        public int markCount { get; set; }
+        public int scrollCount { get; set; }
+
+
+
         Color myRgbColor = Color.FromArgb(0, 255, 0);
         //Colors colors = 
         int markBgRBColor = 0;
@@ -51,7 +58,13 @@ namespace Tabaprompter
 
             InitializeComponent();
 
+            timer = new System.Timers.Timer();
+            timer.Elapsed += timer_Elapsed;
         }
+
+
+
+
         private void Form1_Load(object sender, EventArgs e)
         {
 
@@ -89,9 +102,9 @@ namespace Tabaprompter
             */
 
             // Init Selector
-            artistComboBox.Text = "Artist";
+            //artistComboBox.Text = "Artist";
             artistComboBox.SelectedIndexChanged += artistComboBox_SelectedIndexChanged;
-            titleComboBox.Text = "Title";
+            //titleComboBox.Text = "Title";
 
 
             initLibrary();
@@ -104,21 +117,47 @@ namespace Tabaprompter
         
 
 
-        
-
-        private System.Timers.Timer initTimer()
-        {
-            timer = new System.Timers.Timer();
-            timer.Interval = 1;
-            timer.Elapsed += timer_Elapsed;
-            //timer.Tick += tick;
-            ms = 0;
-            return timer;
-        }
-
+        delegate void SetTextCallback();
         void timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
+
+            SetLabel();
+            SetText();
             ms++;
+
+        }
+
+
+        public void SetLabel()
+        {
+            if (this.scrollPanel.InvokeRequired)
+            {
+                SetTextCallback d = new SetTextCallback(SetLabel);
+                this.Invoke(d, new object[] { });
+            }
+            else
+            {
+                for (int i = 0; i < scrollPanel.Controls.Count; i++)
+                {
+                    scrollPanel.Controls[i].Location = new Point(scrollPanel.Controls[i].Location.X, scrollPanel.Controls[i].Location.Y - 1);
+                }
+            }
+        }
+
+
+
+
+        public void SetText()
+        {
+            if (this.flowLayoutPanel1.InvokeRequired)
+            {
+                SetTextCallback d = new SetTextCallback(SetText);
+                this.Invoke(d, new object[] { });
+            }
+            else
+            {
+                label1.Text = ms.ToString();
+            }
         }
 
 
@@ -227,9 +266,9 @@ namespace Tabaprompter
                 }
             }
                 label.BackColor = Color.LightGreen;
-            label1.Text = ms.ToString();
+            //label1.Text = ms.ToString();
             //MessageBox.Show("mark click");
-            label1.Click += label1_Click;
+            //label1.Click += label1_Click;
 
 
         }
@@ -315,12 +354,14 @@ namespace Tabaprompter
             for (int i = 0; i < sections.Count; i++)
             {
                 label = new Label();
+                Color myColor = Color.FromArgb(50, label.BackColor);
+                label.BackColor = myColor;
                 int time = sections[i].startTime;
                 if(time == 0)
                 {
                     time = 1;
                 }
-                label.Location = new Point(0, ((time /  offsetScrollTime) + offsetStartTime));
+                label.Location = new Point(0, (sections[i].startTime + offsetStartTime));
                 label.Text = sections[i].text;
                 label.Font = new Font("Consolas", 11);
                 label.AutoSize = true;
@@ -455,8 +496,8 @@ namespace Tabaprompter
 
 
                 // Selector
-                artistComboBox.Enabled = false;
-                titleComboBox.Enabled = false;
+                //artistComboBox.Enabled = false;
+                //titleComboBox.Enabled = false;
 
                 
                 // Set web browser to a blank page
@@ -745,8 +786,10 @@ namespace Tabaprompter
 
             // ask for filename to save as
             string filename = selectFile(new SaveFileDialog(), libraryFilter);
-            saveLibrary(filename);
-
+            if (!bEmptyString(filename))
+            {
+                saveLibrary(filename);
+            }
 
         }
         private void saveLibrary(string path)
@@ -784,6 +827,8 @@ namespace Tabaprompter
         {
             artistComboBox.Items.Clear();
             titleComboBox.Items.Clear();
+            artistComboBox.Text = "Artist";
+            titleComboBox.Text = "Title";
         }
         private void updateComboBoxes(int artist)
         {
@@ -839,9 +884,10 @@ namespace Tabaprompter
         {
             // get path with open dialog
             string path = selectFile(new SaveFileDialog(), tabFilter);
-
-            exportTab(path);
-
+            if (!bEmptyString(path))
+            {
+                exportTab(path);
+            }
         }
 
         private void exportTab(string path)
@@ -861,35 +907,54 @@ namespace Tabaprompter
         private void openLibraryToolStripMenuItem_Click(object sender, EventArgs e)
         {
             
-            string temp = createTempDir("tabaprompter\\");
 
             // open opendialog and get filename
             string path = selectFile(new OpenFileDialog(), libraryFilter);
-            ZipTools.unzip(path, temp);
-            string[] files = Directory.GetFiles(temp);
-            for (int i = 0; i < files.Length; i++)
+            if (!bEmptyString(path))
             {
-                importTab(files[i]);
-            }
+                string temp = createTempDir("tabaprompter\\");
+                ZipTools.unzip(path, temp);
+                string[] files = Directory.GetFiles(temp);
+                for (int i = 0; i < files.Length; i++)
+                {
+                    importTab(files[i]);
+                }
 
                 // remove temp dir
                 removeTempDir(temp);
+            }
             
+            
+        }
+        private Boolean bEmptyString(string path)
+        {
+            if(path.Equals(""))
+            {
+                return true;
+            }
+            return false;
         }
         private void importTabToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string path = selectFile(new OpenFileDialog(), tabFilter);
-            importTab(path);
-            
 
-            // Update comboboxes
-            updateComboBoxes(-1);
+            if(!bEmptyString(path))
+            {
+                importTab(path);
+
+
+                // Update comboboxes
+                updateComboBoxes(-1);
+            }
+            
             
         }
         private void closeLibraryToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            //clearComboBoxes();
+            currentTab = null;
             initLibrary();
-            setControlState(ControlState.initial);
+            //setControlState(ControlState.initial);
         }
                  
         
@@ -898,30 +963,23 @@ namespace Tabaprompter
         {
             //startTimer(); // is the thread starting the timer or should i do it here?
             //scrollThread.Start();
-            
+            //initTimer();
+            //timer.Start();
+
+
+
             displayScrollPanel();
-            scrollTimer.Start();
-            
-        }
-
-
-        private void startTimer()
-        {
-            //Object o = (Thread)timerThread;
-
-            timer = initTimer();
+            //scrollTimer.Start();
             timer.Start();
         }
-        private void stopTimer()
-        {
-            timer.Stop();
-        }
+
         private void scrollStopButton_Click(object sender, EventArgs e)
         {
 
-            scrollTimer.Stop();
-            //stopTimer();
+            timer.Stop();
         }
+
+        
         private void scrollResetButton_Click(object sender, EventArgs e)
         {
 
@@ -940,13 +998,15 @@ namespace Tabaprompter
             {
                 createScrollPanelBanner(currentTab.getSongInfo());
                 setControlState(ControlState.library_tab_loaded_play_mode);
-                stopTimer();
+                timer.Stop();
+                //stopTimer();
             }
             else
             {
                 displayMarkPanel();
                 setControlState(ControlState.library_tab_loaded_mark_mode);
-                startTimer();
+                timer.Start();
+                //startTimer();
             }
         }
 
@@ -1029,6 +1089,8 @@ namespace Tabaprompter
             webBrowser.Stop();
         }
 
+
+        /*
         private void scrollTimer_Tick(object sender, EventArgs e)
         {
             Label label;
@@ -1037,8 +1099,12 @@ namespace Tabaprompter
                 label = (Label)scrollPanel.Controls[i];
                 label.Location = new Point(label.Location.X, label.Location.Y - 1);
             }
-                
+            label2.Text = scrollCount.ToString();
+            scrollCount++;
         }
+        */
+
+
 
         private void scrollDelayTextBox_TextChanged(object sender, EventArgs e)
         {
@@ -1056,6 +1122,7 @@ namespace Tabaprompter
         {
             FlowLayoutPanel flp = (FlowLayoutPanel)((Label)sender).Parent;
         }
+
         
 
     }
