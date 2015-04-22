@@ -186,26 +186,44 @@ namespace Tabaprompter
             }
             else
             {
-                int time = 0;
-                for (int i = 0; i < currentTab.sections.Count; i++)
+                if(controlState ==  ControlState.library_tab_loaded_play_mode)
                 {
-                    if(ms > currentTab.sections[i].startTime)
+                    Boolean found = false;
+                    int time = 0;
+                    int current = 0;
+                    for (int i = 0; i < scrollPanel.Controls.Count; i++)
                     {
-                        if (i != currentTab.sections.Count - 1)
+                        Label label = (Label)scrollPanel.Controls[i];
+                        if (ms <= (label.Location.Y - (scrollPanel.Height / 2)) && !found)
                         {
-                            time = currentTab.sections[i + 1].startTime - currentTab.sections[i].startTime;
+                            current = i;
+                            found = true;
                         }
                     }
-                }
-                if(time == 0)
-                {
-                    time = currentTab.sections[1].startTime - currentTab.sections[0].startTime;
-                }
-                time = time / 10;
-                timer.Interval = time;
-                for (int i = 0; i < scrollPanel.Controls.Count; i++)
-                {
-                    scrollPanel.Controls[i].Location = new Point(scrollPanel.Controls[i].Location.X, scrollPanel.Controls[i].Location.Y - 1);
+
+                    if (current == scrollPanel.Controls.Count - 1)
+                    {
+                        time = 0;
+                    }
+                    else
+                    {
+                        time = currentTab.sections[current + 1].startTime - currentTab.sections[current].startTime;
+                    }
+
+
+
+                
+                    if(time == 0)
+                    {
+                        time = currentTab.sections[1].startTime - currentTab.sections[0].startTime;
+                    }
+                    time = time / 1;
+                    timer.Interval = time / 10;
+                    label2.Text = time.ToString();
+                    for (int i = 0; i < scrollPanel.Controls.Count; i++)
+                    {
+                        scrollPanel.Controls[i].Location = new Point(scrollPanel.Controls[i].Location.X, scrollPanel.Controls[i].Location.Y - 1);
+                    }
                 }
             }
         }
@@ -415,6 +433,9 @@ namespace Tabaprompter
             List<Label> labels = new List<Label>();
             int widestLabel = 0;
 
+            int halfParentHeight = scrollPanel.Height / 2;
+            int labelWidthOffset = 50;
+
             for (int i = 0; i < sections.Count; i++)
             {
                 label = new Label();
@@ -429,7 +450,8 @@ namespace Tabaprompter
                 {
                     time = 1;
                 }
-                label.Location = new Point(0, (sections[i].startTime + offsetStartTime));
+
+                label.Location = new Point(labelWidthOffset, (sections[i].startTime + offsetStartTime + halfParentHeight));
                 label.Text = sections[i].text;
                 label.Font = new Font("Consolas", 11);
                 label.AutoSize = true;
@@ -446,18 +468,18 @@ namespace Tabaprompter
             }
             //     new Point((panel.Width / 2) - (label.Width / 2), (panel.Height / 2) - (label.Height / 2));
             //int labelWidthOffset = (panel.Width / 2) - (widestLabel / 2);
-            int labelWidthOffset = 50;
+            
 
 
-            for (int i = 0; i < sections.Count; i++)
-            {
-                panel.Controls[i].Location = new Point(labelWidthOffset, panel.Controls[i].Location.Y);
-                //label = new Label();
-                //label.Location = new Point(30, sections[i].startTime);
-                //label.Text = sections[i].text;
-                //label.AutoSize = true;
-                //panel.Controls.Add(label);
-            }
+            //for (int i = 0; i < sections.Count; i++)
+            //{
+            //   panel.Controls[i].Location = new Point(labelWidthOffset, panel.Controls[i].Location.Y);
+            //    //label = new Label();
+            //    //label.Location = new Point(30, sections[i].startTime);
+            //    //label.Text = sections[i].text;
+            //    //label.AutoSize = true;
+            //    //panel.Controls.Add(label);
+            //}
             
 
 
@@ -477,9 +499,23 @@ namespace Tabaprompter
             flp.WrapContents = false;
             flp.FlowDirection = FlowDirection.TopDown;
             List<string> lines = currentTab.getSectionText();
-            for (int i = 0; i < lines.Count; i++)
+
+            Label markLabel = new Label();
+            markLabel.Name = currentTab.sections[0].ID.ToString();
+            markLabel.BackColor = Color.LightGreen;
+            markLabel.AutoSize = true;
+            markLabel.BorderStyle = BorderStyle.Fixed3D;
+            //markLabel.Click += markLabel_Click;
+            currentTab.sections[0].startTime = 0;
+            markLabel.Text = lines[0];
+
+            flp.Controls.Add(markLabel);
+
+
+
+            for (int i = 1; i < lines.Count; i++)
             {
-                Label markLabel = new Label();
+                markLabel = new Label();
                 markLabel.Name = currentTab.sections[i].ID.ToString();
                 markLabel.BackColor = getMarkTimeLabelColor();
                 markLabel.AutoSize = true;
@@ -660,7 +696,7 @@ namespace Tabaprompter
             else if (controlState == ControlState.library_tab_loaded_play_mode)
             {
 
-                log("Control State: Play mode");
+                log("Control State: Play");
                 // Also check to see if it has been saved.
                 // Can't have the Save button enabled if it
                 // wasn't saved to begin with
@@ -718,7 +754,7 @@ namespace Tabaprompter
             else if (controlState == ControlState.library_tab_loaded_stop_mode)
             {
 
-                log("Control State: Play mode");
+                log("Control State: Stop");
                 // Also check to see if it has been saved.
                 // Can't have the Save button enabled if it
                 // wasn't saved to begin with
@@ -1113,12 +1149,14 @@ namespace Tabaprompter
 
             if (controlState == ControlState.library_tab_loaded)
             {
-                setControlState(ControlState.library_tab_loaded_play_mode);
                 displayScrollPanel();
             }
             //else if (controlState == ControlState.library_tab_loaded_stop_mode)
             //{
 
+            //}
+
+            setControlState(ControlState.library_tab_loaded_play_mode);
                 //offsetStartTime = currentTab.startDelay;
                 //tabVideoDivider.Panel1.Controls.Clear();
                 //scrollPanel.Controls.Clear();
@@ -1128,6 +1166,7 @@ namespace Tabaprompter
                 //updateScrollPanel(currentTab.sections);
             //}
 
+            ms = 0;
             timer.Start();
 
         }
@@ -1275,6 +1314,12 @@ namespace Tabaprompter
             FlowLayoutPanel flp = (FlowLayoutPanel)((Label)sender).Parent;
         }
 
+        private void label2_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        
         
 
     }
