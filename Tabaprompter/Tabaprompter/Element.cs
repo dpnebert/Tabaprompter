@@ -11,6 +11,7 @@ namespace Tabaprompter
         chorus,
         bridge,
         hook,
-        refrain
+        refrain,
+        MARK
     }
 }

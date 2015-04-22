@@ -12,7 +12,6 @@ namespace Tabaprompter
         public string title { get; set; }
         public string tuning { get; set; }
         public string notes { get; set; }
-        public int scrollDelay { get; set; }
         public int startDelay { get; set; }
         public string videoUrl { get; set; }
         public Boolean videoEnabled { get; set; }

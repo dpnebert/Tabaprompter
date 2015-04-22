@@ -62,16 +62,17 @@ namespace Tabaprompter
         public Form1()
         {
             librarySavePath = "";
-
+            this.DoubleBuffered = true;
             tabFilter = "Tab files (*.tab)|*.tab|All files (*.*)|*.*";
             libraryFilter = "Tab Library files (*.tlib)|*.tlib|All files (*.*)|*.*";
 
             InitializeComponent();
 
             timer = new System.Timers.Timer();
+            timer.Interval = 1;
             timer.Elapsed += timer_Elapsed;
 
-
+            
 
             verseLabelColor = Color.ForestGreen;
             chorusLabelColor  = Color.Gainsboro;
@@ -185,6 +186,23 @@ namespace Tabaprompter
             }
             else
             {
+                int time = 0;
+                for (int i = 0; i < currentTab.sections.Count; i++)
+                {
+                    if(ms > currentTab.sections[i].startTime)
+                    {
+                        if (i != currentTab.sections.Count - 1)
+                        {
+                            time = currentTab.sections[i + 1].startTime - currentTab.sections[i].startTime;
+                        }
+                    }
+                }
+                if(time == 0)
+                {
+                    time = currentTab.sections[1].startTime - currentTab.sections[0].startTime;
+                }
+                time = time / 10;
+                timer.Interval = time;
                 for (int i = 0; i < scrollPanel.Controls.Count; i++)
                 {
                     scrollPanel.Controls[i].Location = new Point(scrollPanel.Controls[i].Location.X, scrollPanel.Controls[i].Location.Y - 1);
@@ -263,8 +281,6 @@ namespace Tabaprompter
             enableVideo = currentTab.videoEnabled;
             updateVideoUrl(currentTab.videoUrl);
 
-            scrollTimer.Interval = tab.scrollDelay;
-            scrollDelayTextBox.Text = tab.scrollDelay.ToString();
 
 
             startDelayTextBox.Text = tab.startDelay.ToString();
@@ -281,17 +297,17 @@ namespace Tabaprompter
         {
 
             offsetStartTime = currentTab.startDelay;
-            offsetScrollTime = currentTab.scrollDelay;
             //tabVideoDivider.Panel1.Controls.Clear();
             scrollPanel.Controls.Clear();
 
             scrollPanel.Paint += scrollPanel_Paint;
             tabVideoDivider.Panel1.Controls.Add(scrollPanel);
             updateScrollPanel(currentTab.sections);
-
+            
         }
         private void displayMarkPanel()
         {
+            setControlState(ControlState.library_tab_loaded_mark_mode);
             tabVideoDivider.Panel1.Controls.Clear();
 
             tabVideoDivider.Panel1.Controls.Add(markPanel);
@@ -403,9 +419,6 @@ namespace Tabaprompter
             {
                 label = new Label();
                 
-
-
-
                 label.BackColor = getSectionLabelColor(currentTab.sections[i].element);
                 label.BorderStyle = BorderStyle.Fixed3D;
                 
@@ -468,11 +481,20 @@ namespace Tabaprompter
             {
                 Label markLabel = new Label();
                 markLabel.Name = currentTab.sections[i].ID.ToString();
-                markLabel.Text = lines[i];
                 markLabel.BackColor = getMarkTimeLabelColor();
                 markLabel.AutoSize = true;
                 markLabel.BorderStyle = BorderStyle.Fixed3D;
                 markLabel.Click += markLabel_Click;
+
+                if (currentTab.sections[i].element == Element.MARK)
+                {
+                    markLabel.Text = "MARK";
+                }
+                else
+                {
+                    markLabel.Text = lines[i];
+                }
+
                 flp.Controls.Add(markLabel);
             }
             panel.Controls.Add(flp);
@@ -636,6 +658,64 @@ namespace Tabaprompter
 
             }
             else if (controlState == ControlState.library_tab_loaded_play_mode)
+            {
+
+                log("Control State: Play mode");
+                // Also check to see if it has been saved.
+                // Can't have the Save button enabled if it
+                // wasn't saved to begin with
+                if (savedState == SavedState.unsaved)
+                {
+                    saveLibraryToolStripMenuItem.Enabled = false;
+                }
+                else
+                {
+                    saveLibraryToolStripMenuItem.Enabled = true;
+                }
+
+
+
+                // Check to see if a tab is loaded so it can be exported.
+                if (currentTab == null)
+                {
+                    exportTabToolStripMenuItem.Enabled = false;
+                }
+                else
+                {
+                    exportTabToolStripMenuItem.Enabled = true;
+
+                    enableVideoCheckBox.Enabled = enableVideo;
+
+                }
+                // Files
+                saveLibraryAsToolStripMenuItem.Enabled = true;
+                closeLibraryToolStripMenuItem.Enabled = true;
+
+
+                // Controls
+                scrollPlayButton.Enabled = true;
+                scrollStopButton.Enabled = true;
+                scrollResetButton.Enabled = true;
+                markModeButton.Text = "Mark";
+                markModeButton.Enabled = true;
+
+
+
+                // Selector
+                artistComboBox.Enabled = true;
+                titleComboBox.Enabled = true;
+
+                // mark panel call get sections text // updateScrollPanel(currentTab.getSectionText());
+
+                //displayScrollPanel(currentTab.getSectionText());
+
+
+
+
+                //displayScrollPanel();
+
+            }
+            else if (controlState == ControlState.library_tab_loaded_stop_mode)
             {
 
                 log("Control State: Play mode");
@@ -1021,16 +1101,40 @@ namespace Tabaprompter
             //initTimer();
             //timer.Start();
 
+            play();
 
 
-            displayScrollPanel();
+
+            //displayScrollPanel();
             //scrollTimer.Start();
-            timer.Start();
         }
+        private void play()
+        {
 
+            if (controlState == ControlState.library_tab_loaded)
+            {
+                setControlState(ControlState.library_tab_loaded_play_mode);
+                displayScrollPanel();
+            }
+            //else if (controlState == ControlState.library_tab_loaded_stop_mode)
+            //{
+
+                //offsetStartTime = currentTab.startDelay;
+                //tabVideoDivider.Panel1.Controls.Clear();
+                //scrollPanel.Controls.Clear();
+
+                //scrollPanel.Paint += scrollPanel_Paint;
+                //tabVideoDivider.Panel1.Controls.Add(scrollPanel);
+                //updateScrollPanel(currentTab.sections);
+            //}
+
+            timer.Start();
+
+        }
         private void scrollStopButton_Click(object sender, EventArgs e)
         {
 
+            setControlState(ControlState.library_tab_loaded_stop_mode);
             timer.Stop();
         }
 
@@ -1051,15 +1155,15 @@ namespace Tabaprompter
         {
             if (controlState == ControlState.library_tab_loaded_mark_mode)
             {
+                setControlState(ControlState.library_tab_loaded);
                 createScrollPanelBanner(currentTab.getSongInfo());
-                setControlState(ControlState.library_tab_loaded_play_mode);
                 timer.Stop();
                 //stopTimer();
             }
             else
             {
+                setControlState(ControlState.library_tab_loaded);
                 displayMarkPanel();
-                setControlState(ControlState.library_tab_loaded_mark_mode);
                 timer.Start();
                 //startTimer();
             }
@@ -1160,13 +1264,6 @@ namespace Tabaprompter
         */
 
 
-
-        private void scrollDelayTextBox_TextChanged(object sender, EventArgs e)
-        {
-            currentTab.scrollDelay = int.Parse(scrollDelayTextBox.Text);
-
-            scrollTimer.Interval = currentTab.scrollDelay;
-        }
 
         private void startDelayTextBox_TextChanged(object sender, EventArgs e)
         {
