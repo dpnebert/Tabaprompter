@@ -194,7 +194,7 @@ namespace Tabaprompter
                     for (int i = 0; i < scrollPanel.Controls.Count; i++)
                     {
                         Label label = (Label)scrollPanel.Controls[i];
-                        if (ms <= (label.Location.Y - (scrollPanel.Height / 2)) && !found)
+                        if ((ms * timer.Interval) <= (label.Location.Y - (scrollPanel.Height / 2)) && !found)
                         {
                             current = i;
                             found = true;
@@ -203,23 +203,29 @@ namespace Tabaprompter
 
                     if (current == scrollPanel.Controls.Count - 1)
                     {
-                        time = 0;
+                        label3.Text = "90";
+                        time = 90;
                     }
                     else
                     {
                         time = currentTab.sections[current + 1].startTime - currentTab.sections[current].startTime;
                     }
 
-
-
+                    int h = scrollPanel.Controls[current].Height;
+                    
                 
                     if(time == 0)
                     {
                         time = currentTab.sections[1].startTime - currentTab.sections[0].startTime;
                     }
-                    time = time / 1;
-                    timer.Interval = time / 10;
-                    label2.Text = time.ToString();
+                    //time = time / 1;
+                    //timer.Interval = time / scrollPanel.Controls[0].Height;
+                    double calc = time / h;
+                    //timer.Interval = calc;
+
+                    timer.Interval = 95;
+                    //timer.Interval = 1;
+                    label2.Text = calc.ToString();
                     for (int i = 0; i < scrollPanel.Controls.Count; i++)
                     {
                         scrollPanel.Controls[i].Location = new Point(scrollPanel.Controls[i].Location.X, scrollPanel.Controls[i].Location.Y - 1);
@@ -432,31 +438,25 @@ namespace Tabaprompter
             Label label;
             List<Label> labels = new List<Label>();
             int widestLabel = 0;
-
-            int halfParentHeight = scrollPanel.Height / 2;
             int labelWidthOffset = 50;
-
+            List<int> offsets = new List<int>();
             for (int i = 0; i < sections.Count; i++)
             {
                 label = new Label();
-                
+
                 label.BackColor = getSectionLabelColor(currentTab.sections[i].element);
                 label.BorderStyle = BorderStyle.Fixed3D;
-                
-                label.Padding = new Padding(10, 10, 10, 10);
-                
-                int time = sections[i].startTime;
-                if(time == 0)
-                {
-                    time = 1;
-                }
 
-                label.Location = new Point(labelWidthOffset, (sections[i].startTime + offsetStartTime + halfParentHeight));
+                label.Padding = new Padding(10, 10, 10, 10);
+
+                //offsets.Add(halfParentHeight + offsetStartTime + )
+                //label.Location = new Point(labelWidthOffset, newY);
                 label.Text = sections[i].text;
                 label.Font = new Font("Consolas", 11);
                 label.AutoSize = true;
-
-                if(label.Width > widestLabel)
+                //newY += label.Height;
+                label.Click += label_Click;
+                if (label.Width > widestLabel)
                 {
                     widestLabel = label.Width;
                 }
@@ -466,6 +466,18 @@ namespace Tabaprompter
 
 
             }
+
+            int last = offsetStartTime + (scrollPanel.Height / 2);
+            for (int i = 0; i < panel.Controls.Count; i++)
+            {
+                panel.Controls[i].Location = new Point(panel.Controls[i].Location.X, last);
+
+                last += panel.Controls[i].Height;
+            }
+
+
+
+
             //     new Point((panel.Width / 2) - (label.Width / 2), (panel.Height / 2) - (label.Height / 2));
             //int labelWidthOffset = (panel.Width / 2) - (widestLabel / 2);
             
@@ -486,6 +498,12 @@ namespace Tabaprompter
             //panel.Controls[0].Location = new Point(100, 200);
             //panel.Controls[1].Location = new Point(200, 200);
             
+        }
+
+        void label_Click(object sender, EventArgs e)
+        {
+            Label label = (Label)sender;
+            label3.Text = label.Height.ToString();
         }
         private void updateMarkPanel()
         {
