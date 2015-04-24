@@ -194,6 +194,12 @@ namespace Tabaprompter
                     for (int i = 0; i < scrollPanel.Controls.Count; i++)
                     {
                         Label label = (Label)scrollPanel.Controls[i];
+
+                        int one = (int)ms * (int)timer.Interval;
+                        int two = label.Location.Y;
+                        int three = scrollPanel.Height / 2;
+                        int four = two - three;
+
                         if ((ms * timer.Interval) <= (label.Location.Y - (scrollPanel.Height / 2)) && !found)
                         {
                             current = i;
@@ -218,14 +224,17 @@ namespace Tabaprompter
                     {
                         time = currentTab.sections[1].startTime - currentTab.sections[0].startTime;
                     }
-                    //time = time / 1;
-                    //timer.Interval = time / scrollPanel.Controls[0].Height;
-                    double calc = time / h;
-                    //timer.Interval = calc;
 
-                    timer.Interval = 95;
-                    //timer.Interval = 1;
-                    label2.Text = calc.ToString();
+                    double timeHeightRatio = ((double)time / h);
+                    double again = timeHeightRatio / 100;
+                    double x = time / again;
+
+                    double delay = x / h;
+                    
+
+
+                    timer.Interval = (int)delay;
+                    label2.Text = delay.ToString();
                     for (int i = 0; i < scrollPanel.Controls.Count; i++)
                     {
                         scrollPanel.Controls[i].Location = new Point(scrollPanel.Controls[i].Location.X, scrollPanel.Controls[i].Location.Y - 1);
