@@ -78,7 +78,7 @@ namespace Tabaprompter
             chorusLabelColor  = Color.Gainsboro;
             bridgeLabelColor  = Color.Goldenrod;
             hookLabelColor  = Color.Honeydew;
-            refrainLabelColor = Color.Indigo;
+            refrainLabelColor = Color.LightSkyBlue;
 
         }
 
@@ -157,9 +157,11 @@ namespace Tabaprompter
 
 
         }
-        
 
 
+
+        int current = 0;
+        int totalHeight = 0;// scrollPanel.Height / 2;
         delegate void SetTextCallback();
         void timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
@@ -189,39 +191,30 @@ namespace Tabaprompter
                 if(controlState ==  ControlState.library_tab_loaded_play_mode)
                 {
                     int time = 0;
-                    int current = 0;
-                    for (int i = 0; i < currentTab.sections.Count; i++)
-                    {
-                        if(currentTab.sections[i].startTime == ms)
-                        {
-                            current = i;
-                        }
-                    }
 
-                    if (current == scrollPanel.Controls.Count - 1)
+                    if (scrollPanel.Controls[current].Height + totalHeight <= ms && current < scrollPanel.Controls.Count - 1)
                     {
-                        time = currentTab.sections[current].startTime - currentTab.sections[current - 1].startTime;
+                        totalHeight += scrollPanel.Controls[current].Height;
+                        current++;
                     }
-                    else
+                    if(current != scrollPanel.Controls.Count - 1)
                     {
+                        int h = scrollPanel.Controls[current].Height;
                         time = currentTab.sections[current + 1].startTime - currentTab.sections[current].startTime;
-                    }
 
-                    int h = scrollPanel.Controls[current].Height;
+                        
                     
                 
-                    if(time == 0)
-                    {
-                        time = currentTab.sections[1].startTime - currentTab.sections[0].startTime;
-                    }
+                        if(time == 0)
+                        {
+                            time = currentTab.sections[1].startTime - currentTab.sections[0].startTime;
+                        }
 
-                    
-                    double delay = (time / h) * 15.169;
-                    
 
-                    
-                    timer.Interval = (int)delay;
-                    label2.Text = delay.ToString();
+                        double delay = (time / h) * 15.169;
+                        timer.Interval = (int)delay;
+                        label2.Text = delay.ToString();
+                    } 
                     for (int i = 0; i < scrollPanel.Controls.Count; i++)
                     {
                         scrollPanel.Controls[i].Location = new Point(scrollPanel.Controls[i].Location.X, scrollPanel.Controls[i].Location.Y - 1);
@@ -434,13 +427,18 @@ namespace Tabaprompter
             Label label;
             List<Label> labels = new List<Label>();
             int widestLabel = 0;
-            int labelWidthOffset = 50;
+            int labelX = 0;
             List<int> offsets = new List<int>();
             for (int i = 0; i < sections.Count; i++)
             {
                 label = new Label();
 
                 label.BackColor = getSectionLabelColor(currentTab.sections[i].element);
+                if (currentTab.sections[i].element == Element.MARK)
+                {
+                    label.Visible = false;
+                }
+
                 label.BorderStyle = BorderStyle.Fixed3D;
 
                 label.Padding = new Padding(10, 10, 10, 10);
@@ -460,13 +458,13 @@ namespace Tabaprompter
                 panel.Controls.Add(label);
 
 
-
             }
 
+            labelX = 50;
             int last = offsetStartTime + (scrollPanel.Height / 2);
             for (int i = 0; i < panel.Controls.Count; i++)
             {
-                panel.Controls[i].Location = new Point(panel.Controls[i].Location.X, last);
+                panel.Controls[i].Location = new Point(labelX, last);
 
                 last += panel.Controls[i].Height;
             }
@@ -682,10 +680,21 @@ namespace Tabaprompter
                 // Check to see if a tab is loaded so it can be exported.
                 if (currentTab == null)
                 {
+                    // I don't want to hear the music start while testing
+                    //
+                    // When finished, replace false with true
+                    //
+                    enableVideo = false;//enableVideo = true;
+
+
                     exportTabToolStripMenuItem.Enabled = false;
                 }
                 else
                 {
+                    // Video 
+                    enableVideo = currentTab.videoEnabled;
+                    
+                    //enableVideoControls(enableVideo);
                     exportTabToolStripMenuItem.Enabled = true;
                 }
                 // Files
@@ -862,6 +871,8 @@ namespace Tabaprompter
             openLibraryToolStripMenuItem.Enabled = true;
             importTabToolStripMenuItem.Enabled = true;
 
+
+            /*
             // Video 
             if(currentTab != null)
             {
@@ -875,8 +886,8 @@ namespace Tabaprompter
                 //
                 enableVideo = false;//enableVideo = true;
             }
-            enableVideoControls(enableVideo);
-
+            //enableVideoControls(enableVideo);
+            */
             
         }
         
