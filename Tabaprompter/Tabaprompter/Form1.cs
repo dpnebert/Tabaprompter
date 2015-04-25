@@ -188,29 +188,19 @@ namespace Tabaprompter
             {
                 if(controlState ==  ControlState.library_tab_loaded_play_mode)
                 {
-                    Boolean found = false;
                     int time = 0;
                     int current = 0;
-                    for (int i = 0; i < scrollPanel.Controls.Count; i++)
+                    for (int i = 0; i < currentTab.sections.Count; i++)
                     {
-                        Label label = (Label)scrollPanel.Controls[i];
-
-                        int one = (int)ms * (int)timer.Interval;
-                        int two = label.Location.Y;
-                        int three = scrollPanel.Height / 2;
-                        int four = two - three;
-
-                        if ((ms * timer.Interval) <= (label.Location.Y - (scrollPanel.Height / 2)) && !found)
+                        if(currentTab.sections[i].startTime == ms)
                         {
                             current = i;
-                            found = true;
                         }
                     }
 
                     if (current == scrollPanel.Controls.Count - 1)
                     {
-                        label3.Text = "90";
-                        time = 90;
+                        time = currentTab.sections[current].startTime - currentTab.sections[current - 1].startTime;
                     }
                     else
                     {
@@ -225,14 +215,11 @@ namespace Tabaprompter
                         time = currentTab.sections[1].startTime - currentTab.sections[0].startTime;
                     }
 
-                    double timeHeightRatio = ((double)time / h);
-                    double again = timeHeightRatio / 100;
-                    double x = time / again;
-
-                    double delay = x / h;
+                    
+                    double delay = (time / h) * 15.169;
                     
 
-
+                    
                     timer.Interval = (int)delay;
                     label2.Text = delay.ToString();
                     for (int i = 0; i < scrollPanel.Controls.Count; i++)
