@@ -65,6 +65,7 @@
             this.importTabToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportTabToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.scrollTimer = new System.Windows.Forms.Timer(this.components);
+            this.scrollDelayMultiplierNumericUpDown = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.topBottemDivider)).BeginInit();
             this.topBottemDivider.Panel1.SuspendLayout();
             this.topBottemDivider.Panel2.SuspendLayout();
@@ -89,6 +90,7 @@
             this.controlFlowPanel.SuspendLayout();
             this.scrollStartDelayTable.SuspendLayout();
             this.menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.scrollDelayMultiplierNumericUpDown)).BeginInit();
             this.SuspendLayout();
             // 
             // topBottemDivider
@@ -301,6 +303,7 @@
             this.controlFlowPanel.Controls.Add(this.label1);
             this.controlFlowPanel.Controls.Add(this.label2);
             this.controlFlowPanel.Controls.Add(this.label3);
+            this.controlFlowPanel.Controls.Add(this.scrollDelayMultiplierNumericUpDown);
             this.controlFlowPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.controlFlowPanel.Location = new System.Drawing.Point(0, 0);
             this.controlFlowPanel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
@@ -497,6 +500,15 @@
             this.exportTabToolStripMenuItem.Text = "Export Tab";
             this.exportTabToolStripMenuItem.Click += new System.EventHandler(this.exportTabToolStripMenuItem_Click);
             // 
+            // scrollDelayMultiplierNumericUpDown
+            // 
+            this.scrollDelayMultiplierNumericUpDown.DecimalPlaces = 1;
+            this.scrollDelayMultiplierNumericUpDown.Location = new System.Drawing.Point(111, 77);
+            this.scrollDelayMultiplierNumericUpDown.Name = "scrollDelayMultiplierNumericUpDown";
+            this.scrollDelayMultiplierNumericUpDown.Size = new System.Drawing.Size(120, 22);
+            this.scrollDelayMultiplierNumericUpDown.TabIndex = 7;
+            this.scrollDelayMultiplierNumericUpDown.ValueChanged += new System.EventHandler(this.scrollDelayMultiplierNumericUpDown_ValueChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -537,6 +549,7 @@
             this.scrollStartDelayTable.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.scrollDelayMultiplierNumericUpDown)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -580,6 +593,7 @@
         private System.Windows.Forms.TextBox startDelayTextBox;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.NumericUpDown scrollDelayMultiplierNumericUpDown;
     }
 }
 

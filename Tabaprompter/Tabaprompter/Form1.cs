@@ -15,6 +15,8 @@ namespace Tabaprompter
     public partial class Form1 : Form
     {
 
+        public decimal scrollDelayMultiplier { get; set; }
+
         // Section Label Colors
         public Color verseLabelColor { get; set; }
         public Color chorusLabelColor { get; set; }
@@ -61,6 +63,10 @@ namespace Tabaprompter
 
         public Form1()
         {
+
+            scrollDelayMultiplier = 15.6M;
+
+
             librarySavePath = "";
             this.DoubleBuffered = true;
             tabFilter = "Tab files (*.tab)|*.tab|All files (*.*)|*.*";
@@ -155,7 +161,7 @@ namespace Tabaprompter
 
             enableVideo = enableVideoCheckBox.Checked;
 
-
+            scrollDelayMultiplierNumericUpDown.Value = scrollDelayMultiplier;
         }
 
 
@@ -211,7 +217,7 @@ namespace Tabaprompter
                         }
 
 
-                        double delay = (time / h) * 15.169;
+                        double delay = (Double)(time / h) * (Double)scrollDelayMultiplier;
                         timer.Interval = (int)delay;
                         label2.Text = delay.ToString();
                     } 
@@ -412,11 +418,13 @@ namespace Tabaprompter
 
         private void scrollPanel_Paint(object sender, PaintEventArgs e)
         {
+            /*
             Pen blackpen = new Pen(Color.Black, 1);
             Graphics g = e.Graphics;
             
             g.DrawLine(blackpen, 0, scrollPanel.Height / 2, scrollPanel.Width, scrollPanel.Height / 2);
             g.Dispose();
+             */
         }
         
         private void updateScrollPanel(List<Section> sections)
@@ -1342,6 +1350,11 @@ namespace Tabaprompter
         private void label2_Click_1(object sender, EventArgs e)
         {
 
+        }
+
+        private void scrollDelayMultiplierNumericUpDown_ValueChanged(object sender, EventArgs e)
+        {
+            scrollDelayMultiplier = scrollDelayMultiplierNumericUpDown.Value;
         }
 
         
