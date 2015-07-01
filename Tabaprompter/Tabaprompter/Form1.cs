@@ -153,7 +153,7 @@ namespace Tabaprompter
             // Init Selector
             //artistComboBox.Text = "Artist";
             artistComboBox.SelectedIndexChanged += artistComboBox_SelectedIndexChanged;
-            //titleComboBox.Text = "Title";
+
 
 
             initLibrary();
@@ -1067,13 +1067,15 @@ namespace Tabaprompter
             titleComboBox.Items.Clear();
             artistComboBox.Text = "Artist";
             titleComboBox.Text = "Title";
+
+            artistComboBox.Items.Add("All");
         }
         private void updateComboBoxes(int artist)
         {
             titleComboBox.Items.Clear();
 
             List<Tab> tabs = new List<Tab>();
-            if (artist == -1)
+            if (artist == -1 || artist == 0)
             {
                 for (int i = 0; i < library.tabs.Count; i++)
                 {
@@ -1092,6 +1094,7 @@ namespace Tabaprompter
                     if (artistName.Equals(library.tabs[i].artist))
                     {
                         titleComboBox.Items.Add(library.tabs[i].title);
+                        titleComboBox.SelectedIndex = 0;
                     }
 
                 }
