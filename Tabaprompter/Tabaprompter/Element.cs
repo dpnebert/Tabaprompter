@@ -7,7 +7,8 @@ namespace Tabaprompter
 {
     public enum Element
     {
-        verse = 0,
+        intro = 0,
+        verse,
         chorus,
         bridge,
         hook,

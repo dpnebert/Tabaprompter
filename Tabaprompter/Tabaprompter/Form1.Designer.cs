@@ -55,6 +55,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.scrollDelayMultiplierNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newLibraryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -65,7 +66,6 @@
             this.importTabToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportTabToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.scrollTimer = new System.Windows.Forms.Timer(this.components);
-            this.scrollDelayMultiplierNumericUpDown = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.topBottemDivider)).BeginInit();
             this.topBottemDivider.Panel1.SuspendLayout();
             this.topBottemDivider.Panel2.SuspendLayout();
@@ -89,15 +89,15 @@
             this.controlsLogDivider.SuspendLayout();
             this.controlFlowPanel.SuspendLayout();
             this.scrollStartDelayTable.SuspendLayout();
-            this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.scrollDelayMultiplierNumericUpDown)).BeginInit();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // topBottemDivider
             // 
             this.topBottemDivider.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.topBottemDivider.Location = new System.Drawing.Point(0, 28);
-            this.topBottemDivider.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.topBottemDivider.Location = new System.Drawing.Point(0, 24);
+            this.topBottemDivider.Margin = new System.Windows.Forms.Padding(2);
             this.topBottemDivider.Name = "topBottemDivider";
             this.topBottemDivider.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -108,29 +108,30 @@
             // topBottemDivider.Panel2
             // 
             this.topBottemDivider.Panel2.Controls.Add(this.selectorsControlsDivider);
-            this.topBottemDivider.Size = new System.Drawing.Size(1221, 395);
-            this.topBottemDivider.SplitterDistance = 254;
+            this.topBottemDivider.Size = new System.Drawing.Size(916, 320);
+            this.topBottemDivider.SplitterDistance = 205;
+            this.topBottemDivider.SplitterWidth = 3;
             this.topBottemDivider.TabIndex = 0;
             // 
             // tabVideoDivider
             // 
             this.tabVideoDivider.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabVideoDivider.Location = new System.Drawing.Point(0, 0);
-            this.tabVideoDivider.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tabVideoDivider.Margin = new System.Windows.Forms.Padding(2);
             this.tabVideoDivider.Name = "tabVideoDivider";
             // 
             // tabVideoDivider.Panel2
             // 
             this.tabVideoDivider.Panel2.Controls.Add(this.browserAddressDivider);
-            this.tabVideoDivider.Size = new System.Drawing.Size(1221, 254);
-            this.tabVideoDivider.SplitterDistance = 506;
+            this.tabVideoDivider.Size = new System.Drawing.Size(916, 205);
+            this.tabVideoDivider.SplitterDistance = 379;
+            this.tabVideoDivider.SplitterWidth = 3;
             this.tabVideoDivider.TabIndex = 0;
             // 
             // browserAddressDivider
             // 
             this.browserAddressDivider.Dock = System.Windows.Forms.DockStyle.Fill;
             this.browserAddressDivider.Location = new System.Drawing.Point(0, 0);
-            this.browserAddressDivider.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.browserAddressDivider.Name = "browserAddressDivider";
             this.browserAddressDivider.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -141,19 +142,17 @@
             // browserAddressDivider.Panel2
             // 
             this.browserAddressDivider.Panel2.Controls.Add(this.videoAddressBarPanel);
-            this.browserAddressDivider.Size = new System.Drawing.Size(711, 254);
-            this.browserAddressDivider.SplitterDistance = 183;
-            this.browserAddressDivider.SplitterWidth = 5;
+            this.browserAddressDivider.Size = new System.Drawing.Size(534, 205);
+            this.browserAddressDivider.SplitterDistance = 147;
             this.browserAddressDivider.TabIndex = 0;
             // 
             // webBrowser
             // 
             this.webBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
             this.webBrowser.Location = new System.Drawing.Point(0, 0);
-            this.webBrowser.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.webBrowser.MinimumSize = new System.Drawing.Size(27, 25);
+            this.webBrowser.MinimumSize = new System.Drawing.Size(20, 20);
             this.webBrowser.Name = "webBrowser";
-            this.webBrowser.Size = new System.Drawing.Size(711, 183);
+            this.webBrowser.Size = new System.Drawing.Size(534, 147);
             this.webBrowser.TabIndex = 0;
             // 
             // videoAddressBarPanel
@@ -161,9 +160,8 @@
             this.videoAddressBarPanel.Controls.Add(this.flowLayoutPanel1);
             this.videoAddressBarPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.videoAddressBarPanel.Location = new System.Drawing.Point(0, 0);
-            this.videoAddressBarPanel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.videoAddressBarPanel.Name = "videoAddressBarPanel";
-            this.videoAddressBarPanel.Size = new System.Drawing.Size(711, 66);
+            this.videoAddressBarPanel.Size = new System.Drawing.Size(534, 54);
             this.videoAddressBarPanel.TabIndex = 0;
             // 
             // flowLayoutPanel1
@@ -174,9 +172,8 @@
             this.flowLayoutPanel1.Controls.Add(this.addressStopButton);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(711, 66);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(534, 54);
             this.flowLayoutPanel1.TabIndex = 0;
             // 
             // enableVideoCheckBox
@@ -184,10 +181,10 @@
             this.enableVideoCheckBox.AutoSize = true;
             this.enableVideoCheckBox.Checked = true;
             this.enableVideoCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.enableVideoCheckBox.Location = new System.Drawing.Point(3, 2);
-            this.enableVideoCheckBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.enableVideoCheckBox.Location = new System.Drawing.Point(2, 2);
+            this.enableVideoCheckBox.Margin = new System.Windows.Forms.Padding(2);
             this.enableVideoCheckBox.Name = "enableVideoCheckBox";
-            this.enableVideoCheckBox.Size = new System.Drawing.Size(66, 21);
+            this.enableVideoCheckBox.Size = new System.Drawing.Size(53, 17);
             this.enableVideoCheckBox.TabIndex = 3;
             this.enableVideoCheckBox.Text = "Video";
             this.enableVideoCheckBox.UseVisualStyleBackColor = true;
@@ -197,18 +194,16 @@
             // 
             this.addressBarTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.addressBarTextBox.Location = new System.Drawing.Point(76, 4);
-            this.addressBarTextBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.addressBarTextBox.Location = new System.Drawing.Point(60, 3);
             this.addressBarTextBox.Name = "addressBarTextBox";
-            this.addressBarTextBox.Size = new System.Drawing.Size(179, 22);
+            this.addressBarTextBox.Size = new System.Drawing.Size(135, 20);
             this.addressBarTextBox.TabIndex = 0;
             // 
             // addressGoButton
             // 
-            this.addressGoButton.Location = new System.Drawing.Point(263, 4);
-            this.addressGoButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.addressGoButton.Location = new System.Drawing.Point(201, 3);
             this.addressGoButton.Name = "addressGoButton";
-            this.addressGoButton.Size = new System.Drawing.Size(64, 28);
+            this.addressGoButton.Size = new System.Drawing.Size(48, 23);
             this.addressGoButton.TabIndex = 1;
             this.addressGoButton.Text = "Go";
             this.addressGoButton.UseVisualStyleBackColor = true;
@@ -216,10 +211,9 @@
             // 
             // addressStopButton
             // 
-            this.addressStopButton.Location = new System.Drawing.Point(335, 4);
-            this.addressStopButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.addressStopButton.Location = new System.Drawing.Point(255, 3);
             this.addressStopButton.Name = "addressStopButton";
-            this.addressStopButton.Size = new System.Drawing.Size(65, 28);
+            this.addressStopButton.Size = new System.Drawing.Size(49, 23);
             this.addressStopButton.TabIndex = 2;
             this.addressStopButton.Text = "Stop";
             this.addressStopButton.UseVisualStyleBackColor = true;
@@ -229,7 +223,7 @@
             // 
             this.selectorsControlsDivider.Dock = System.Windows.Forms.DockStyle.Fill;
             this.selectorsControlsDivider.Location = new System.Drawing.Point(0, 0);
-            this.selectorsControlsDivider.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.selectorsControlsDivider.Margin = new System.Windows.Forms.Padding(2);
             this.selectorsControlsDivider.Name = "selectorsControlsDivider";
             // 
             // selectorsControlsDivider.Panel1
@@ -239,8 +233,9 @@
             // selectorsControlsDivider.Panel2
             // 
             this.selectorsControlsDivider.Panel2.Controls.Add(this.controlsLogDivider);
-            this.selectorsControlsDivider.Size = new System.Drawing.Size(1221, 137);
-            this.selectorsControlsDivider.SplitterDistance = 386;
+            this.selectorsControlsDivider.Size = new System.Drawing.Size(916, 112);
+            this.selectorsControlsDivider.SplitterDistance = 289;
+            this.selectorsControlsDivider.SplitterWidth = 3;
             this.selectorsControlsDivider.TabIndex = 0;
             // 
             // selectorFlowPanel
@@ -250,9 +245,8 @@
             this.selectorFlowPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.selectorFlowPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.selectorFlowPanel.Location = new System.Drawing.Point(0, 0);
-            this.selectorFlowPanel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.selectorFlowPanel.Name = "selectorFlowPanel";
-            this.selectorFlowPanel.Size = new System.Drawing.Size(386, 137);
+            this.selectorFlowPanel.Size = new System.Drawing.Size(289, 112);
             this.selectorFlowPanel.TabIndex = 0;
             // 
             // artistComboBox
@@ -260,10 +254,9 @@
             this.artistComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.artistComboBox.Enabled = false;
             this.artistComboBox.FormattingEnabled = true;
-            this.artistComboBox.Location = new System.Drawing.Point(4, 4);
-            this.artistComboBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.artistComboBox.Location = new System.Drawing.Point(3, 3);
             this.artistComboBox.Name = "artistComboBox";
-            this.artistComboBox.Size = new System.Drawing.Size(369, 24);
+            this.artistComboBox.Size = new System.Drawing.Size(278, 21);
             this.artistComboBox.TabIndex = 0;
             this.artistComboBox.SelectedIndexChanged += new System.EventHandler(this.artistComboBox_SelectedIndexChanged);
             // 
@@ -272,10 +265,9 @@
             this.titleComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.titleComboBox.Enabled = false;
             this.titleComboBox.FormattingEnabled = true;
-            this.titleComboBox.Location = new System.Drawing.Point(4, 36);
-            this.titleComboBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.titleComboBox.Location = new System.Drawing.Point(3, 30);
             this.titleComboBox.Name = "titleComboBox";
-            this.titleComboBox.Size = new System.Drawing.Size(369, 24);
+            this.titleComboBox.Size = new System.Drawing.Size(278, 21);
             this.titleComboBox.TabIndex = 1;
             this.titleComboBox.SelectedIndexChanged += new System.EventHandler(this.titleComboBox_SelectedIndexChanged);
             // 
@@ -283,14 +275,15 @@
             // 
             this.controlsLogDivider.Dock = System.Windows.Forms.DockStyle.Fill;
             this.controlsLogDivider.Location = new System.Drawing.Point(0, 0);
-            this.controlsLogDivider.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.controlsLogDivider.Margin = new System.Windows.Forms.Padding(2);
             this.controlsLogDivider.Name = "controlsLogDivider";
             // 
             // controlsLogDivider.Panel1
             // 
             this.controlsLogDivider.Panel1.Controls.Add(this.controlFlowPanel);
-            this.controlsLogDivider.Size = new System.Drawing.Size(831, 137);
-            this.controlsLogDivider.SplitterDistance = 461;
+            this.controlsLogDivider.Size = new System.Drawing.Size(624, 112);
+            this.controlsLogDivider.SplitterDistance = 346;
+            this.controlsLogDivider.SplitterWidth = 3;
             this.controlsLogDivider.TabIndex = 0;
             // 
             // controlFlowPanel
@@ -306,18 +299,16 @@
             this.controlFlowPanel.Controls.Add(this.scrollDelayMultiplierNumericUpDown);
             this.controlFlowPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.controlFlowPanel.Location = new System.Drawing.Point(0, 0);
-            this.controlFlowPanel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.controlFlowPanel.Name = "controlFlowPanel";
-            this.controlFlowPanel.Size = new System.Drawing.Size(461, 137);
+            this.controlFlowPanel.Size = new System.Drawing.Size(346, 112);
             this.controlFlowPanel.TabIndex = 0;
             // 
             // scrollPlayButton
             // 
             this.scrollPlayButton.Enabled = false;
-            this.scrollPlayButton.Location = new System.Drawing.Point(4, 4);
-            this.scrollPlayButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.scrollPlayButton.Location = new System.Drawing.Point(3, 3);
             this.scrollPlayButton.Name = "scrollPlayButton";
-            this.scrollPlayButton.Size = new System.Drawing.Size(100, 28);
+            this.scrollPlayButton.Size = new System.Drawing.Size(75, 23);
             this.scrollPlayButton.TabIndex = 0;
             this.scrollPlayButton.Text = "Play";
             this.scrollPlayButton.UseVisualStyleBackColor = true;
@@ -326,10 +317,9 @@
             // scrollStopButton
             // 
             this.scrollStopButton.Enabled = false;
-            this.scrollStopButton.Location = new System.Drawing.Point(112, 4);
-            this.scrollStopButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.scrollStopButton.Location = new System.Drawing.Point(84, 3);
             this.scrollStopButton.Name = "scrollStopButton";
-            this.scrollStopButton.Size = new System.Drawing.Size(100, 28);
+            this.scrollStopButton.Size = new System.Drawing.Size(75, 23);
             this.scrollStopButton.TabIndex = 1;
             this.scrollStopButton.Text = "Stop";
             this.scrollStopButton.UseVisualStyleBackColor = true;
@@ -338,10 +328,9 @@
             // scrollResetButton
             // 
             this.scrollResetButton.Enabled = false;
-            this.scrollResetButton.Location = new System.Drawing.Point(220, 4);
-            this.scrollResetButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.scrollResetButton.Location = new System.Drawing.Point(165, 3);
             this.scrollResetButton.Name = "scrollResetButton";
-            this.scrollResetButton.Size = new System.Drawing.Size(100, 28);
+            this.scrollResetButton.Size = new System.Drawing.Size(75, 23);
             this.scrollResetButton.TabIndex = 2;
             this.scrollResetButton.Text = "Reset";
             this.scrollResetButton.UseVisualStyleBackColor = true;
@@ -350,10 +339,9 @@
             // markModeButton
             // 
             this.markModeButton.Enabled = false;
-            this.markModeButton.Location = new System.Drawing.Point(328, 4);
-            this.markModeButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.markModeButton.Location = new System.Drawing.Point(246, 3);
             this.markModeButton.Name = "markModeButton";
-            this.markModeButton.Size = new System.Drawing.Size(100, 28);
+            this.markModeButton.Size = new System.Drawing.Size(75, 23);
             this.markModeButton.TabIndex = 3;
             this.markModeButton.Text = "Mark";
             this.markModeButton.UseVisualStyleBackColor = true;
@@ -366,49 +354,48 @@
             this.scrollStartDelayTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 47.02381F));
             this.scrollStartDelayTable.Controls.Add(this.startDelayLabel, 0, 0);
             this.scrollStartDelayTable.Controls.Add(this.startDelayTextBox, 1, 0);
-            this.scrollStartDelayTable.Location = new System.Drawing.Point(3, 38);
-            this.scrollStartDelayTable.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.scrollStartDelayTable.Location = new System.Drawing.Point(2, 31);
+            this.scrollStartDelayTable.Margin = new System.Windows.Forms.Padding(2);
             this.scrollStartDelayTable.Name = "scrollStartDelayTable";
             this.scrollStartDelayTable.RowCount = 1;
             this.scrollStartDelayTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.scrollStartDelayTable.Size = new System.Drawing.Size(387, 34);
+            this.scrollStartDelayTable.Size = new System.Drawing.Size(290, 28);
             this.scrollStartDelayTable.TabIndex = 4;
             // 
             // startDelayLabel
             // 
             this.startDelayLabel.AutoSize = true;
-            this.startDelayLabel.Location = new System.Drawing.Point(3, 0);
+            this.startDelayLabel.Location = new System.Drawing.Point(2, 0);
+            this.startDelayLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.startDelayLabel.Name = "startDelayLabel";
-            this.startDelayLabel.Size = new System.Drawing.Size(78, 17);
+            this.startDelayLabel.Size = new System.Drawing.Size(59, 13);
             this.startDelayLabel.TabIndex = 2;
             this.startDelayLabel.Text = "Start Delay";
             // 
             // startDelayTextBox
             // 
-            this.startDelayTextBox.Location = new System.Drawing.Point(208, 2);
-            this.startDelayTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.startDelayTextBox.Location = new System.Drawing.Point(155, 2);
+            this.startDelayTextBox.Margin = new System.Windows.Forms.Padding(2);
             this.startDelayTextBox.Name = "startDelayTextBox";
-            this.startDelayTextBox.Size = new System.Drawing.Size(79, 22);
+            this.startDelayTextBox.Size = new System.Drawing.Size(60, 20);
             this.startDelayTextBox.TabIndex = 3;
             this.startDelayTextBox.TextChanged += new System.EventHandler(this.startDelayTextBox_TextChanged);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(397, 36);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(297, 29);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(46, 17);
+            this.label1.Size = new System.Drawing.Size(35, 13);
             this.label1.TabIndex = 4;
             this.label1.Text = "label1";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(4, 74);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(3, 61);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(46, 17);
+            this.label2.Size = new System.Drawing.Size(35, 13);
             this.label2.TabIndex = 5;
             this.label2.Text = "label2";
             this.label2.Click += new System.EventHandler(this.label2_Click_1);
@@ -416,12 +403,21 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(58, 74);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Location = new System.Drawing.Point(44, 61);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(46, 17);
+            this.label3.Size = new System.Drawing.Size(35, 13);
             this.label3.TabIndex = 6;
             this.label3.Text = "label3";
+            // 
+            // scrollDelayMultiplierNumericUpDown
+            // 
+            this.scrollDelayMultiplierNumericUpDown.DecimalPlaces = 1;
+            this.scrollDelayMultiplierNumericUpDown.Location = new System.Drawing.Point(84, 63);
+            this.scrollDelayMultiplierNumericUpDown.Margin = new System.Windows.Forms.Padding(2);
+            this.scrollDelayMultiplierNumericUpDown.Name = "scrollDelayMultiplierNumericUpDown";
+            this.scrollDelayMultiplierNumericUpDown.Size = new System.Drawing.Size(90, 20);
+            this.scrollDelayMultiplierNumericUpDown.TabIndex = 7;
+            this.scrollDelayMultiplierNumericUpDown.ValueChanged += new System.EventHandler(this.scrollDelayMultiplierNumericUpDown_ValueChanged);
             // 
             // menuStrip1
             // 
@@ -430,8 +426,8 @@
             this.fileToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(1221, 28);
+            this.menuStrip1.Padding = new System.Windows.Forms.Padding(4, 2, 0, 2);
+            this.menuStrip1.Size = new System.Drawing.Size(916, 24);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -446,20 +442,20 @@
             this.importTabToolStripMenuItem,
             this.exportTabToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(44, 24);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
             // 
             // newLibraryToolStripMenuItem
             // 
             this.newLibraryToolStripMenuItem.Name = "newLibraryToolStripMenuItem";
-            this.newLibraryToolStripMenuItem.Size = new System.Drawing.Size(178, 24);
+            this.newLibraryToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
             this.newLibraryToolStripMenuItem.Text = "New Library";
             this.newLibraryToolStripMenuItem.Click += new System.EventHandler(this.newLibraryToolStripMenuItem_Click);
             // 
             // openLibraryToolStripMenuItem
             // 
             this.openLibraryToolStripMenuItem.Name = "openLibraryToolStripMenuItem";
-            this.openLibraryToolStripMenuItem.Size = new System.Drawing.Size(178, 24);
+            this.openLibraryToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
             this.openLibraryToolStripMenuItem.Text = "Open Library";
             this.openLibraryToolStripMenuItem.Click += new System.EventHandler(this.openLibraryToolStripMenuItem_Click);
             // 
@@ -467,7 +463,7 @@
             // 
             this.saveLibraryToolStripMenuItem.Enabled = false;
             this.saveLibraryToolStripMenuItem.Name = "saveLibraryToolStripMenuItem";
-            this.saveLibraryToolStripMenuItem.Size = new System.Drawing.Size(178, 24);
+            this.saveLibraryToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
             this.saveLibraryToolStripMenuItem.Text = "Save Library";
             this.saveLibraryToolStripMenuItem.Click += new System.EventHandler(this.saveLibraryToolStripMenuItem_Click);
             // 
@@ -475,49 +471,40 @@
             // 
             this.saveLibraryAsToolStripMenuItem.Enabled = false;
             this.saveLibraryAsToolStripMenuItem.Name = "saveLibraryAsToolStripMenuItem";
-            this.saveLibraryAsToolStripMenuItem.Size = new System.Drawing.Size(178, 24);
+            this.saveLibraryAsToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
             this.saveLibraryAsToolStripMenuItem.Text = "Save Library As";
             this.saveLibraryAsToolStripMenuItem.Click += new System.EventHandler(this.saveLibraryAsToolStripMenuItem_Click);
             // 
             // closeLibraryToolStripMenuItem
             // 
             this.closeLibraryToolStripMenuItem.Name = "closeLibraryToolStripMenuItem";
-            this.closeLibraryToolStripMenuItem.Size = new System.Drawing.Size(178, 24);
+            this.closeLibraryToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
             this.closeLibraryToolStripMenuItem.Text = "Close Library";
             this.closeLibraryToolStripMenuItem.Click += new System.EventHandler(this.closeLibraryToolStripMenuItem_Click);
             // 
             // importTabToolStripMenuItem
             // 
             this.importTabToolStripMenuItem.Name = "importTabToolStripMenuItem";
-            this.importTabToolStripMenuItem.Size = new System.Drawing.Size(178, 24);
+            this.importTabToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
             this.importTabToolStripMenuItem.Text = "Import Tab";
             this.importTabToolStripMenuItem.Click += new System.EventHandler(this.importTabToolStripMenuItem_Click);
             // 
             // exportTabToolStripMenuItem
             // 
             this.exportTabToolStripMenuItem.Name = "exportTabToolStripMenuItem";
-            this.exportTabToolStripMenuItem.Size = new System.Drawing.Size(178, 24);
+            this.exportTabToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
             this.exportTabToolStripMenuItem.Text = "Export Tab";
             this.exportTabToolStripMenuItem.Click += new System.EventHandler(this.exportTabToolStripMenuItem_Click);
             // 
-            // scrollDelayMultiplierNumericUpDown
-            // 
-            this.scrollDelayMultiplierNumericUpDown.DecimalPlaces = 1;
-            this.scrollDelayMultiplierNumericUpDown.Location = new System.Drawing.Point(111, 77);
-            this.scrollDelayMultiplierNumericUpDown.Name = "scrollDelayMultiplierNumericUpDown";
-            this.scrollDelayMultiplierNumericUpDown.Size = new System.Drawing.Size(120, 22);
-            this.scrollDelayMultiplierNumericUpDown.TabIndex = 7;
-            this.scrollDelayMultiplierNumericUpDown.ValueChanged += new System.EventHandler(this.scrollDelayMultiplierNumericUpDown_ValueChanged);
-            // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1221, 423);
+            this.ClientSize = new System.Drawing.Size(916, 344);
             this.Controls.Add(this.topBottemDivider);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -547,9 +534,9 @@
             this.controlFlowPanel.PerformLayout();
             this.scrollStartDelayTable.ResumeLayout(false);
             this.scrollStartDelayTable.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.scrollDelayMultiplierNumericUpDown)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.scrollDelayMultiplierNumericUpDown)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

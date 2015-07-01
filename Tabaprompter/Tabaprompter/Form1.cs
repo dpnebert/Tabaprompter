@@ -23,7 +23,7 @@ namespace Tabaprompter
         public Color bridgeLabelColor { get; set; }
         public Color hookLabelColor { get; set; }
         public Color refrainLabelColor { get; set; }
-
+        public Color introLabelColor { get; set; }
 
 
 
@@ -78,14 +78,14 @@ namespace Tabaprompter
             timer.Interval = 1;
             timer.Elapsed += timer_Elapsed;
 
-            
 
-            verseLabelColor = Color.ForestGreen;
-            chorusLabelColor  = Color.Gainsboro;
-            bridgeLabelColor  = Color.Goldenrod;
-            hookLabelColor  = Color.Honeydew;
-            refrainLabelColor = Color.LightSkyBlue;
 
+            introLabelColor = Color.FromArgb(255, 69, 69, 69);
+            verseLabelColor = Color.FromArgb(255, 0, 128, 128);
+            chorusLabelColor = Color.FromArgb(255, 128, 0, 128);
+            bridgeLabelColor = Color.FromArgb(255, 128, 128, 0);
+            hookLabelColor = Color.FromArgb(255, 200, 200, 50);
+            refrainLabelColor = Color.FromArgb(255, 50, 200, 200);
         }
 
 
@@ -220,10 +220,40 @@ namespace Tabaprompter
                         double delay = (Double)(time / h) * (Double)scrollDelayMultiplier;
                         timer.Interval = (int)delay;
                         label2.Text = delay.ToString();
-                    } 
+                    }
+
+
+                    int height = scrollPanel.Height;
+                    int middle = height / 2;
+
+                    Label control;
+
                     for (int i = 0; i < scrollPanel.Controls.Count; i++)
                     {
-                        scrollPanel.Controls[i].Location = new Point(scrollPanel.Controls[i].Location.X, scrollPanel.Controls[i].Location.Y - 1);
+                        control = (Label)scrollPanel.Controls[i];
+                        if(control.Location.Y <= height && control.Location.Y > 0)
+                        {
+
+                            double x = control.Location.Y;
+
+                            double a = -100 / (Math.Pow(height - middle, 2));
+
+                            double y = a * Math.Pow(x - middle, 2) + 100;
+
+                            double comp = y;
+
+
+                            if (i == 0)
+                            {
+
+                                label3.Text = comp.ToString();
+                            }
+                            double opacity = (255 * y) / 100;
+
+                            control.BackColor = Color.FromArgb((int)opacity, control.BackColor);
+                        }
+                       
+                        control.Location = new Point(control.Location.X, control.Location.Y - 1);
                     }
                 }
             }
@@ -468,8 +498,12 @@ namespace Tabaprompter
 
             }
 
+
+            int height = scrollPanel.Height;
+            int middle = height / 2;
+
             labelX = 50;
-            int last = offsetStartTime + (scrollPanel.Height / 2);
+            int last = offsetStartTime + middle;
             for (int i = 0; i < panel.Controls.Count; i++)
             {
                 panel.Controls[i].Location = new Point(labelX, last);
@@ -1199,7 +1233,6 @@ namespace Tabaprompter
                 //updateScrollPanel(currentTab.sections);
             //}
 
-            ms = 0;
             timer.Start();
 
         }
@@ -1213,7 +1246,8 @@ namespace Tabaprompter
         
         private void scrollResetButton_Click(object sender, EventArgs e)
         {
-
+            ms = 0;
+            displayScrollPanel();
         }
         private void markModeButton_Click(object sender, EventArgs e)
         {
